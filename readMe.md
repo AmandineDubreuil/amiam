@@ -5,7 +5,7 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 ## Requirements
 
 - PHP 8.2
-- Symfony 6.2
+- Symfony 6.3.3
 - MySql
 
 ## License
