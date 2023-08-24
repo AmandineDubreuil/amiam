@@ -10,11 +10,16 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 
 ## Tokens
 
-Tokens générés via JWT
+Tokens générés via JWT pour la vérification de l'adresse e-mail
 
-## Bundles
+## User
 
-- symfonycasts/verify-email-bundle
+### Vérification adresse e-mail user
+- Services JWTService.php et SendMailService.php
+- dans config/package/messenger commenter   # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+- dans env.local mettre le secret JWT
+- dans env.local modifier le mailer : MAILER_DSN=smtp://localhost:1025
+
 
 ## License
 
