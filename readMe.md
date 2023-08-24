@@ -14,6 +14,12 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail
 
 ## User
 
+### Vérification champs unique (e-mail et pseudo) avec message d'erreur
+
+- bundle validator
+``` composer require symfony/validator ```
+
+
 ### Vérification adresse e-mail user
 - Services JWTService.php et SendMailService.php
 - dans config/package/messenger commenter   # Symfony\Component\Mailer\Messenger\SendEmailMessage: async

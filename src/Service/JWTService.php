@@ -17,8 +17,9 @@ class JWTService
      * @param  mixed $validity
      * @return string
      */
-    public function generate(array $header, array $payload, string $secret, int $validity = 10800): string
+    public function generate(array $header, array $payload, string $secret, int $validity): string
     {
+        //dd($validity);
         //pour avoir payload
         if ($validity > 0) {
             $now = new DateTimeImmutable();
