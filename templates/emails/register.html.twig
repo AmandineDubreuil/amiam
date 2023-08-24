@@ -1,0 +1,18 @@
+{% extends 'emails/base_emails.html.twig' %}
+
+{% block body %}
+	<h1>Activation de ton compte</h1>
+
+	<p>
+		Bonjour
+		{{ user.pseudo}},</p>
+
+	<p>Merci pour ton inscription. Tu peux finaliser celle-ci en cliquant sur le lien ci-dessous :</p>
+	<p>
+		<a href="{{ absolute_url( path('app_verify_user',{token:token} )) }}">Lien</a>
+	</p>
+	<p>Ce lien expirera dans 3 heures.</p>
+	<p>Bien cordialement,</p>
+	<p>Toute l'équipe de Amiam</p>
+
+{% endblock %}

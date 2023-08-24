@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{asset('./assets/css/emailStyle.css')}}">
+		{% endblock %}
+
+	</head>
+
+	<body class="layout">
+		<main>
+			{% block body %}{% endblock %}
+
+		</main>
+	</body>
+</html>

@@ -8,6 +8,10 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 - Symfony 6.3.3
 - MySql
 
+## Tokens
+
+Tokens générés via JWT
+
 ## Bundles
 
 - symfonycasts/verify-email-bundle

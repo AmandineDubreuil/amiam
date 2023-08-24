@@ -31,6 +31,8 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+          //  dd($form);
             if ($form->get('plainPassword')->getData() === $form->get('confirmPassword')->getData()) {
                 $user->setCreatedAt(new \DateTimeImmutable);
                 $user->setModifiedAt(new \DateTimeImmutable);

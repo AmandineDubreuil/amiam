@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
+		</head>
+		<body>
+			{% block body %}
+				{% if app.user and app.user.isVerified == false %}
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<div class="alert-message">
+							<strong>Votre compte n'est pas activé</strong>,
+							<a href="{{ path('resend_verif') }}">renvoyer le lien d'activation</a>
+						</div>
+					</div>
+				{% endif %}
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+			{% endblock %}
+		</body>
+	</html>
