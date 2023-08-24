@@ -1,24 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte - Amiam{% endblock %}
+{% block title %}Mon compte - Amiam
+{% endblock %}
 
 {% block body %}
 
-<section class="user">
-    <h1>{{app.user.pseudo}}</h1>
-    <p>je veux pouvoir :</p>
-    <ul>
-        <li>bouton créer un repas</li>
-        <li>bouton modifier mon compte</li>
-        <li>bouton gestion des amis</li>
-        <li>bouton gestion des recettes</li>
-        <li>bouton gestion des repas</li>
-        <li>bouton rechercher pour chercher une recette</li>
+	<section class="user">
+		<h1>{{app.user.pseudo}}</h1>
 
-        <li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
-        
+		<div class="groupeBoutons">
+			<a href="{{ path('app_user_edit', {'id': app.user.id})}}" class="btn shadow-1 btnModifier">Modifier le profil</a>
+			<a href="{{ path('app_modif_password') }}" class="btn shadow-1 btnModifier">Modifier le mot de passe</a>
+		</div>
 
-</ul>
-</section>
-    
+
+		<p>je veux pouvoir :</p>
+		<ul>
+			<li>bouton créer un repas</li>
+			<li>bouton modifier mon compte</li>
+			<li>bouton gestion des amis</li>
+			<li>bouton gestion des recettes</li>
+			<li>bouton gestion des repas</li>
+			<li>bouton rechercher pour chercher une recette</li>
+
+			<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+
+
+		</ul>
+	</section>
+
 {% endblock %}
