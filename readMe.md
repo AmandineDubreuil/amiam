@@ -10,7 +10,7 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 
 ## Tokens
 
-Tokens générés via JWT pour la vérification de l'adresse e-mail
+Tokens générés via JWT pour la vérification de l'adresse e-mail et la modification du mot de passe
 
 ## User
 
