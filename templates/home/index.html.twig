@@ -5,9 +5,15 @@
 
 {% block body %}
 
-	<div class="example-wrapper">
 
-		<div class="accueil">
-	
-	</div>
+	<section class="accueil">
+	<h1>Amiam</h1>
+	<p>page d'accueil</p>
+	{% if is_granted('ROLE_USER') %}
+						{% else %}
+							<a class="btn" href="{{path('app_login')}}">Connexion</a>
+						{% endif %}
+
+	</section>
+
 {% endblock %}
