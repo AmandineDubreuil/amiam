@@ -126,9 +126,10 @@ class RegistrationController extends AbstractController
         }
 
         //vérifie que l'utilisateur n'a pas déjà été vérifié
+        //dd($user->getIsVerified());
         if ($user->getIsVerified()) {
             $this->addFlash('warning', 'Ce compte utilisateur est déjà activé.');
-            return $this->redirectToRoute('app_user_show');
+            return $this->redirectToRoute('app_user_index');
         }
 
         // Génération du JWT de l'utilisateur
@@ -159,6 +160,6 @@ class RegistrationController extends AbstractController
             compact('user', 'token')
         );
         $this->addFlash('success', 'Un e-mail vient de t\'être envoyé à l\'adresse que tu nous as communiquée.');
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_user_index');
     }
 }

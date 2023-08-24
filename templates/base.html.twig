@@ -6,20 +6,113 @@
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> {% block stylesheets %}{% endblock %}{% block javascripts %}{% endblock %}
-		</head>
-		<body>
-			{% block body %}
-				{% if app.user and app.user.isVerified == false %}
-					<div class="alert alert-warning alert-dismissible" role="alert">
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						<div class="alert-message">
-							<strong>Votre compte n'est pas activé</strong>,
-							<a href="{{ path('resend_verif') }}">renvoyer le lien d'activation</a>
-						</div>
-					</div>
-				{% endif %}
+		{% block stylesheets %}
+			<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+			{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 
-			{% endblock %}
-		</body>
-	</html>
+			<!-- Font Awesome -->
+			<link
+			rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> 
+			
+			<!-- Axentix CSS minified version -->
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+			{{ encore_entry_link_tags('app') }}
+
+			<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+		{% endblock %}
+		
+	</head>
+
+		<body class="layout">
+		<header>
+			<div class="navbar-fixed">
+				<nav class="navbar shadow-1 primary">
+					{# <a href="{{path('app_home')}}" class="navbar-brand" id="logo">Ami<span class="finLogo">am</span>
+					</a> #}
+					<div class="navbar-menu ml-auto">
+
+						{% if is_granted('ROLE_MEMBER') %}
+
+							{# <a class="navbar-link" href="{{path('app_recettes_index')}}">
+								<i class="fa-solid fa-book"></i>
+							</a>
+							<a class="navbar-link" href="{{path('app_repas_index')}}">
+								<i class="fa-solid fa-utensils"></i>
+							</a>
+							<a class="navbar-link" href="{{path('app_amis_index')}}">
+								<i class="fa-solid fa-people-group"></i>
+							</a>
+							<a class="navbar-link" href="{{path('app_ingredients_index')}}">Ingrédients</a> #}
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %}
+
+							<a class="navbar-link" href="{{path('admin')}}">
+								<i class="fa-solid fa-file-shield"></i>
+							</a>
+						{% endif %}
+
+						{% if is_granted('ROLE_USER') %}
+
+							<a class="navbar-link" href="{{path('app_user_index')}}">
+								<i class="fa-solid fa-user"></i>
+							</a>
+							<a class="navbar-link" href="{{path('app_logout')}}">Déconnexion</a>
+						{% else %}
+							<a class="navbar-link" href="{{path('app_login')}}">Connexion</a>
+						{% endif %}
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<main>
+			{% include "_partials/_flash.html.twig" %}
+
+			{% if app.user and app.user.isverified == false %}
+				<div class="alert-warning" role="alert">
+					<div class="alert-message">
+						<strong>Ton compte n'est pas encore activé</strong>.
+																											Renvoyer le
+						<a href="{{ path('app_resend_verif') }}">lien d'activation</a>
+					</div>
+				</div>
+			{% endif %}
+
+			{% block body %}{% endblock %}
+		</main>
+
+		<footer class="footer primary">
+			<div>
+				Copyright © 2023 - Amiam
+
+			</div>
+			<div>
+				{# <a href="{{ path('app_mentionslegales') }}" class="mentions" target="blank">Mentions légales</a> #}
+				-
+				{# <a href="{{ path('app_cgu') }}" class="mentions" target="blank">C.G.U.</a> #}
+
+			</div>
+			<div>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a class="footerAdmin" href="#">Admin</a>
+				{% endif %}
+			</div>
+
+
+		</footer>
+
+
+		{% block javascripts %}
+			<!-- Axentix JS minified version -->
+			<script src="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+			{{ encore_entry_script_tags('app') }}
+			<script src="{{asset('./assets/js/script.js')}}"></script>
+		{% endblock %}
+
+
+	</body>
+</html>
