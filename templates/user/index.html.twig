@@ -1,47 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Mon compte - Amiam{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>Pseudo</th>
-                <th>Avatar</th>
-                <th>CreatedAt</th>
-                <th>ModifiedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.pseudo }}</td>
-                <td>{{ user.avatar }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.modifiedAt ? user.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<section class="user">
+    <h1>{{app.user.pseudo}}</h1>
+    <p>je veux pouvoir :</p>
+    <ul>
+        <li>bouton créer un repas</li>
+        <li>bouton modifier mon compte</li>
+        <li>bouton gestion des amis</li>
+        <li>bouton gestion des recettes</li>
+        <li>bouton gestion des repas</li>
+        <li>bouton rechercher pour chercher une recette</li>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+        <li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+        
+
+</ul>
+</section>
+    
 {% endblock %}
