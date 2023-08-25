@@ -8,7 +8,7 @@
 	<section class="user">
 	<div class="entete">
 	{% if app.user.avatar %}
-							<div class="avatar"><img src="{{asset('uploads/photos/avatar/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
+							<div class="avatar"><img src="{{asset('./assets/uploads/avatars/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
 						{% else  %}
 							<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
 						{% endif  %}
