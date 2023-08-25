@@ -6,7 +6,14 @@
 {% block body %}
 
 	<section class="user">
+	<div class="entete">
+	{% if app.user.avatar %}
+							<div class="avatar"><img src="{{asset('uploads/photos/avatar/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
+						{% else  %}
+							<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+						{% endif  %}
 		<h1>{{app.user.pseudo}}</h1>
+		</div>
 
 		<div class="groupeBoutons">
 			<a href="{{ path('app_user_edit', {'id': app.user.id})}}" class="btn shadow-1 btnModifier">Modifier le profil</a>
