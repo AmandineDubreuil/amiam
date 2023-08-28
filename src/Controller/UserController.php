@@ -7,6 +7,8 @@ use App\Form\UserType;
 use App\Form\UserEmailType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
+use App\Service\JWTService;
+use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,14 +97,43 @@ class UserController extends AbstractController
         Request $request,
         User $user,
         EntityManagerInterface $entityManager,
-       
+        SendMailService $sendMailService,
+        JWTService $jWTService
     ): Response {
         $form = $this->createForm(UserEmailType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            
+            //passer isVerified à false puis génération du token de confirmation adresse e-mail :
+
+            $user->setIsVerified(false);
+
+            // Génération du JWT de l'utilisateur
+            // créer le header
+            $header = [
+                'typ' => 'JWT',
+                'alg' => 'HS256'
+            ];
+            //créer le payload
+            $payload = [
+                'user_id' => $user->getId()
+            ];
+            //définir la durée de validité en nb de secondes
+            $validity = 86400;
+            // générer le token
+            $token = $jWTService->generate($header, $payload, $this->getParameter('app.jwtsecret'), $validity);
+            //envoi d'un mail
+            $sendMailService->send(
+                'no-reply@amiam.fr',
+                $user->getEmail(),
+                'Modification de ton adresse e-mail',
+                'modif_email',
+                compact('user', 'token')
+            );
+
+
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

@@ -63,7 +63,7 @@ class RegistrationController extends AbstractController
                 $sendMailService->send(
                     'no-reply@amiam.fr',
                     $user->getEmail(),
-                    'Activation de votre compte Amiam',
+                    'Activation de ton compte Amiam',
                     'register',
                     compact('user', 'token')
                 );

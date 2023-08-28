@@ -1,0 +1,18 @@
+{% extends 'emails/base_emails.html.twig' %}
+
+{% block body %}
+	<h1>Modification de ton adresse E-mail</h1>
+
+	<p>
+		Bonjour
+		{{ user.pseudo}},</p>
+
+	<p>Ton adresse e-mail a été modifiée avec succès. Pour confirmer ta nouvelle adresse e-mail, clique sur le lien ci-dessous :</p>
+	<p>
+		<a href="{{ absolute_url( path('app_verify_user',{token:token} )) }}">Lien</a>
+	</p>
+	<p>Ce lien expirera dans 24 heures.</p>
+	<p>Bien cordialement,</p>
+	<p>Toute l'équipe de Amiam</p>
+
+{% endblock %}
