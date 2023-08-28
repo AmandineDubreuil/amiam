@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New UserFamily{% endblock %}
+
+{% block body %}
+    <h1>Create new UserFamily</h1>
+
+    {{ include('user_family/_form.html.twig') }}
+
+    <a href="{{ path('app_user_family_index') }}">back to list</a>
+{% endblock %}

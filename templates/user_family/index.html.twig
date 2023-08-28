@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}UserFamily index{% endblock %}
+
+{% block body %}
+    <h1>UserFamily index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prenom</th>
+                <th>DateNaissance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user_family in user_families %}
+            <tr>
+                <td>{{ user_family.id }}</td>
+                <td>{{ user_family.prenom }}</td>
+                <td>{{ user_family.dateNaissance ? user_family.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_user_family_show', {'id': user_family.id}) }}">show</a>
+                    <a href="{{ path('app_user_family_edit', {'id': user_family.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_family_new') }}">Create new</a>
+{% endblock %}

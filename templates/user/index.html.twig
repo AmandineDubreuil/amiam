@@ -16,8 +16,6 @@
 			</a>
 			<h1>{{app.user.pseudo}}</h1>
 		</div>
-
-
 		<div>
 			<p>E-mail :</p>
 			<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
@@ -26,24 +24,42 @@
 			</a>
 		</div>
 		<div class="groupeBoutons">
-			<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}"></a>
 			<a href="{{ path('app_modif_password') }}" class="btn shadow-1 btnModifier">Modifier le mot de passe</a>
 		</div>
 
+		<div class="familleUser">
+			<h2>Ma famille</h2>
+			<a href="{{ path('app_user_family_new', {'id': app.user.id})}}">
+				<p>
+					<i class="fa-solid fa-circle-plus"></i>
+				</p>
+			</a>
 
-		<p>je veux pouvoir :</p>
-		<ul>
-			<li>bouton créer un repas</li>
-			<li>bouton modifier mon compte (composition famille)</li>
-			<li>bouton gestion des amis</li>
-			<li>bouton gestion des recettes</li>
-			<li>bouton gestion des repas</li>
-			<li>bouton rechercher pour chercher une recette</li>
+			{% for userFamily in app.user.userFamilies %}
+				<div class="familleMembre">
+					<a href="{{ path('app_user_family_edit', {'id': userFamily.id})}}">
+						<p>{{userFamily.prenom}}
+						</p>
+						-
+						<p>{{userFamily.dateNaissance ? userFamily.dateNaissance|date('d-m-Y') : '' }}</p>
+						<i class="fa-solid fa-pen-to-square"></i></a>
+					</div>
 
-			<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+				{% endfor %}
+			</div>
+			<p>je veux pouvoir :</p>
+			<ul>
+				<li>bouton créer un repas</li>
+				<li>bouton modifier mon compte (composition famille)</li>
+				<li>bouton gestion des amis</li>
+				<li>bouton gestion des recettes</li>
+				<li>bouton gestion des repas</li>
+				<li>bouton rechercher pour chercher une recette</li>
+
+				<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
 
 
-		</ul>
-	</section>
+			</ul>
+		</section>
 
-{% endblock %}
+	{% endblock %}

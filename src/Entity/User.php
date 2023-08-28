@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints\Length;
@@ -52,6 +54,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserFamily::class)]
+    private Collection $userFamilies;
+
+    public function __construct()
+    {
+        $this->userFamilies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -189,6 +199,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserFamily>
+     */
+    public function getUserFamilies(): Collection
+    {
+        return $this->userFamilies;
+    }
+
+    public function addUserFamily(UserFamily $userFamily): static
+    {
+        if (!$this->userFamilies->contains($userFamily)) {
+            $this->userFamilies->add($userFamily);
+            $userFamily->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFamily(UserFamily $userFamily): static
+    {
+        if ($this->userFamilies->removeElement($userFamily)) {
+            // set the owning side to null (unless already changed)
+            if ($userFamily->getUser() === $this) {
+                $userFamily->setUser(null);
+            }
+        }
 
         return $this;
     }
