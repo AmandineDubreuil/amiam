@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\UserRepository;
+use App\Form\UserEmailType;
 use App\Service\PictureService;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,8 +54,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(
+    #[Route('/{id}/editAvatar', name: 'app_user_edit_avatar', methods: ['GET', 'POST'])]
+    public function editAvatar(
         Request $request,
         User $user,
         EntityManagerInterface $entityManager,
@@ -70,22 +71,49 @@ class UserController extends AbstractController
             $image = $form->get('avatar')->getData();
             // on définit le dossier de destination
             $folder = 'avatars';
+            if ($image) {
 
-            //on appelle le service d'ajout
-            $fichier = $pictureService->add($image, $folder, 300, 300);
-            //$avatar = new Images();
-            $user->setAvatar($fichier);
+                //on appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 300, 300);
+                //$avatar = new Images();
+                $user->setAvatar($fichier);
+            }
 
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('user/edit_avatar.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
+
+    #[Route('/{id}/editEmail', name: 'app_user_edit_email', methods: ['GET', 'POST'])]
+    public function editEmail(
+        Request $request,
+        User $user,
+        EntityManagerInterface $entityManager,
+       
+    ): Response {
+        $form = $this->createForm(UserEmailType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('user/edit_email.html.twig', [
+            'user' => $user,
+            'formEmail' => $form,
+        ]);
+    }
+
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response

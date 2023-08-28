@@ -7,16 +7,26 @@
 
 	<section class="user">
 		<div class="entete">
-			{% if app.user.avatar %}
-				<div class="avatar"><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
-			{% else  %}
-				<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
-			{% endif  %}
+			<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}">
+				{% if app.user.avatar %}
+					<div class="avatar"><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
+				{% else  %}
+					<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+				{% endif  %}
+			</a>
 			<h1>{{app.user.pseudo}}</h1>
 		</div>
 
+
+		<div>
+			<p>E-mail :</p>
+			<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
+				<p>{{app.user.email}}</p>
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a>
+		</div>
 		<div class="groupeBoutons">
-			<a href="{{ path('app_user_edit', {'id': app.user.id})}}" class="btn shadow-1 btnModifier">Modifier le profil</a>
+			<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}"></a>
 			<a href="{{ path('app_modif_password') }}" class="btn shadow-1 btnModifier">Modifier le mot de passe</a>
 		</div>
 
@@ -24,7 +34,7 @@
 		<p>je veux pouvoir :</p>
 		<ul>
 			<li>bouton créer un repas</li>
-			<li>bouton modifier mon compte</li>
+			<li>bouton modifier mon compte (composition famille)</li>
 			<li>bouton gestion des amis</li>
 			<li>bouton gestion des recettes</li>
 			<li>bouton gestion des repas</li>
