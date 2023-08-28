@@ -1,12 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!
+{% block title %}Connexion
 {% endblock %}
 
 {% block body %}
 	<form method="post">
 		{% if error %}
-			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+			<div class="alert alert-danger">
+				<p>L'e-mail ou le mot de passe semble incorrect.</p>
+				<p>
+					Mot de passe oublié ?
+					<a href="{{ path('app_forgotten_password') }}">Je réinitialise mon mot de passe.</a>
+				</p>
+				<p>
+					Pas encore de compte ?
+					<a href="{{ path('app_register') }}">Je m'inscris</a>.</p>
+			</div>
 		{% endif %}
 
 		{% if app.user %}
