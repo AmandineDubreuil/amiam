@@ -104,7 +104,7 @@ class RegistrationController extends AbstractController
 
                 // dd($user);
                 $this->addFlash('success', 'Félicitations ! Ton compte utilisateur est activé !');
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_user_index');
             }
         }
         // ici un problème dans le token
