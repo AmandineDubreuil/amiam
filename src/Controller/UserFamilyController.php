@@ -45,7 +45,7 @@ class UserFamilyController extends AbstractController
             $entityManager->persist($userFamily);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_family_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user_family/new.html.twig', [
@@ -71,7 +71,7 @@ class UserFamilyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_family_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user_family/edit.html.twig', [
@@ -88,6 +88,6 @@ class UserFamilyController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_user_family_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
