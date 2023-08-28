@@ -73,8 +73,8 @@ class UserController extends AbstractController
 
             //on appelle le service d'ajout
             $fichier = $pictureService->add($image, $folder, 300, 300);
-//$avatar = new Images();
-$user->setAvatar($fichier);
+            //$avatar = new Images();
+            $user->setAvatar($fichier);
 
             $entityManager->flush();
 

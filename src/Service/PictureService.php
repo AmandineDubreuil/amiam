@@ -34,7 +34,7 @@ class PictureService
         }
 
         // on vérifie le format de l'image
-
+        //dd(exif_read_data($picture));
         switch ($pictureInfos['mime']) {
             case 'image/png':
                 $pictureSource = imagecreatefrompng($picture);
@@ -49,7 +49,7 @@ class PictureService
             default:
                 throw new Exception('Format d\'image incorrect');
         }
-  
+
         // on recadre l'image et on récupère les dimensions
         $imageWidth = $pictureInfos[0];
         $imageHeight = $pictureInfos[1];
@@ -60,6 +60,7 @@ class PictureService
                 $squareSize = $imageWidth;
                 $srcX = 0;
                 $srcY = ($imageHeight - $squareSize) / 2;
+
                 break;
             case 0: // si largeur égale à hauteur : carré
                 $squareSize = $imageWidth;
@@ -71,30 +72,49 @@ class PictureService
                 $srcY = 0;
                 $srcX = ($imageWidth - $squareSize) / 2;
                 break;
-}
-                // oncrée une nouvelle image vierge 
-                $resizedPicture = imagecreatetruecolor($width, $height);
-                //dd($resizedPicture);
-                imagecopyresampled($resizedPicture, $pictureSource, 0, 0, $srcX, $srcY, $width, $height, $squareSize, $squareSize);
+        }
+        // oncrée une nouvelle image vierge 
+        $resizedPicture = imagecreatetruecolor($width, $height);
 
-                //on crée le chemin d'accès
-                $path = $this->params->get('images_directory') . $folder;
+        imagecopyresampled($resizedPicture, $pictureSource, 0, 0, $srcX, $srcY, $width, $height, $squareSize, $squareSize);
 
-                // on crée le dossier de destination s'il n'existe pas
+        //on crée le chemin d'accès
+        $path = $this->params->get('images_directory') . $folder;
 
-                if (!file_exists($path . '/mini/')) {
-                    mkdir($path . '/mini/', 0755, true);
-                }
+        // on crée le dossier de destination s'il n'existe pas
 
-                // on stock l'image recadrée
-                imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
+        if (!file_exists($path . '/mini/')) {
+            mkdir($path . '/mini/', 0755, true);
+        }
 
-                
-                // on déplace 
-                $picture->move($path . '/', $fichier);
+        // on stock l'image recadrée
+        if (exif_read_data($picture)['Orientation'] === 8) {
 
-                return $fichier;
-        
+            $degrees = 90;
+            $rotate = imagerotate($resizedPicture, $degrees, 0);
+            //AFFICHAGE
+            imagewebp($rotate, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
+        } else if (exif_read_data($picture)['Orientation'] === 6) {
+
+            $degrees = 270;
+            $rotate = imagerotate($resizedPicture, $degrees, 0);
+            //AFFICHAGE
+            imagewebp($rotate, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
+        } else {
+            imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
+        }
+        $miniImage = $width . 'x' . $height . '-' . $fichier;
+
+        // on déplace 
+        $picture->move($path . '/', $fichier);
+
+        // on supprime l'originiale
+        $original = $path . '/' . $fichier;
+        if (file_exists($original)) {
+            unlink($original);
+        }
+        //dd($miniImagePath);
+        return $miniImage;
     }
 
     public function delete(

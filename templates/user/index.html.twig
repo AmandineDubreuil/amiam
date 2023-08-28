@@ -6,13 +6,13 @@
 {% block body %}
 
 	<section class="user">
-	<div class="entete">
-	{% if app.user.avatar %}
-							<div class="avatar"><img src="{{asset('./assets/uploads/avatars/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
-						{% else  %}
-							<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
-						{% endif  %}
-		<h1>{{app.user.pseudo}}</h1>
+		<div class="entete">
+			{% if app.user.avatar %}
+				<div class="avatar"><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
+			{% else  %}
+				<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+			{% endif  %}
+			<h1>{{app.user.pseudo}}</h1>
 		</div>
 
 		<div class="groupeBoutons">
