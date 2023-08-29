@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             // création du compte utilisateur
-            if ($form->get('plainPassword')->getData() === $form->get('confirmPassword')->getData()) {
+            if ($form->get('plainPassword')->getData()) {
                 $user->setCreatedAt(new \DateTimeImmutable);
                 $user->setModifiedAt(new \DateTimeImmutable);
                 $user->setRoles(['ROLE_USER']);
@@ -68,6 +68,7 @@ class RegistrationController extends AbstractController
                     compact('user', 'token')
                 );
 
+                $this->addFlash('success', 'Félicitations ! Ton compte vient d\'être créé. Un e-mail vient de t\'être envoyé à l\'adresse que tu nous as communiquée. Merci de cliquer sur le lien d\'activation afin de finaliser ton inscription');
 
                 return $userAuthenticator->authenticateUser(
                     $user,
@@ -86,7 +87,6 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-
     #[Route('/verify/{token}', name: 'app_verify_user')]
     public function verifyUser($token, JWTService $jWTService, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {

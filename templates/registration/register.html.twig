@@ -25,48 +25,40 @@
 		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
 	{% endfor %}
 
+
 	<section class="register">
 		<h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+
 
 		{{ form_errors(registrationForm) }}
 
 		{{ form_start(registrationForm) }}
 		<div class="form-field">
-			<label for="pseudo">Pseudo
-				<span>*</span>
-			</label>
-			<input name="{{ field_name(registrationForm.pseudo) }}" value="{{ field_value(registrationForm.pseudo) }}" placeholder="{{ field_label(registrationForm.pseudo) }}" class="form-control rounded-1"/>
+			{{ form_row(registrationForm.pseudo, {
+            label: 'Pseudo*',
+                   }) }}
+		</div>
+		<div class="form-field">
+
+			{{ form_row(registrationForm.email, {
+            label: 'E-mail*',
+                   }) }}
 		</div>
 
 		<div class="form-field">
-			<label for="email">E-mail
-				<span>*</span>
-			</label>
-			<input type="email" name="{{ field_name(registrationForm.email) }}" value="{{ field_value(registrationForm.email) }}" placeholder="nom@exemple.fr" class="form-control rounded-1" autocomplete="email"/>
+
+			{{ form_row(registrationForm.plainPassword, {
+            label: 'Mot de passe*',
+                   }) }}
 		</div>
 
-		<div class="form-field">
-			<label for="plainPassword">Mot de passe
-				<span>*</span>
-			</label>
-			<input type="password" name="{{ field_name(registrationForm.plainPassword) }}" value="{{ field_value(registrationForm.plainPassword) }}" placeholder="********" class="form-control rounded-1"/>
-		</div>
-		<div class="cgu">
-
-			{{ form_row(registrationForm.agreeTerms) }}
-			<label for="agreeTerms"> &nbsp; Je confirme avoir lu et accepter les #DOCUMENTATION# du site Amiam.
-				<span>*</span>
-			</label>
-		</div>
-		<p>
-			<span>*</span>
-			Requis</p>
+		{{ form_row(registrationForm.agreeTerms) }}
+<p>* Requis</p>
 		<div class="groupeBtn">
 			<button type="submit" class="btn btnOk">Inscription</button>
 		</div>
 		{{ form_end(registrationForm) }}
 
-
-	</section>
+		</section>
 
 {% endblock %}

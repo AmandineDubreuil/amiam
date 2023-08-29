@@ -21,15 +21,24 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'required' => true,
+                'attr' => [
+                    'class' => 'form-control rounded-1',
+                ],
             ])
             ->add('pseudo', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'class' => 'form-control rounded-1',
+                ],
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'class' => 'form-control rounded-1',
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci d\'entrer un mot de passe.',
@@ -42,10 +51,11 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-           
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'label' => ' ',
+                'label' => 'Je confirme avoir lu et accepter les #DOCUMENTATION# du site Amiam.
+            * ',
                 'label_html' => true,
                 'constraints' => [
                     new IsTrue(),
