@@ -1,0 +1,53 @@
+/* base / header */
+#logo {
+
+        font-family: "AlegreyaBlack", Arial, Helvetica, sans-serif;
+        letter-spacing: 1px;
+        font-size: 3rem;
+        color: var(--color-four);
+        padding: 1rem;
+    }
+
+    #logo span{
+        font-family: "Fredericka", Arial, Helvetica, sans-serif;
+     
+    }
+
+    .navbar{
+        background-color: var(--color-one);
+        color: var(--color-three); 
+    }
+    .navbar-menu {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .navbar-link {
+        font-family: "Alegreya", Arial, Helvetica, sans-serif;
+        letter-spacing: .5px;
+        font-size: 2rem;
+        
+    }
+    
+    .navbar .pseudo {
+        font-size: .7rem;
+    }
+    .navbar .pseudo i{
+        font-size: 1.1rem;
+    }
+    
+    /* base / footer */
+    .footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-one);
+        color: var(--color-three); 
+    }
+    .footer .mentions{
+        font-size: .8rem;
+    }
+    
+   

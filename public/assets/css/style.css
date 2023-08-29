@@ -1,0 +1,125 @@
+@font-face {
+    font-family: "AlegreyaThin";
+    src: url(../font/alegreyaSans/AlegreyaSans-Thin.ttf);
+}
+
+@font-face {
+    font-family: "Alegreya";
+    src: url(../font/alegreyaSans/AlegreyaSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: "AlegreyaBold";
+    src: url(../font/alegreyaSans/AlegreyaSans-Bold.ttf);
+}
+
+@font-face {
+    font-family: "AlegreyaBlack";
+    src: url(../font/alegreyaSans/AlegreyaSans-Black.ttf);
+}
+@font-face {
+    font-family: "Fredericka";
+    src: url(../font/frederickatheGreat/FrederickatheGreat-Regular.ttf);
+}
+
+
+:root {
+    --color-one: #032e15;
+    
+    --color-two: #2d7a4d;
+
+    --color-three: #8cd1a7;
+
+    --color-light: #e3ffef;
+
+    --color-four: #DED052;
+
+    --color-five: #fff;
+
+    --color-six:#000;
+}
+
+* {
+    font-family: "Alegreya", Arial, Helvetica, sans-serif;
+ 
+}
+img{
+    width: 100%;
+}
+
+section{
+    padding: 1rem;
+}
+/* Messages flash */
+
+.alert-success .alert-message{
+    background-color: rgba(0, 100, 0, 0.3);
+    color: darkgreen;
+    padding: 1rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.alert-danger .alert-message{
+    background-color: rgba(220, 20, 60, 0.3);
+    color: crimson;
+    padding: 1rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+.alert-warning .alert-message{
+    background-color: rgba(255, 140, 0, 0.3);
+    color: darkorange;
+    padding: 1rem;
+    font-weight: bold;
+    width: 100%;
+}
+
+/* Titres */
+
+h1 {
+    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
+
+}
+
+/* Boutons */
+
+.groupeBtn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnOk,
+.btnModifier,
+.btnSupprimer,
+.btnRetour {
+    border-radius: 10px;
+    font-size: 1rem;
+    padding: .5rem;
+    width: 5rem;
+    height: 2rem;
+}
+
+.btnOk {
+    background-color: var(--color-three);
+        color: var(--color-one);
+
+}
+
+.btnModifier {
+    background-color: var(--color-one);
+    color: var(--color-three);
+
+}
+
+.btnSupprimer {
+    background-color: var(--color-four);
+}
+
+.btnRetour {
+    background-color: var(--color-five);
+    border: 1px solid gray;
+}

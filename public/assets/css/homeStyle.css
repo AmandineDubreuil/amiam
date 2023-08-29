@@ -1,0 +1,54 @@
+.home{
+    position: relative;
+}
+
+/* User not granted */
+
+.home .fa-quote-right, .home .fa-quote-left {
+    color: var(--color-four);
+
+}
+
+.home .interrogation {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+flex-wrap: wrap;
+}
+
+.home .interrogation .premiere, .home .interrogation .deuxieme{
+    max-width: 40%;
+    padding: 1rem;
+}
+.home .reponse {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    }
+.home .reponse .texte{
+    width: 60%;
+    padding: 1rem;
+}
+.home .reponse .image{
+    width: 38%;
+   
+}
+.home .texte p{
+padding: .3rem 0;
+margin: 0;
+}
+
+/*boutons*/
+.home .groupeBtn{
+    justify-content: center;
+    position: fixed;
+    top: 10%;
+    right: 10%;
+}
+
+.home .btnOk{
+    padding: 1rem 2rem;
+    width: fit-content;
+    height: fit-content;
+}

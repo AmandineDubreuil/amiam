@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}Amiam
 			{% endblock %}
 		</title>
 		{% block stylesheets %}
@@ -12,37 +12,37 @@
 
 			<!-- Font Awesome -->
 			<link
-			rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> 
-			
-			<!-- Axentix CSS minified version -->
+			rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- Axentix CSS minified version -->
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
 			{{ encore_entry_link_tags('app') }}
 
 			<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+			<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+
 		{% endblock %}
-		
+
 	</head>
 
-		<body class="layout">
+	<body class="layout">
 		<header>
 			<div class="navbar-fixed">
-				<nav class="navbar shadow-1 primary">
-					{# <a href="{{path('app_home')}}" class="navbar-brand" id="logo">Ami<span class="finLogo">am</span>
-					</a> #}
+				<nav class="navbar shadow-1">
+					<a href="{{path('app_home')}}" class="navbar-brand" id="logo">Ami<span class="finLogo">am</span>
+					</a>
 					<div class="navbar-menu ml-auto">
 
 						{% if is_granted('ROLE_MEMBER') %}
 
 							{# <a class="navbar-link" href="{{path('app_recettes_index')}}">
-								<i class="fa-solid fa-book"></i>
-							</a>
-							<a class="navbar-link" href="{{path('app_repas_index')}}">
-								<i class="fa-solid fa-utensils"></i>
-							</a>
-							<a class="navbar-link" href="{{path('app_amis_index')}}">
-								<i class="fa-solid fa-people-group"></i>
-							</a>
-							<a class="navbar-link" href="{{path('app_ingredients_index')}}">Ingrédients</a> #}
+															<i class="fa-solid fa-book"></i>
+														</a>
+														<a class="navbar-link" href="{{path('app_repas_index')}}">
+															<i class="fa-solid fa-utensils"></i>
+														</a>
+														<a class="navbar-link" href="{{path('app_amis_index')}}">
+															<i class="fa-solid fa-people-group"></i>
+														</a>
+														<a class="navbar-link" href="{{path('app_ingredients_index')}}">Ingrédients</a> #}
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') %}
 
@@ -56,9 +56,9 @@
 							<a class="navbar-link" href="{{path('app_user_index')}}">
 								<i class="fa-solid fa-user"></i>
 							</a>
-							<a class="navbar-link" href="{{path('app_logout')}}">Déconnexion</a>
+							<a class="navbar-link pseudo" href="{{path('app_logout')}}">{{app.user.pseudo}} <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 						{% else %}
-							<a class="navbar-link" href="{{path('app_login')}}">Connexion</a>
+							<a class="navbar-link" href="{{path('app_login')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i></a>
 						{% endif %}
 					</div>
 				</nav>
@@ -72,7 +72,7 @@
 				<div class="alert-warning" role="alert">
 					<div class="alert-message">
 						<strong>Ton compte n'est pas encore activé</strong>.
-																											Renvoyer le
+																																		Renvoyer le
 						<a href="{{ path('app_resend_verif') }}">lien d'activation</a>
 					</div>
 				</div>
@@ -81,7 +81,7 @@
 			{% block body %}{% endblock %}
 		</main>
 
-		<footer class="footer primary">
+		<footer class="footer">
 			<div>
 				Copyright © 2023 - Amiam
 
