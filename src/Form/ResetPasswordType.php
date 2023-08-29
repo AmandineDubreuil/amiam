@@ -17,7 +17,9 @@ class ResetPasswordType extends AbstractType
         ->add('password', PasswordType::class, [
             'label' => 'Entre ton mot de passe : ',
              'mapped' => false,
-            'attr' => ['autocomplete' => 'new-password'],
+            'attr' => ['autocomplete' => 'new-password',
+            'class' => 'form-control rounded-1',
+        ],
             'constraints' => [
                 new NotBlank([
                     'message' => 'Merci d\'entrer un mot de passe.',
