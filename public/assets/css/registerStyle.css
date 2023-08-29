@@ -1,0 +1,28 @@
+.register span{
+    color: red;
+}
+
+.register input{
+    max-width: 30rem;
+}
+
+.register .cgu{
+    display: flex;
+}
+
+.register a:hover{
+    text-decoration: underline;
+}
+
+.register .groupeBtn{
+    display: flex;
+justify-content: center;
+}
+
+.register .btnOk{
+    width: fit-content;
+    height: fit-content;
+    padding: 1rem;
+}
+
+
