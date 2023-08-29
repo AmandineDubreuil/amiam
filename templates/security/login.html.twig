@@ -1,40 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion
+{% block title %}Connexion - Amiam
+{% endblock %}
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/loginStyle.css')}}">
+
 {% endblock %}
 
 {% block body %}
-	<form method="post">
-		{% if error %}
-			<div class="alert alert-danger">
-				<p>L'e-mail ou le mot de passe semble incorrect.</p>
-				<p>
-					Mot de passe oublié ?
-					<a href="{{ path('app_forgotten_password') }}">Je réinitialise mon mot de passe.</a>
-				</p>
-				<p>
-					Pas encore de compte ?
-					<a href="{{ path('app_register') }}">Je m'inscris</a>.</p>
-			</div>
-		{% endif %}
 
-		{% if app.user %}
-			<div class="mb-3">
-				Bienvenue
-				{{ app.user.userIdentifier }},
-				<a href="{{ path('app_logout') }}">Me déconnecter</a>
+	{# en cas d'erreur #}
+	{% if error %}
+		<div class="alert alert-danger">
+			<p>L'e-mail ou le mot de passe semble incorrect.</p>
+
+		</div>
+	{% endif %}
+
+	{# si le user est déjà connecté #}
+	{% if app.user %}
+		<div class="mb-3">
+			Bienvenue
+			{{ app.user.userIdentifier }},
+			<a href="{{ path('app_logout') }}">Me déconnecter</a>
+		</div>
+	{% endif %}
+
+	<section class="login">
+
+		<h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+
+		{# formulaire #}
+		<form method="post">
+			<div class="form-field">
+				<label for="inputEmail">E-mail</label>
+				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control rounded-1" placeholder="nom@exemple.fr" autocomplete="email" required autofocus>
 			</div>
-		{% endif %}
-		<section class="login">
-			<h1 class="h3 mb-3 font-weight-normal">Merci de t'identifier</h1>
-			<label for="inputEmail">Email</label>
-			<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-			<label for="inputPassword">Mot de passe</label>
-			<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+			<div class="form-field">
+				<label for="inputPassword">Mot de passe</label>
+				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+			</div>
+
 
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-			<button class="btn btnValider btn-lg btn-primary" type="submit">
+			<button class="btn btnOk btn-lg btn-primary" type="submit">
 				Je me connecte
 			</button>
 			<p>
@@ -44,7 +66,8 @@
 			<p>
 				Pas encore de compte ?
 				<a href="{{ path('app_register') }}">Je m'inscris</a>.</p>
-		</form>
 
+		</form>
 	</section>
+
 {% endblock %}

@@ -52,7 +52,7 @@ section{
 }
 /* Messages flash */
 
-.alert-success .alert-message{
+.alert-success, .alert-message{
     background-color: rgba(0, 100, 0, 0.3);
     color: darkgreen;
     padding: 1rem;
@@ -60,7 +60,7 @@ section{
     width: 100%;
 }
 
-.alert-danger .alert-message{
+.alert-danger, .alert-message{
     background-color: rgba(220, 20, 60, 0.3);
     color: crimson;
     padding: 1rem;
@@ -68,7 +68,7 @@ section{
     width: 100%;
 }
 
-.alert-warning .alert-message{
+.alert-warning, .alert-message{
     background-color: rgba(255, 140, 0, 0.3);
     color: darkorange;
     padding: 1rem;
