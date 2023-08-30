@@ -24,117 +24,86 @@
 	<section class="home">
 
 		{% if is_granted('ROLE_USER') %}
-			<div class="entete">
-				<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}">
-					{% if app.user.avatar %}
-						<div class="avatar "><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
-					{% else  %}
-						<div class="avatar "><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
-					{% endif  %}
-					<i class="fa-solid fa-pen-to-square"></i>
-				</a>
-				<h1>&nbsp;{{app.user.pseudo}}</h1>
-			</div>
-			<div class="gestionUser">
-				<div class="email">
-					<p>E-mail :</p>
-					<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
-						<p>&nbsp;{{app.user.email}}&nbsp;</p>
-						<i class="fa-solid fa-pen-to-square"></i>
-					</a>
-				</div>
-
-				<a href="{{ path('app_modif_password') }}" class="btn btnModifier">Modifier le mot de passe</a>
-			</div>
-
-			<div class="familleUser">
-				<h2 class="h3 mb-3 font-weight-normal">Ma famille</h2>
-				<a href="{{ path('app_user_family_new', {'id': app.user.id})}}">
-					<p>
+			<div class="granted">
+				<div class="groupeBtn">
+					<a class="btn btnOk" href="{{path('app_home')}}">
 						<i class="fa-solid fa-circle-plus"></i>
-					</p>
-				</a>
+						Repas</a>
+				</div>
+<h1>Mes recettes</h1>
 
-				{% for userFamily in app.user.userFamilies %}
-					<div class="familleMembre">
-						<a href="{{ path('app_user_family_edit', {'id': userFamily.id})}}">
-							<p>{{userFamily.prenom}}
-							</p>
-							-
-							<p>{{userFamily.dateNaissance ? userFamily.dateNaissance|date('d-m-Y') : '' }}</p>
-							<i class="fa-solid fa-pen-to-square"></i>
-						</a>
+
+				<p>je veux pouvoir :</p>
+				<ul>
+					<li>bouton créer un repas</li>
+					<li>bouton gestion des amis</li>
+					<li>bouton gestion des recettes</li>
+					<li>bouton gestion des repas</li>
+					<li>bouton rechercher pour chercher une recette</li>
+
+					<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+
+
+				</ul>
+
+			</div>
+		{% else %}
+			<div class="notGranted">
+				<h1>Amiam</h1>
+				<div class="interrogation">
+
+
+					<div class="premiere card shadow-1 rounded-4 ">
+						<p>
+							<i class="fa-solid fa-quote-left"></i>
+							Si j’invite Pierre, Paul et Jacques samedi soir à la maison, qu’est-ce que je pourrais bien leur faire à manger ?
+							<i class="fa-solid fa-quote-right"></i>
+						</p>
 					</div>
 
-				{% endfor %}
+
+					<div class="image">
+						<img src="{{asset('./assets/img/femme-reflechit.jpg')}}" alt="femme reflechit freepik">
+					</div>
+					<div class="deuxieme card shadow-1 rounded-4">
+						<p>
+							<i class="fa-solid fa-quote-left"></i>
+							Je leur ferai bien du poisson avec du brocoli, mais je suis plus très sûre que Paul aime bien les brocolis, et je  crois que j’ai déjà fait ce plat à Pierre.
+							<i class="fa-solid fa-quote-right"></i>
+						</p>
+					</div>
+				</div>
+				<div class="reponse">
+					<div class="image">
+						<img src="{{asset('./assets/img/couple.jpg')}}" alt="couple freepik">
+					</div>
+					<div class="texte card shadow-1 rounded-4">
+						<p>
+							<i class="fa-solid fa-quote-left"></i>
+							Tu devrais essayer Amiam !
+						</p>
+						<p>
+
+							Grâce à ce site on peut enregistrer, modifier et supprimer nos recettes comme dans une application classique.</p>
+						<p>
+
+							On peut aussi créer des fiches amis sur lesquelles on note leurs allergies et ce qu’ils n’aiment pas.
+						</p>
+						<p>
+							Du coup, on peut créer des repas et choisir uniquement parmis les recettes qui conviennent aux amis qu'on a invités !
+							<i class="fa-solid fa-quote-right"></i>
+						</p>
+					</div>
+
+				</div>
+
+
+				<div class="groupeBtn">
+					<a class="btn btnOk" href="{{path('app_login')}}">Connexion</a>
+				</div>
 			</div>
-			<p>je veux pouvoir :</p>
-			<ul>
-				<li>bouton créer un repas</li>
-				<li>bouton gestion des amis</li>
-				<li>bouton gestion des recettes</li>
-				<li>bouton gestion des repas</li>
-				<li>bouton rechercher pour chercher une recette</li>
-
-				<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+		{% endif %}
 
 
-			</ul>
-
-		{% else %}
-			<h1>Amiam</h1>
-			<div class="interrogation">
-
-
-				<div class="premiere card shadow-1 rounded-4 ">
-					<p>
-						<i class="fa-solid fa-quote-left"></i>
-						Si j’invite Pierre, Paul et Jacques samedi soir à la maison, qu’est-ce que je pourrais bien leur faire à manger ?
-						<i class="fa-solid fa-quote-right"></i>
-					</p>
-				</div>
-
-
-				<div class="image">
-					<img src="{{asset('./assets/img/femme-reflechit.jpg')}}" alt="femme reflechit freepik">
-				</div>
-				<div class="deuxieme card shadow-1 rounded-4">
-					<p>
-						<i class="fa-solid fa-quote-left"></i>
-						Je leur ferai bien du poisson avec du brocoli, mais je suis plus très sûre que Paul aime bien les brocolis, et je  crois que j’ai déjà fait ce plat à Pierre.
-						<i class="fa-solid fa-quote-right"></i>
-					</p>
-				</div>
-			</div>
-			<div class="reponse">
-				<div class="image">
-					<img src="{{asset('./assets/img/couple.jpg')}}" alt="couple freepik">
-				</div>
-				<div class="texte card shadow-1 rounded-4">
-					<p>
-						<i class="fa-solid fa-quote-left"></i>
-						Tu devrais essayer Amiam !
-					</p>
-					<p>
-
-						Grâce à ce site on peut enregistrer, modifier et supprimer nos recettes comme dans une application classique.</p>
-					<p>
-
-						On peut aussi créer des fiches amis sur lesquelles on note leurs allergies et ce qu’ils n’aiment pas.
-					</p>
-					<p>
-						Du coup, on peut créer des repas et choisir uniquement parmis les recettes qui conviennent aux amis qu'on a invités !
-						<i class="fa-solid fa-quote-right"></i>
-					</p>
-				</div>
-
-			</div>
-		</div>
-
-		<div class="groupeBtn">
-			<a class="btn btnOk" href="{{path('app_login')}}">Connexion</a>
-		</div>
-	{% endif %}
-
-
-</section>{% endblock %}
+	</section>
+{% endblock %}
