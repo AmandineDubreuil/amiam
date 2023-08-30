@@ -23,32 +23,32 @@
 
 	<section class="home">
 
-
-		<p></p>
 		{% if is_granted('ROLE_USER') %}
 			<div class="entete">
 				<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}">
 					{% if app.user.avatar %}
-						<div class="avatar"><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
+						<div class="avatar "><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
 					{% else  %}
-						<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+						<div class="avatar "><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
 					{% endif  %}
-				</a>
-				<h1>{{app.user.pseudo}}</h1>
-			</div>
-			<div>
-				<p>E-mail :</p>
-				<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
-					<p>{{app.user.email}}</p>
 					<i class="fa-solid fa-pen-to-square"></i>
 				</a>
+				<h1>&nbsp;{{app.user.pseudo}}</h1>
 			</div>
-			<div class="groupeBoutons">
-				<a href="{{ path('app_modif_password') }}" class="btn shadow-1 btnModifier">Modifier le mot de passe</a>
+			<div class="gestionUser">
+				<div class="email">
+					<p>E-mail :</p>
+					<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
+						<p>&nbsp;{{app.user.email}}&nbsp;</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+					</a>
+				</div>
+
+				<a href="{{ path('app_modif_password') }}" class="btn btnModifier">Modifier le mot de passe</a>
 			</div>
 
 			<div class="familleUser">
-				<h2>Ma famille</h2>
+				<h2 class="h3 mb-3 font-weight-normal">Ma famille</h2>
 				<a href="{{ path('app_user_family_new', {'id': app.user.id})}}">
 					<p>
 						<i class="fa-solid fa-circle-plus"></i>

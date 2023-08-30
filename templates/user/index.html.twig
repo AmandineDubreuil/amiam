@@ -1,6 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte - Amiam
+{% block title %}Mon compte Amiam
+{% endblock %}
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/userStyle.css')}}">
+
 {% endblock %}
 
 {% block body %}
@@ -9,56 +24,72 @@
 		<div class="entete">
 			<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}">
 				{% if app.user.avatar %}
-					<div class="avatar"><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
+					<div class="avatar "><img src="{{asset('./assets/uploads/avatars/mini/')}}{{ app.user.avatar }}" alt="{{ app.user.pseudo }}"></div>
 				{% else  %}
-					<div class="avatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+					<div class="avatar "><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
 				{% endif  %}
-			</a>
-			<h1>{{app.user.pseudo}}</h1>
-		</div>
-		<div>
-			<p>E-mail :</p>
-			<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
-				<p>{{app.user.email}}</p>
 				<i class="fa-solid fa-pen-to-square"></i>
 			</a>
+			<h1>&nbsp;{{app.user.pseudo}}</h1>
 		</div>
-		<div class="groupeBoutons">
-			<a href="{{ path('app_modif_password') }}" class="btn shadow-1 btnModifier">Modifier le mot de passe</a>
+		<div class="gestionUser">
+			<div class="email">
+				<p>E-mail :</p>
+				<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
+					<p>&nbsp;{{app.user.email}}&nbsp;</p>
+					<i class="fa-solid fa-pen-to-square"></i>
+				</a>
+			</div>
+
+			<a href="{{ path('app_modif_password') }}" class="btn btnModifier">Modifier le mot de passe</a>
 		</div>
 
 		<div class="familleUser">
-			<h2>Ma famille</h2>
+		<div class="enteteFamille">
+			<h2 class="h3 mb-3 font-weight-normal">Ma famille</h2>
 			<a href="{{ path('app_user_family_new', {'id': app.user.id})}}">
-				<p>
-					<i class="fa-solid fa-circle-plus"></i>
-				</p>
+				<i class="fa-solid fa-circle-plus"></i>
 			</a>
-
-			{% for userFamily in app.user.userFamilies %}
-				<div class="familleMembre">
-					<a href="{{ path('app_user_family_edit', {'id': userFamily.id})}}">
-						<p>{{userFamily.prenom}}
-						</p>
-						-
-						<p>{{userFamily.dateNaissance ? userFamily.dateNaissance|date('d-m-Y') : '' }}</p>
-						<i class="fa-solid fa-pen-to-square"></i></a>
-					</div>
-
-				{% endfor %}
 			</div>
-			<p>je veux pouvoir :</p>
-			<ul>
-				<li>bouton créer un repas</li>
-				<li>bouton gestion des amis</li>
-				<li>bouton gestion des recettes</li>
-				<li>bouton gestion des repas</li>
-				<li>bouton rechercher pour chercher une recette</li>
+			<table class="groupeFamille">
+				<thead>
+					<tr>
+						<th>Prénom</th>
+						<th>Né(e) le</th>
+						<th></th>
 
-				<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+					</tr>
+				</thead>
+				<tbody>
+					{% for userFamily in app.user.userFamilies %}
+						<tr>
+							<td>{{ userFamily.prenom }}</td>
+							<td>{{ userFamily.dateNaissance ? userFamily.dateNaissance|date('d-m-Y') : ''  }}</td>
+							<td>
+								<a href="{{ path('app_user_family_edit', {'id': userFamily.id})}}">
+									<i class="fa-solid fa-pen-to-square"></i>
+								</a>
+							</td>
+						</tr>
+					</tr>
 
+				{% else %}
+					<tr>
+						<td colspan="5">Juste moi, et c'est très bien comme ça</td>
+					</tr>
+				{% endfor %}
 
-			</ul>
-		</section>
+			</tbody>
+		</table>
+	</div>
+	<p>je veux pouvoir :</p>
+	<ul>
+		<li>bouton créer un repas</li>
+		<li>bouton gestion des amis</li>
+		<li>bouton gestion des recettes</li>
+		<li>bouton gestion des repas</li>
+		<li>bouton rechercher pour chercher une recette</li>
 
-	{% endblock %}
+		<li>voir l'ensemble de mes recettes et cliquer pour voir le détail</li>
+	</ul>
+</section>{% endblock %}
