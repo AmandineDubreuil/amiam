@@ -1,30 +1,48 @@
-.editMail span {
+/*edit_email / edit_avatar*/
+
+.editMail span,
+.editAvatar span {
     color: crimson;
 }
 
-.editMail input {
+.editMail input,
+.editAvatar input {
     max-width: 30rem;
 }
-.editMail .form-field {
+.editAvatar label{
+    margin-bottom: 0;
+}
+.editMail .form-field,
+.editAvatar .form-field {
     padding: .7rem 0;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.editMail ul {
+.editAvatar .form-field div {
+    max-width: 25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editMail ul,
+.editAvatar ul {
     list-style-type: none;
     color: crimson;
     padding: 0;
     margin: 0;
     line-height: 1rem;
 }
-.editMail .btnOk {
+
+.editMail .btnOk,
+.editAvatar .btnOk {
     width: fit-content;
     height: fit-content;
     padding: 1rem;
 }
 
-.editMail p{
+.editMail p {
     color: grey;
 
 }
