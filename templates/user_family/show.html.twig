@@ -1,30 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}UserFamily{% endblock %}
+{% block title %}UserFamily
+{% endblock %}
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/userFamilyStyle.css')}}">
+
+{% endblock %}
 
 {% block body %}
-    <h1>UserFamily</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user_family.id }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ user_family.prenom }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissance</th>
-                <td>{{ user_family.dateNaissance ? user_family.dateNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<section class="membreFamille">
+		<a class="btn btnRetour" href="{{ path('app_user_index') }}">
+			<i class="fa-solid fa-arrow-left"></i>
+		</a>
+		<h1 class="h3 mb-3 font-weight-normal">Suppression d'une personne</h1>
 
-    <a href="{{ path('app_user_family_index') }}">back to list</a>
+		<table class="groupeFamille">
+			<thead>
+				<tr>
+					<th>Prénom</th>
+					<th>Né(e) le</th>
+					<th></th>
 
-    <a href="{{ path('app_user_family_edit', {'id': user_family.id}) }}">edit</a>
+				</tr>
+			</thead>
+			<tbody>
 
-    {{ include('user_family/_delete_form.html.twig') }}
+				<tr>
+					<td>{{ user_family.prenom }}</td>
+					<td>{{ user_family.dateNaissance ? user_family.dateNaissance|date('d-m-Y') : ''  }}</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	{{ include('user_family/_delete_form.html.twig') }}
+
+	</section>
+	
+
 {% endblock %}

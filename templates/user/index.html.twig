@@ -28,16 +28,16 @@
 				{% else  %}
 					<div class="avatar "><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
 				{% endif  %}
-				<i class="fa-solid fa-pen-to-square"></i>
+				<i class="fa-solid fa-pen-to-square iconeModifier"></i>
 			</a>
 			<h1>&nbsp;{{app.user.pseudo}}</h1>
 		</div>
 		<div class="gestionUser">
 			<div class="email">
 				<p>E-mail :</p>
-				<a href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
+				<a  href="{{ path('app_user_edit_email', {'id': app.user.id})}}">
 					<p>&nbsp;{{app.user.email}}&nbsp;</p>
-					<i class="fa-solid fa-pen-to-square"></i>
+					<i class="fa-solid fa-pen-to-square iconeModifier"></i>
 				</a>
 			</div>
 
@@ -47,7 +47,7 @@
 		<div class="familleUser">
 		<div class="enteteFamille">
 			<h2 class="h3 mb-3 font-weight-normal">Ma famille</h2>
-			<a href="{{ path('app_user_family_new', {'id': app.user.id})}}">
+			<a class="btn iconeAjout"  href="{{ path('app_user_family_new', {'id': app.user.id})}}">
 				<i class="fa-solid fa-circle-plus"></i>
 			</a>
 			</div>
@@ -66,8 +66,11 @@
 							<td>{{ userFamily.prenom }}</td>
 							<td>{{ userFamily.dateNaissance ? userFamily.dateNaissance|date('d-m-Y') : ''  }}</td>
 							<td>
-								<a href="{{ path('app_user_family_edit', {'id': userFamily.id})}}">
+								<a class="btn iconeModifier"  href="{{ path('app_user_family_edit', {'id': userFamily.id})}}">
 									<i class="fa-solid fa-pen-to-square"></i>
+								</a>
+								<a class="btn iconeSupprimer" href="{{ path('app_user_family_delete', {'id': userFamily.id})}}">
+									<i class="fa-solid fa-trash-can"></i>
 								</a>
 							</td>
 						</tr>

@@ -16,14 +16,20 @@ class UserFamilyType extends AbstractType
         $builder
             ->add('prenom', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'class' => 'form-control rounded-1',
+                ],
             ])
             ->add('dateNaissance', BirthdayType::class, [
                 'required' => true,
                 //'placeholder' => 'Select a value',
                 'format' => 'yyyy-MM-dd',
-                'widget'=> 'single_text',
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control rounded-1',
+                ],
             ])
-        //    ->add('user')
+            //    ->add('user')
         ;
     }
 

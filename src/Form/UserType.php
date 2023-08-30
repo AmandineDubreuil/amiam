@@ -16,13 +16,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-      //  ->add('email', EmailType::class, [
-        //    'required' => true,
-     //   ])
-        // ->add('pseudo', TextType::class, [
-        //     'required' => true,
-        // ])
-            
+                
         ->add('avatar', FileType::class, [
             'label' => 'avatar (fichier image) ',
             'mapped' => false,
@@ -37,8 +31,7 @@ class UserType extends AbstractType
                 ])
             ]
         ])
-           // ->add('createdAt')
-           // ->add('modifiedAt')
+
         ;
     }
 
