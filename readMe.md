@@ -7,10 +7,15 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 - PHP 8.2
 - Symfony 6.3.3
 - MySql
+- framework Axentix
 
 ## Tokens
 
 Tokens générés via JWT pour la vérification de l'adresse e-mail et la modification du mot de passe
+
+## Bundles
+
+- EasyAdminBundle
 
 ## User
 
