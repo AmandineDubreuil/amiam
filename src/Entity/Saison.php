@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SaisonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SaisonRepository::class)]
@@ -18,6 +20,14 @@ class Saison
 
     #[ORM\Column]
     private ?int $moisC = null;
+
+    #[ORM\ManyToMany(targetEntity: Aliment::class, mappedBy: 'saison')]
+    private Collection $aliments;
+
+    public function __construct()
+    {
+        $this->aliments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,33 @@ class Saison
     public function setMoisC(int $moisC): static
     {
         $this->moisC = $moisC;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Aliment>
+     */
+    public function getAliments(): Collection
+    {
+        return $this->aliments;
+    }
+
+    public function addAliment(Aliment $aliment): static
+    {
+        if (!$this->aliments->contains($aliment)) {
+            $this->aliments->add($aliment);
+            $aliment->addSaison($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAliment(Aliment $aliment): static
+    {
+        if ($this->aliments->removeElement($aliment)) {
+            $aliment->removeSaison($this);
+        }
 
         return $this;
     }
