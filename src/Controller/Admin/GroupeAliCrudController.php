@@ -18,7 +18,7 @@ class GroupeAliCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInPlural('Groupes Aliments')
-            ->setEntityLabelInSingular('Groupe Aliment')
+            ->setEntityLabelInSingular('Groupe Aliments')
             ->setPageTitle('index', 'Amiam - Administration des Groupes d\'aliments
             ');
     }

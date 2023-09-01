@@ -6,6 +6,7 @@ use App\Entity\Allergene;
 use App\Entity\GroupeAli;
 use App\Entity\Regime;
 use App\Entity\Saison;
+use App\Entity\SousGroupeAli;
 use App\Entity\User;
 use App\Entity\UserFamily;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +45,7 @@ class DashboardController extends AbstractDashboardController
                yield MenuItem::linkToCrud('Regime', 'fas fa-list', Regime::class);
                yield MenuItem::linkToCrud('Saison', 'fas fa-list', Saison::class);
                yield MenuItem::linkToCrud('Groupe Aliments', 'fas fa-list', GroupeAli::class);
+               yield MenuItem::linkToCrud('Sous-Groupe Aliments', 'fas fa-list', SousGroupeAli::class);
 
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);

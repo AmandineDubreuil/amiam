@@ -43,6 +43,12 @@ class GroupeAli
         return $this;
     }
 
+    
+    public function __toString(): string
+    {
+        return $this->getGroupe();   
+    }
+
     /**
      * @return Collection<int, SousGroupeAli>
      */
