@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Allergene;
+use App\Entity\GroupeAli;
 use App\Entity\Regime;
 use App\Entity\Saison;
 use App\Entity\User;
@@ -42,6 +43,8 @@ class DashboardController extends AbstractDashboardController
                yield MenuItem::linkToCrud('Allergenes', 'fas fa-list', Allergene::class);
                yield MenuItem::linkToCrud('Regime', 'fas fa-list', Regime::class);
                yield MenuItem::linkToCrud('Saison', 'fas fa-list', Saison::class);
+               yield MenuItem::linkToCrud('Groupe Aliments', 'fas fa-list', GroupeAli::class);
+
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
