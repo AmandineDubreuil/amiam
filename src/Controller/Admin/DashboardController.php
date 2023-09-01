@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Allergene;
+use App\Entity\Regime;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,7 +36,8 @@ class DashboardController extends AbstractDashboardController
                yield MenuItem::linktoRoute('Site Amiam', 'fas fa-home', 'app_home');
                yield MenuItem::linkToDashboard('Administration Amiam', 'fa fa-home');
                yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-people-group', User::class);
-               yield MenuItem::linkToCrud('Allergenes', 'fa-solid fa-people-group', Allergene::class);
+               yield MenuItem::linkToCrud('Allergenes', 'fas fa-list', Allergene::class);
+               yield MenuItem::linkToCrud('Regime', 'fas fa-list', Regime::class);
 
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
