@@ -15,7 +15,7 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 
 ## Bundles
 
-- EasyAdminBundle
+- EasyAdminBundle 4
 
 ## User
 
