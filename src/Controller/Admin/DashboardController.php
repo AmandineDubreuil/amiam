@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Allergene;
 use App\Entity\Regime;
 use App\Entity\User;
+use App\Entity\UserFamily;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -34,8 +35,9 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
                yield MenuItem::linktoRoute('Site Amiam', 'fas fa-home', 'app_home');
-               yield MenuItem::linkToDashboard('Administration Amiam', 'fa fa-home');
+              // yield MenuItem::linkToDashboard('Administration Amiam', 'fa fa-home');
                yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-people-group', User::class);
+               yield MenuItem::linkToCrud('Membres de la famille d\'un utilisateur', 'fa-solid fa-people-group', UserFamily::class);
                yield MenuItem::linkToCrud('Allergenes', 'fas fa-list', Allergene::class);
                yield MenuItem::linkToCrud('Regime', 'fas fa-list', Regime::class);
 
