@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Aliment;
 use App\Entity\Allergene;
 use App\Entity\GroupeAli;
 use App\Entity\Regime;
@@ -41,8 +42,12 @@ class DashboardController extends AbstractDashboardController
               // yield MenuItem::linkToDashboard('Administration Amiam', 'fa fa-home');
                yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-people-group', User::class);
                yield MenuItem::linkToCrud('Membres de la famille d\'un utilisateur', 'fa-solid fa-people-group', UserFamily::class);
+               yield MenuItem::linkToCrud('Aliments', 'fas fa-list', Aliment::class);
+
                yield MenuItem::linkToCrud('Allergenes', 'fas fa-list', Allergene::class);
+
                yield MenuItem::linkToCrud('Regime', 'fas fa-list', Regime::class);
+
                yield MenuItem::linkToCrud('Saison', 'fas fa-list', Saison::class);
                yield MenuItem::linkToCrud('Groupe Aliments', 'fas fa-list', GroupeAli::class);
                yield MenuItem::linkToCrud('Sous-Groupe Aliments', 'fas fa-list', SousGroupeAli::class);

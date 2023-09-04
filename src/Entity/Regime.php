@@ -18,7 +18,7 @@ class Regime
     #[ORM\Column(length: 50)]
     private ?string $regime = null;
 
-    #[ORM\ManyToMany(targetEntity: Aliment::class, mappedBy: 'regimeExclu')]
+    #[ORM\ManyToMany(targetEntity: Aliment::class, mappedBy: 'regime')]
     private Collection $aliments;
 
     public function __construct()
@@ -42,6 +42,10 @@ class Regime
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getRegime();   
+    }
 
     /**
      * @return Collection<int, Aliment>
@@ -55,7 +59,7 @@ class Regime
     {
         if (!$this->aliments->contains($aliment)) {
             $this->aliments->add($aliment);
-            $aliment->addRegimeExclu($this);
+            $aliment->addRegime($this);
         }
 
         return $this;
@@ -64,7 +68,7 @@ class Regime
     public function removeAliment(Aliment $aliment): static
     {
         if ($this->aliments->removeElement($aliment)) {
-            $aliment->removeRegimeExclu($this);
+            $aliment->removeRegime($this);
         }
 
         return $this;

@@ -42,6 +42,10 @@ class Allergene
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getAllergene();   
+    }
 
     /**
      * @return Collection<int, Aliment>

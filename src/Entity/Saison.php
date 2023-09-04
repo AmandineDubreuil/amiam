@@ -57,6 +57,10 @@ class Saison
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getMoisL();   
+    }
 
     /**
      * @return Collection<int, Aliment>

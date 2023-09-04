@@ -58,6 +58,10 @@ class SousGroupeAli
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->getSousGroupe();   
+    }
     /**
      * @return Collection<int, Aliment>
      */

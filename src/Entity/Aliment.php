@@ -22,7 +22,7 @@ class Aliment
     private Collection $allergene;
 
     #[ORM\ManyToMany(targetEntity: Regime::class, inversedBy: 'aliments')]
-    private Collection $regimeExclu;
+    private Collection $regime;
 
     #[ORM\ManyToOne(inversedBy: 'aliments')]
     private ?SousGroupeAli $sousGroupe = null;
@@ -33,7 +33,7 @@ class Aliment
     public function __construct()
     {
         $this->allergene = new ArrayCollection();
-        $this->regimeExclu = new ArrayCollection();
+        $this->regime = new ArrayCollection();
         $this->saison = new ArrayCollection();
     }
 
@@ -81,23 +81,23 @@ class Aliment
     /**
      * @return Collection<int, Regime>
      */
-    public function getRegimeExclu(): Collection
+    public function getRegime(): Collection
     {
-        return $this->regimeExclu;
+        return $this->regime;
     }
 
-    public function addRegimeExclu(Regime $regimeExclu): static
+    public function addRegime(Regime $regime): static
     {
-        if (!$this->regimeExclu->contains($regimeExclu)) {
-            $this->regimeExclu->add($regimeExclu);
+        if (!$this->regime->contains($regime)) {
+            $this->regime->add($regime);
         }
 
         return $this;
     }
 
-    public function removeRegimeExclu(Regime $regimeExclu): static
+    public function removeRegime(Regime $regime): static
     {
-        $this->regimeExclu->removeElement($regimeExclu);
+        $this->regime->removeElement($regime);
 
         return $this;
     }
