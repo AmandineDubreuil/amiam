@@ -7,13 +7,24 @@ use App\Form\RecetteType;
 use App\Repository\RecetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/recette')]
 class RecetteController extends AbstractController
 {
+    private $security;
+    private $entityManager;
+
+    public function __construct(Security $security, EntityManagerInterface $entityManager)
+    {
+        $this->security = $security;
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/', name: 'app_recette_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
@@ -23,17 +34,22 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/new', name: 'app_recette_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, RecetteRepository $recetteRepository): Response
     {
+        $user = $this->security->getUser();
+
         $recette = new Recette();
         $form = $this->createForm(RecetteType::class, $recette);
         $form->handleRequest($request);
 
+        //validation du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($recette);
-            $entityManager->flush();
+            $recette->setUser($user);
+            $recetteRepository->save($recette, true);
 
-            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_recette_index', [
+                'recette' => $recette,
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette/new.html.twig', [

@@ -42,6 +42,10 @@ class RecetteCategorie
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getCategorie();   
+    }
 
     /**
      * @return Collection<int, Recette>
