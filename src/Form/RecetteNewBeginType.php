@@ -7,15 +7,13 @@ use App\Entity\RecetteCategorie;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class RecetteType extends AbstractType
+class RecetteNewBeginType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -35,22 +33,7 @@ class RecetteType extends AbstractType
             ->add('tpsRepos', NumberType::class, [
                 'required' => false,
             ])
-            ->add('description') //, CKEditorType::class, ['label' => 'Description :']
-            ->add('photo', FileType::class, [
-                'label' => 'photo (fichier image) ',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '8192k',
-                        'mimeTypes' => [
-                            'image/*',
-                        ],
-                        'mimeTypesMessage' => 'Merci de télécharger une image valide.',
-                    ])
-                ]
-            ])
-            ->add('video')
+            
             ->add('prive', CheckboxType::class, [
                 'label' => 'Recette privée ',
                 'label_html' => true,
@@ -59,7 +42,6 @@ class RecetteType extends AbstractType
                 ],
 
             ])
-
             ->add('categorie', EntityType::class, [
                 'class' => RecetteCategorie::class,
                 'label' => 'Catégorie de recettes ',

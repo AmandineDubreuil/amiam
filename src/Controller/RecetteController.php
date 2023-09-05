@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Recette;
 use App\Form\RecetteType;
+use App\Form\RecetteNewBeginType;
 use App\Repository\RecetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 #[Route('/recette')]
@@ -34,20 +35,21 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/new', name: 'app_recette_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, RecetteRepository $recetteRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->security->getUser();
 
         $recette = new Recette();
-        $form = $this->createForm(RecetteType::class, $recette);
+        $form = $this->createForm(RecetteNewBeginType::class, $recette);
         $form->handleRequest($request);
 
         //validation du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setUser($user);
-            $recetteRepository->save($recette, true);
+            $entityManager->persist($recette);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('app_recette_index', [
+            return $this->redirectToRoute('app_recette_ingredient_new', [
                 'recette' => $recette,
             ], Response::HTTP_SEE_OTHER);
         }

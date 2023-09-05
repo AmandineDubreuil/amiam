@@ -31,7 +31,7 @@ class Recette
     #[ORM\Column(nullable: true)]
     private ?int $tpsRepos = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -193,7 +193,10 @@ class Recette
 
         return $this;
     }
-
+    public function __toString(): string
+    {
+        return $this->getId();   
+    }
     /**
      * @return Collection<int, RecetteIngredient>
      */

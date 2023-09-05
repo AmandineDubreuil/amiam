@@ -42,6 +42,10 @@ class Mesure
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getMesure();   
+    }
 
     /**
      * @return Collection<int, RecetteIngredient>
