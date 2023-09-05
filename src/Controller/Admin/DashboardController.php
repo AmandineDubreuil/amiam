@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Aliment;
 use App\Entity\Allergene;
 use App\Entity\GroupeAli;
+use App\Entity\Mesure;
 use App\Entity\RecetteCategorie;
 use App\Entity\Regime;
 use App\Entity\Saison;
@@ -53,6 +54,7 @@ class DashboardController extends AbstractDashboardController
                yield MenuItem::linkToCrud('Groupe Aliments', 'fas fa-list', GroupeAli::class);
                yield MenuItem::linkToCrud('Sous-Groupe Aliments', 'fas fa-list', SousGroupeAli::class);
                yield MenuItem::linkToCrud('Catégories Recettes', 'fas fa-list', RecetteCategorie::class);
+               yield MenuItem::linkToCrud('Unités de mesure Ingredients', 'fas fa-list', Mesure::class);
 
 
 
