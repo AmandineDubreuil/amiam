@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class RecetteNewBeginType extends AbstractType
 {
@@ -33,13 +34,16 @@ class RecetteNewBeginType extends AbstractType
             ->add('tpsRepos', NumberType::class, [
                 'required' => false,
             ])
-            
+
             ->add('prive', CheckboxType::class, [
                 'label' => 'Recette privée ',
-                'label_html' => true,
-                'constraints' => [
-                    new IsTrue(),
-                ],
+                'required' => false,
+                'data' => true,
+                //'required' => false,
+                // 'label_html' => true,
+                // 'constraints' => [
+                //     new IsTrue(),
+                // ],
 
             ])
             ->add('categorie', EntityType::class, [

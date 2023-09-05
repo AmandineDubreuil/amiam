@@ -1,0 +1,57 @@
+{{ form_errors(recetteForm) }}
+
+
+{{ form_start(recetteForm) }}
+<div class="form-field">
+	{{ form_row(recetteForm.titre, {
+            label: 'Titre *',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.nbPersonnes, {
+            label: 'Nombre de personnes *',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.tpsPreparation, {
+            label: 'Temps de préparation',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.tpsCuisson, {
+            label: 'Temps de cuisson',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.tpsRepos, {
+            label: 'Temps de repos',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.description, {
+            label: 'Description',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.photo, {
+            label: 'Photo (fichier image)',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.video, {
+            label: 'Vidéo',
+      
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(recetteForm.prive, {
+            label: 'Recette privée',
+                  'attr': {
+                'class': 'form-optional',
+            },
+                   }) }}
+</div>
+<p>* Requis</p>
+
+<button class="btn">{{ button_label|default('Valider') }}</button>
+{{ form_end(recetteForm) }}

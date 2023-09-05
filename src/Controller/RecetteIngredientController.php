@@ -40,7 +40,9 @@ class RecetteIngredientController extends AbstractController
             $entityManager->persist($recetteIngredient);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_recette_ingredient_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_recette_edit', [
+                'id' => $recetteId,
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette_ingredient/new.html.twig', [
