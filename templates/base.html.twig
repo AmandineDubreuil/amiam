@@ -33,16 +33,17 @@
 
 						{% if is_granted('ROLE_MEMBER') %}
 
-							{# <a class="navbar-link" href="{{path('app_recettes_index')}}">
-															<i class="fa-solid fa-book"></i>
-														</a>
-														<a class="navbar-link" href="{{path('app_repas_index')}}">
-															<i class="fa-solid fa-utensils"></i>
-														</a>
-														<a class="navbar-link" href="{{path('app_amis_index')}}">
-															<i class="fa-solid fa-people-group"></i>
-														</a>
-														<a class="navbar-link" href="{{path('app_ingredients_index')}}">Ingrédients</a> #}
+							<a class="navbar-link" href="{{path('app_recette_index')}}">
+								<i class="fa-solid fa-book"></i>
+							</a>
+
+							{# <a class="navbar-link" href="{{path('app_repas_index')}}">
+								<i class="fa-solid fa-utensils"></i>
+							</a> #}
+							{# <a class="navbar-link" href="{{path('app_amis_index')}}">
+								<i class="fa-solid fa-people-group"></i>
+							</a> #}
+							{# <a class="navbar-link" href="{{path('app_ingredients_index')}}">Ingrédients</a> #}
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') %}
 
@@ -55,65 +56,54 @@
 
 							<a class="navbar-link pseudo" href="{{path('app_user_index')}}">
 								{{app.user.pseudo}}</i>&nbsp;
-							</a>
-							
-							<a class="navbar-link" href="{{path('app_logout')}}"> <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-						{% else %}
-							<a class="navbar-link" href="{{path('app_login')}}"><i class="fa-solid fa-arrow-right-to-bracket"></i></a>
-						{% endif %}
-					</div>
-				</nav>
-			</div>
-		</header>
+						</a>
 
-		<main>
-			{% include "_partials/_flash.html.twig" %}
-
-			{% if app.user and app.user.isverified == false %}
-				<div class="alert-warning" role="alert">
-					<div class="alert-message">
-						<strong>Ton compte n'est pas encore activé</strong>.
-																																		Renvoyer le
-						<a href="{{ path('app_resend_verif') }}">lien d'activation</a>
-					</div>
+						<a class="navbar-link" href="{{path('app_logout')}}">
+							<i class="fa-solid fa-arrow-right-from-bracket"></i>
+						</a>
+					{% else %}
+						<a class="navbar-link" href="{{path('app_login')}}">
+							<i class="fa-solid fa-arrow-right-to-bracket"></i>
+						</a>
+					{% endif %}
 				</div>
-			{% endif %}
-
-			{% block body %}{% endblock %}
-		</main>
-
-		<footer class="footer">
-			<div>
-				Copyright © 2023 - Amiam
-
-			</div>
-			<div>
-				{# <a href="{{ path('app_mentionslegales') }}" class="mentions" target="blank">Mentions légales</a> #}
-				-
-				{# <a href="{{ path('app_cgu') }}" class="mentions" target="blank">C.G.U.</a> #}
-
-			</div>
-			<div>
-				{% if is_granted('ROLE_ADMIN') %}
-					<a class="footerAdmin" href="#">Admin</a>
-				{% endif %}
-			</div>
-
-
-		</footer>
-
-
-		{% block javascripts %}
-			<!-- Axentix JS minified version -->
-			<script src="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-			{{ encore_entry_script_tags('app') }}
-			<script src="{{asset('./assets/js/script.js')}}"></script>
-		{% endblock %}
-
-
+			</nav>
+		</div>
 	</body>
-</html>
+</html></header><main>
+{% include "_partials/_flash.html.twig" %}
+
+{% if app.user and app.user.isverified == false %}
+	<div class="alert-warning" role="alert">
+		<div class="alert-message">
+			<strong>Ton compte n'est pas encore activé</strong>.
+																																										Renvoyer le
+			<a href="{{ path('app_resend_verif') }}">lien d'activation</a>
+		</div>
+	</div>
+{% endif %}
+
+{% block body %}{% endblock %}</main><footer class="footer">
+<div>
+	Copyright © 2023 - Amiam
+
+</div>
+<div>
+	{# <a href="{{ path('app_mentionslegales') }}" class="mentions" target="blank">Mentions légales</a> #}
+	-
+	{# <a href="{{ path('app_cgu') }}" class="mentions" target="blank">C.G.U.</a> #}
+
+</div>
+<div>
+	{% if is_granted('ROLE_ADMIN') %}
+		<a class="footerAdmin" href="#">Admin</a>
+	{% endif %}
+</div></footer>{% block javascripts %}
+<!-- Axentix JS minified version -->
+<script src="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+{{ encore_entry_script_tags('app') }}
+<script src="{{asset('./assets/js/script.js')}}"></script>{% endblock %}</body></html>

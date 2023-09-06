@@ -21,30 +21,24 @@ class RecetteNewBeginType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'class' => 'form-control rounded-1 titre',
+                ],
             ])
             ->add('nbPersonnes', NumberType::class, [
                 'required' => true,
-            ])
-            ->add('tpsPreparation', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('tpsCuisson', NumberType::class, [
-                'required' => false,
-            ])
-            ->add('tpsRepos', NumberType::class, [
-                'required' => false,
+                'attr' => [
+                    'class' => 'form-control rounded-1 number',
+                ],
             ])
 
             ->add('prive', CheckboxType::class, [
                 'label' => 'Recette privée ',
                 'required' => false,
                 'data' => true,
-                //'required' => false,
-                // 'label_html' => true,
-                // 'constraints' => [
-                //     new IsTrue(),
-                // ],
-
+                'attr' => [
+                    'class' => 'form-optional',
+                ],
             ])
             ->add('categorie', EntityType::class, [
                 'class' => RecetteCategorie::class,
@@ -54,6 +48,9 @@ class RecetteNewBeginType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'data' => $options['data']->getCategorie(), // Pass the values from the database
+                'attr' => [
+                    'class' => 'categorie',
+                ],
             ]);
     }
 

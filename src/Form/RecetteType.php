@@ -28,13 +28,23 @@ class RecetteType extends AbstractType
             ])
             ->add('tpsPreparation', NumberType::class, [
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control rounded-1 number',
+                ],
             ])
             ->add('tpsCuisson', NumberType::class, [
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control rounded-1 number',
+                ],
             ])
             ->add('tpsRepos', NumberType::class, [
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control rounded-1 number',
+                ],
             ])
+
             ->add('description') //, CKEditorType::class, ['label' => 'Description :']
             ->add('photo', FileType::class, [
                 'label' => 'photo (fichier image) ',

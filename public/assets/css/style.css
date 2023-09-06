@@ -148,3 +148,29 @@ h1 {
 }.iconeSupprimer {
     color: var(--color-four);
 }
+
+/* formulaires */
+
+
+ input {
+    max-width: 30rem;
+}
+
+ .form-field {
+    padding: .7rem 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ ul {
+    list-style-type: none;
+    color: crimson;
+    padding: 0;
+    margin: 0;
+    line-height: 1rem;
+}
+
+.groupeBtn {
+    display: flex;
+    justify-content: center;
+}

@@ -12,21 +12,24 @@
             label: 'Nombre de personnes *',
                    }) }}
 </div>
-<div class="form-field">
-	{{ form_row(recetteForm.tpsPreparation, {
+<div class="temps">
+	<div class="form-field">
+		{{ form_row(recetteNewBeginForm.tpsPreparation, {
             label: 'Temps de préparation',
                    }) }}
-</div>
-<div class="form-field">
-	{{ form_row(recetteForm.tpsCuisson, {
+	</div>
+	<div class="form-field">
+		{{ form_row(recetteNewBeginForm.tpsCuisson, {
             label: 'Temps de cuisson',
                    }) }}
-</div>
-<div class="form-field">
-	{{ form_row(recetteForm.tpsRepos, {
+	</div>
+	<div class="form-field">
+		{{ form_row(recetteNewBeginForm.tpsRepos, {
             label: 'Temps de repos',
                    }) }}
+	</div>
 </div>
+
 <div class="form-field">
 	{{ form_row(recetteForm.description, {
             label: 'Description',
