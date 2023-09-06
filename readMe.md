@@ -7,7 +7,10 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 - PHP 8.2
 - Symfony 6.3.3
 - MySql
-- framework Axentix
+- framework  <a href="https://useaxentix.com/">Axentix</a>
+
+- JQuery :  <a href="https://select2.org/getting-started/installation">select2</a>
+
 
 ## Tokens
 

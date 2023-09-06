@@ -1,4 +1,26 @@
+{{ form_errors(form) }}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="form">
+	<div class="form-field">
+		{{ form_row(form.aliment) }}
+	</div>
+	<div class="form-field quantite">
+		{{ form_row(form.quantite, {
+            label: 'Quantité *',
+                   }) }}
+	</div>
+	<div class="form-field">
+		{{ form_row(form.mesure, {
+            label: 'Unité de mesure *',
+                   }) }}
+	</div>
+</div>
+<p>* Champs requis</p>
+<div class="bouton">
+	<button class="btn btnOk">
+		<i class="fa-solid fa-check"></i>
+	</button>
+</div>
 {{ form_end(form) }}
