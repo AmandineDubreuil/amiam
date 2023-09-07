@@ -1,11 +1,12 @@
-.recetteNew .number {
+/* Entête / recette_new_begin_form et recette_form */
+
+.recetteNewEdit .number {
     max-width: 5rem;
 }
 
 .entete {
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-between; */
 }
 
 .entete .form-field {
@@ -28,19 +29,34 @@ justify-content: center;
 .entete .prive div label{
     margin-bottom: 0;
 }
-#recette_new_begin_categorie{
+#recette_new_begin_categorie, #recette_categorie{
     display: flex;
     flex-wrap: wrap;
 
 }
-#recette_new_begin_categorie label{
+#recette_new_begin_categorie label, #recette_categorie label{
     padding-left: .2rem;
     padding-right: 1rem;
     margin-bottom: 0;
 }
 
-.recetteNew .bouton {
+.recetteNewEdit .bouton {
    max-width: 30rem;
     display: flex;
    justify-content: flex-end;
+}
+
+/* recette edit / recette_form */
+
+.recetteNewEdit .temps  {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.recetteNewEdit .temps .form-field {
+    width: fit-content;
+    padding-right: 1rem ;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
 }

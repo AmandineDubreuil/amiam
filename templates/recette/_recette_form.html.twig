@@ -2,29 +2,46 @@
 
 
 {{ form_start(recetteForm) }}
-<div class="form-field">
-	{{ form_row(recetteForm.titre, {
+<div class="entete">
+	<div class="form-field">
+		{{ form_row(recetteForm.titre, {
             label: 'Titre *',
                    }) }}
+	</div>
+
+	<div class="form-field prive">
+		{{ form_row(recetteForm.prive, {
+            label: 'Recette privée',
+                  
+                   }) }}
+	</div>
 </div>
 <div class="form-field">
 	{{ form_row(recetteForm.nbPersonnes, {
             label: 'Nombre de personnes *',
                    }) }}
 </div>
+
+<div class="form-field">
+	{{ form_row(recetteForm.categorie, {
+            label: 'Catégorie de recettes',
+                   }) }}
+</div>
+
 <div class="temps">
 	<div class="form-field">
-		{{ form_row(recetteNewBeginForm.tpsPreparation, {
+		{{ form_row(recetteForm.tpsPreparation, {
             label: 'Temps de préparation',
                    }) }}
 	</div>
 	<div class="form-field">
-		{{ form_row(recetteNewBeginForm.tpsCuisson, {
+		{{ form_row(recetteForm.tpsCuisson, {
             label: 'Temps de cuisson',
+           
                    }) }}
 	</div>
 	<div class="form-field">
-		{{ form_row(recetteNewBeginForm.tpsRepos, {
+		{{ form_row(recetteForm.tpsRepos, {
             label: 'Temps de repos',
                    }) }}
 	</div>
@@ -46,14 +63,7 @@
       
                    }) }}
 </div>
-<div class="form-field">
-	{{ form_row(recetteForm.prive, {
-            label: 'Recette privée',
-                  'attr': {
-                'class': 'form-optional',
-            },
-                   }) }}
-</div>
+
 <p>* Requis</p>
 
 <button class="btn">{{ button_label|default('Valider') }}</button>

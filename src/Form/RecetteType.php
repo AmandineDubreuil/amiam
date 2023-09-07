@@ -22,26 +22,35 @@ class RecetteType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'required' => true,
+                'attr' => [
+                    'class' => 'form-control rounded-1 titre',
+                ],
             ])
             ->add('nbPersonnes', NumberType::class, [
                 'required' => true,
+                'attr' => [
+                    'class' => 'form-control rounded-1 number',
+                                   ],
             ])
             ->add('tpsPreparation', NumberType::class, [
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control rounded-1 number',
+                    'placeholder' => 'min',
                 ],
             ])
             ->add('tpsCuisson', NumberType::class, [
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control rounded-1 number',
+                    'placeholder' => 'min',
                 ],
             ])
             ->add('tpsRepos', NumberType::class, [
                 'required' => false,
                 'attr' => [
                     'class' => 'form-control rounded-1 number',
+                    'placeholder' => 'min',
                 ],
             ])
 
