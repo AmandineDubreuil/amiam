@@ -10,7 +10,7 @@ Amiam est une application permettant à un utilisateur de choisir une recette pa
 - framework  <a href="https://useaxentix.com/">Axentix</a>
 
 - JQuery :  <a href="https://select2.org/getting-started/installation">select2</a>
-
+- CKEditor5
 
 ## Tokens
 
@@ -34,8 +34,15 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 ### Avatar
 - utilisation d'un service PictureService.php
 
-### Ajout de membres à la famille du User
+## Description d'une recette avec CKEditor5
 
+- télécharger le dossier sur https://ckeditor.com/ckeditor-5/download/?null-addons= 
+- l'installer dans public/assets/ckeditor5
+- créer un fichier ckeditor.js dans assets/js
+- dans recetteType.php mettre le champs description en HiddenType
+- dans recette/edit.html.twig, créer le formulaire, mettre une div avec "editor" en id
+- dans recette/edit.html.twig, créer un block js avec lien vers ckeditor.js du dossier ckeditor5 et du dossier js
+- 
 
 ## License
 

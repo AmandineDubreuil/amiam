@@ -32,10 +32,83 @@
 
 		<h1>Recette titre</h1>
 
-		{{ include('recette/_recette_form.html.twig', {'button_label': 'Update'}) }}
+		{{ form_errors(recetteForm) }}
+
+
+		{{ form_start(recetteForm) }}
+		<div class="entete">
+			<div class="form-field">
+				{{ form_row(recetteForm.titre, {
+            		label: 'Titre *',
+                   }) }}
+			</div>
+
+			<div class="form-field prive">
+				{{ form_row(recetteForm.prive, {
+            		label: 'Recette privée',
+                   }) }}
+			</div>
+		</div>
+
+		<div class="form-field">
+			{{ form_row(recetteForm.nbPersonnes, {
+           		 label: 'Nombre de personnes *',
+                   }) }}
+		</div>
+
+		<div class="form-field">
+			{{ form_row(recetteForm.categorie, {
+            label: 'Catégorie de recettes',
+                   }) }}
+		</div>
+
+		<div class="temps">
+			<div class="form-field">
+				{{ form_row(recetteForm.tpsPreparation, {
+           		 label: 'Temps de préparation',
+                   }) }}
+			</div>
+			<div class="form-field">
+				{{ form_row(recetteForm.tpsCuisson, {
+           		 label: 'Temps de cuisson',
+                   }) }}
+			</div>
+			<div class="form-field">
+				{{ form_row(recetteForm.tpsRepos, {
+            label: 'Temps de repos',
+                   }) }}
+			</div>
+		</div>
+
+
+		<p>Description</p>
+		<div id="editor"></div>
+		<div class="form-field">
+			{{ form_row(recetteForm.description) }}
+		</div>
+		<div class="form-field">
+			{{ form_row(recetteForm.photo, {
+            label: 'Photo (fichier image)',
+                   }) }}
+		</div>
+		<div class="form-field">
+			{{ form_row(recetteForm.video, {
+            label: 'Vidéo',
+      
+                   }) }}
+		</div>
+
+		<p>* Requis</p>
+
+		<button class="btn">{{ button_label|default('Valider') }}</button>
+		{{ form_end(recetteForm) }}
 
 
 		{{ include('recette/_delete_form.html.twig') }}
 
 	</section>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('assets/ckeditor5/ckeditor.js')}}"></script>
+	<script src="{{asset('assets/js/ckeditor.js')}}"></script>
 {% endblock %}

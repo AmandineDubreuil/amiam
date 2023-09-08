@@ -1,3 +1,5 @@
+{# non utilisé
+
 {{ form_errors(recetteForm) }}
 
 
@@ -47,10 +49,10 @@
 	</div>
 </div>
 
-<div class="form-field">
-	{{ form_row(recetteForm.description, {
-            label: 'Description',
-                   }) }}
+
+<p>Description</p>
+<div id="editor"></div>
+
 </div>
 <div class="form-field">
 	{{ form_row(recetteForm.photo, {
@@ -67,4 +69,4 @@
 <p>* Requis</p>
 
 <button class="btn">{{ button_label|default('Valider') }}</button>
-{{ form_end(recetteForm) }}
+{{ form_end(recetteForm) }} #}
