@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\AmiFamilleRepository;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AmiFamilleRepository;
 
 #[ORM\Entity(repositoryClass: AmiFamilleRepository::class)]
 class AmiFamille
@@ -20,7 +21,7 @@ class AmiFamille
     private ?string $avatar = null;
 
     #[ORM\ManyToOne(inversedBy: 'amiFamilles')]
-    private ?user $user = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -51,15 +52,19 @@ class AmiFamille
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->getNom();   
     }
 }
