@@ -1,51 +1,141 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recette index{% endblock %}
+{% block title %}Mes recettes -  Amiam
+{% endblock %}
 
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/recette/recetteIndexStyle.css')}}">
+
+{% endblock %}
 {% block body %}
-    <h1>Recette index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>NbPersonnes</th>
-                <th>TpsPreparation</th>
-                <th>TpsCuisson</th>
-                <th>TpsRepos</th>
-                <th>Description</th>
-                <th>Photo</th>
-                <th>Video</th>
-                <th>Prive</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for recette in recettes %}
-            <tr>
-                <td>{{ recette.id }}</td>
-                <td>{{ recette.titre }}</td>
-                <td>{{ recette.nbPersonnes }}</td>
-                <td>{{ recette.tpsPreparation }}</td>
-                <td>{{ recette.tpsCuisson }}</td>
-                <td>{{ recette.tpsRepos }}</td>
-                <td>{{ recette.description }}</td>
-                <td>{{ recette.photo }}</td>
-                <td>{{ recette.video }}</td>
-                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">show</a>
-                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<section class="recettesIndex">
 
-    <a href="{{ path('app_recette_new') }}">Create new</a>
+		<h1>Mes recettes</h1>
+
+		<a class="btn iconeAjout" href="{{path('app_recette_new')}}">
+			<i class="fa-solid fa-circle-plus"></i>
+		</a>
+
+		<div class="cards">
+			{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+
+				<div class="card shadow-1 hoverable-1 rounded-3 ">
+					<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+						{% if recette.photo %}
+							<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+						{% else  %}
+							<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+						{% endif  %}
+
+						<div class="slugRecette">
+							<div class="titreRecette">{{ recette.titre }}</div>
+
+							<div>{{ recette.categorie.categorie }}
+
+
+							</div>
+							<div class="tpsRecette">
+								{% if recette.tpsPreparation %}
+									<div>
+										<div>Préparation</div>
+										<div>{{ recette.tpsPreparation }}
+											min</div>
+									</div>
+								{% endif %}
+								{% if recette.tpsRepos %}
+									<div>
+										<div>Repos</div>
+										<div>{{ recette.tpsRepos }}
+											min</div>
+									</div>
+								{% endif %}
+								{% if recette.tpsCuisson %}
+
+									<div>
+										<div>Cuisson</div>
+										<div>{{ recette.tpsCuisson }}
+											min</div>
+									</div>
+								{% endif %}
+
+							</div>
+
+						</div>
+
+
+					</a>
+				</div>
+
+			{% else %}
+				<div>Aucune recette enregistrée !</div>
+
+			{% endfor %}
+
+		</div>
+
+	</section>
+
+
+	{#
+						    <h1>Recette index</h1>
+						
+						    <table class="table">
+						        <thead>
+						            <tr>
+						                <th>Id</th>
+						                <th>Titre</th>
+						                <th>NbPersonnes</th>
+						                <th>TpsPreparation</th>
+						                <th>TpsCuisson</th>
+						                <th>TpsRepos</th>
+						                <th>Description</th>
+						                <th>Photo</th>
+						                <th>Video</th>
+						                <th>Prive</th>
+						                <th>actions</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						        {% for recette in recettes %}
+						            <tr>
+						                <td>{{ recette.id }}</td>
+						                <td>{{ recette.titre }}</td>
+						                <td>{{ recette.nbPersonnes }}</td>
+						                <td>{{ recette.tpsPreparation }}</td>
+						                <td>{{ recette.tpsCuisson }}</td>
+						                <td>{{ recette.tpsRepos }}</td>
+						                <td>{{ recette.description }}</td>
+						                <td>{{ recette.photo }}</td>
+						                <td>{{ recette.video }}</td>
+						                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
+						                <td>
+						                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">show</a>
+						                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
+						                </td>
+						            </tr>
+						        {% else %}
+						            <tr>
+						                <td colspan="11">no records found</td>
+						            </tr>
+						        {% endfor %}
+						        </tbody>
+						    </table>
+						
+						    <a href="{{ path('app_recette_new') }}">Create new</a>#}
 {% endblock %}

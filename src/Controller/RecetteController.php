@@ -34,7 +34,8 @@ class RecetteController extends AbstractController
     #[Route('/', name: 'app_recette_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
-        return $this->render('recette/index.html.twig', [
+      
+       return $this->render('recette/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
         ]);
     }
