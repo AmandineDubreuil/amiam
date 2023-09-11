@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AmiFamille{% endblock %}
+
+{% block body %}
+    <h1>AmiFamille</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ami_famille.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ ami_famille.nom }}</td>
+            </tr>
+            <tr>
+                <th>Avatar</th>
+                <td>{{ ami_famille.avatar }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ami_famille_index') }}">back to list</a>
+
+    <a href="{{ path('app_ami_famille_edit', {'id': ami_famille.id}) }}">edit</a>
+
+    {{ include('ami_famille/_delete_form.html.twig') }}
+{% endblock %}
