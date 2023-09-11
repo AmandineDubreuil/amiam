@@ -1,0 +1,17 @@
+.ingredientDelete h1{
+font-family: "Alegreya", Arial, Helvetica, sans-serif;
+font-weight: lighter;
+}
+
+.ingredientDelete .delete{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.ingredientDelete .delete .groupeBtn button {
+    /* padding-left: 1rem;  */
+    margin: 1.25rem;
+}
+

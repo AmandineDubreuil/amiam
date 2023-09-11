@@ -152,6 +152,7 @@ h1 {
     color: var(--color-two);
 }.iconeSupprimer {
     color: var(--color-four);
+    background-color: #ffffff00;
 }
 
 /* formulaires */
