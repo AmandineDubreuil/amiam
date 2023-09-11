@@ -1,0 +1,27 @@
+.ingredientNewEdit .form{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.ingredientNewEdit .form .form-field{
+width: fit-content;
+margin: 1rem ;
+}
+.ingredientNewEdit .form .quantite{
+    width: 5rem;
+ 
+}
+.ingredientNewEdit .form select{
+    padding: .5rem .75rem;
+   
+}
+.ingredientNewEdit .form input{
+    height: 1.7rem;
+    line-height: normal;
+}
+
+.ingredientNewEdit .bouton {
+    max-width: 30rem;
+     display: flex;
+    justify-content: flex-end;
+ }
