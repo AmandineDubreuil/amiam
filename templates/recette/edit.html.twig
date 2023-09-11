@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification recette Amiam
+{% block title %}
+	{{recette.titre}}
+	- Amiam
 {% endblock %}
 
 {% block stylesheets %}
@@ -63,23 +65,7 @@
                    }) }}
 		</div>
 
-		<div class="temps">
-			<div class="form-field">
-				{{ form_row(recetteForm.tpsPreparation, {
-           		 label: 'Temps de préparation',
-                   }) }}
-			</div>
-			<div class="form-field">
-				{{ form_row(recetteForm.tpsCuisson, {
-           		 label: 'Temps de cuisson',
-                   }) }}
-			</div>
-			<div class="form-field">
-				{{ form_row(recetteForm.tpsRepos, {
-            label: 'Temps de repos',
-                   }) }}
-			</div>
-		</div>
+
 		{# ajout des ingrédients - envoi vers recette ingredient #}
 		<div class="ingredients">
 			<h2>Ingrédients</h2>
@@ -113,7 +99,23 @@
 			</table>
 
 		</div>
-
+		<div class="temps">
+			<div class="form-field">
+				{{ form_row(recetteForm.tpsPreparation, {
+           		 label: 'Temps de préparation',
+                   }) }}
+			</div>
+			<div class="form-field">
+				{{ form_row(recetteForm.tpsCuisson, {
+           		 label: 'Temps de cuisson',
+                   }) }}
+			</div>
+			<div class="form-field">
+				{{ form_row(recetteForm.tpsRepos, {
+            label: 'Temps de repos',
+                   }) }}
+			</div>
+		</div>
 		{# description #}
 		<h2>Étapes</h2>
 		<p>Description de ta recette</p>
