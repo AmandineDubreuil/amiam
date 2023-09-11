@@ -42,7 +42,7 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 - dans recetteType.php mettre le champs description en HiddenType
 - dans recette/edit.html.twig, créer le formulaire, mettre une div avec "editor" en id
 - dans recette/edit.html.twig, créer un block js avec lien vers ckeditor.js du dossier ckeditor5 et du dossier js
-- 
+- pour que la mise en forme apparaisse, mettre {{ recette.description | raw  }} dans recette show 
 
 ## License
 

@@ -57,8 +57,8 @@ class RecetteController extends AbstractController
             $entityManager->persist($recette);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_recette_ingredient_new', [
-                'recette' => $recette,
+            return $this->redirectToRoute('app_recette_edit', [
+                'id' => $recette,
             ], Response::HTTP_SEE_OTHER);
         }
 
@@ -84,9 +84,10 @@ class RecetteController extends AbstractController
         PictureService $pictureService
     ): Response {
 
+        $ingredients = $recette->getIngredients();
         $form = $this->createForm(RecetteType::class, $recette);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setModifiedAt(new \DateTimeImmutable);
 
@@ -111,12 +112,14 @@ class RecetteController extends AbstractController
             // *****
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_recette_index', [
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette/edit.html.twig', [
             'recette' => $recette,
             'recetteForm' => $form,
+            'ingredients' => $ingredients,
         ]);
     }
 

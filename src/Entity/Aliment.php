@@ -117,7 +117,10 @@ class Aliment
 
         return $this;
     }
-
+    public function __toString(): string
+    {
+        return $this->getAliment();   
+    }
     /**
      * @return Collection<int, Saison>
      */

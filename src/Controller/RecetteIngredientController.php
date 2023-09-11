@@ -28,9 +28,10 @@ class RecetteIngredientController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager, RecetteRepository $recetteRepository
     ): Response
     {
+  
         $recetteId = $_GET['recette'];
         $recette = $recetteRepository->find($recetteId);
-     // dd($recette);  
+  
       $recetteIngredient = new RecetteIngredient();
         $form = $this->createForm(RecetteIngredientType::class, $recetteIngredient);
         $form->handleRequest($request);

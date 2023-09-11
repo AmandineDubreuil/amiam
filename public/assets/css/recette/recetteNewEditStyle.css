@@ -60,7 +60,20 @@ justify-content: center;
   flex-direction: row;
   align-items: flex-end;
 }
-#editor{
-    border: 1px solid black;
-    
+#editor, .recetteNewEdit .photoVideo input {
+    border: 1px solid #dedede;
+    border-radius: 5px;
+}
+.recetteNewEdit .photoVideo div{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: fit-content;
+}
+.recetteNewEdit .photoVideo label{
+    padding-right: 1rem;
+    margin-bottom: 0;
+}
+.recetteNewEdit .groupeBtn {
+    justify-content: space-around;
 }

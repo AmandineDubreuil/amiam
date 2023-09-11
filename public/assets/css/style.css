@@ -143,6 +143,11 @@ h1 {
 .iconeAjout {
     color: var(--color-three);
 }
+.iconeOk{
+    background-color: var(--color-three);
+    color: var(--color-light);
+    border-radius: 5px;
+}
 .iconeModifier {
     color: var(--color-two);
 }.iconeSupprimer {
