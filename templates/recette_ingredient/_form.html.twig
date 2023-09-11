@@ -4,7 +4,9 @@
 
 <div class="form">
 	<div class="form-field">
-		{{ form_row(form.aliment) }}
+		{{ form_row(form.aliment, {
+            label: 'Ingrédient *',
+                   }) }}
 	</div>
 	<div class="form-field quantite">
 		{{ form_row(form.quantite, {
@@ -19,7 +21,7 @@
 </div>
 <p>* Champs requis</p>
 <div class="bouton">
-	<button class="btn btnOk">
+	<button class="btn iconeOk">
 		<i class="fa-solid fa-check"></i>
 	</button>
 </div>
