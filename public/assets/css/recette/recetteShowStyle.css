@@ -5,6 +5,12 @@
     justify-content: space-between;
 }
 
+.recettesShow .modifSupp i{
+    font-size: 2rem;
+padding-left: .5rem;
+padding-right: .5rem;
+}
+
 .recettesShow .imgRecette {
     display: flex;
     justify-content: center;
