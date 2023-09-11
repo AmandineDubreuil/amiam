@@ -1,58 +1,138 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recette{% endblock %}
+{% block title %}
+	{{ recette.titre }}
+	- Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/recette/recetteShowStyle.css')}}">
+
+{% endblock %}
 
 {% block body %}
-    <h1>Recette</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ recette.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ recette.titre }}</td>
-            </tr>
-            <tr>
-                <th>NbPersonnes</th>
-                <td>{{ recette.nbPersonnes }}</td>
-            </tr>
-            <tr>
-                <th>TpsPreparation</th>
-                <td>{{ recette.tpsPreparation }}</td>
-            </tr>
-            <tr>
-                <th>TpsCuisson</th>
-                <td>{{ recette.tpsCuisson }}</td>
-            </tr>
-            <tr>
-                <th>TpsRepos</th>
-                <td>{{ recette.tpsRepos }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ recette.description | raw  }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td> <img src="{{asset('./assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt=""></td>
-            </tr>
-            <tr>
-                <th>Video</th>
-                <td>{{ recette.video }}</td>
-            </tr>
-            <tr>
-                <th>Prive</th>
-                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<section class="recettesShow">
 
-    <a href="{{ path('app_recette_index') }}">back to list</a>
+		<h1>{{ recette.titre }}</h1>
+		<h5>{{ recette.categorie.categorie }}</h5>
 
-    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
+		<div class="groupeBtn">
+			<div>
+				<a class="btn btnRetour" href="javascript:history.go(-1)">
+					<i class="fa-solid fa-arrow-left"></i>
+				</a>
+			</div>
+			<div class="modifSupp">
+				<a class="btn iconeModifier" href="{{ path('app_recette_edit', {'id': recette.id}) }}">
+					<i class="fa-solid fa-pen-to-square"></i>
+				</a>
+		
+			{{ include('recette/_delete_form.html.twig') }}	</div>
+		</div>
 
-    {{ include('recette/_delete_form.html.twig') }}
+		{% if recette.photo %}
+			<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+		{% else  %}
+			<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+		{% endif  %}
+
+
+		<div class="tempsGroupe">
+			{% if recette.tpsPreparation %}
+				<div class="temps">
+					<p>Temps de préparation</p>
+					<div>{{ recette.tpsPreparation }}
+						min
+					</div>
+				</div>
+			{% endif %}
+			{% if recette.tpsRepos %}
+				<div class="temps">
+					<p>Temps de repos</p>
+					<div>{{ recette.tpsRepos }}
+						min</div>
+				</div>
+			{% endif %}
+			{% if recette.tpsCuisson %}
+				<div class="temps">
+					<p>Temps de cuisson</p>
+					<div>{{ recette.tpsCuisson }}
+						min</div>
+				</div>
+			{% endif %}
+
+		</div>
+
+		<div>
+			<h5>Ingrédients</h5>
+			<p class="nbPersonnes">pour
+				{{ recette.nbPersonnes }}
+				personnes</p>
+			<table>
+				<tbody>
+					{% for ingredient in ingredients %}
+						<tr class="ingredients">
+							<td>{{ ingredient.aliment }}</td>
+							<td>{{ ingredient.quantite }}
+								{{ ingredient.mesure }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		<div>
+			<h5>Étapes</h5>
+			<p>{{ recette.description | raw }}</p>
+
+		</div>
+
+		<h5>Repas effectués</h5>
+		<div class="cards"></div>
+	</section>
+
+	{#    <h1>{{ recette.titre }}</h1>
+				
+				    <table class="table">
+				        <tbody>
+				            
+				           
+				            <tr>
+				                <th>Photo</th>
+				                <td> <img src="{{asset('./assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt=""></td>
+				            </tr>
+				            <tr>
+				                <th>Video</th>
+				                <td>{{ recette.video }}</td>
+				            </tr>
+				            <tr>
+				                <th>Prive</th>
+				                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
+				            </tr>
+				        </tbody>
+				    </table>
+				
+				    <a href="{{ path('app_recette_index') }}">back to list</a>
+				
+				    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
+				
+				    {{ include('recette/_delete_form.html.twig') }}
+				#}
+
 {% endblock %}

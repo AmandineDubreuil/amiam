@@ -1,133 +1,133 @@
 @font-face {
-    font-family: "AlegreyaThin";
-    src: url(../font/alegreyaSans/AlegreyaSans-Thin.ttf);
+  font-family: "AlegreyaThin";
+  src: url(../font/alegreyaSans/AlegreyaSans-Thin.ttf);
 }
 
 @font-face {
-    font-family: "Alegreya";
-    src: url(../font/alegreyaSans/AlegreyaSans-Regular.ttf);
+  font-family: "Alegreya";
+  src: url(../font/alegreyaSans/AlegreyaSans-Regular.ttf);
 }
 
 @font-face {
-    font-family: "AlegreyaBold";
-    src: url(../font/alegreyaSans/AlegreyaSans-Bold.ttf);
+  font-family: "AlegreyaBold";
+  src: url(../font/alegreyaSans/AlegreyaSans-Bold.ttf);
 }
 
 @font-face {
-    font-family: "AlegreyaBlack";
-    src: url(../font/alegreyaSans/AlegreyaSans-Black.ttf);
+  font-family: "AlegreyaBlack";
+  src: url(../font/alegreyaSans/AlegreyaSans-Black.ttf);
 }
 
 @font-face {
-    font-family: "Fredericka";
-    src: url(../font/frederickatheGreat/FrederickatheGreat-Regular.ttf);
+  font-family: "Fredericka";
+  src: url(../font/frederickatheGreat/FrederickatheGreat-Regular.ttf);
 }
-
 
 :root {
-    --color-one: #032e15;
+  --color-one: #032e15;
 
-    --color-two: #2d7a4d;
+  --color-two: #2d7a4d;
 
-    --color-three: #8cd1a7;
+  --color-three: #8cd1a7;
 
-    --color-light: rgb(227, 255, 239);
+  --color-light: rgb(227, 255, 239);
 
-    --color-four: #DED052;
+  --color-four: #ded052;
 
-    --color-five: #fff;
+  --color-five: #fff;
 
-    --color-six: #000;
+  --color-six: #000;
 }
 
 * {
-    font-family: "Alegreya", Arial, Helvetica, sans-serif;
-
+  font-family: "Alegreya", Arial, Helvetica, sans-serif;
 }
 
 img {
-    width: 100%;
+  width: 100%;
 }
 
 section {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 /* Messages flash */
 
 .alert-success .alert-message {
-    background-color: rgba(0, 100, 0, 0.3);
-    color: darkgreen;
-    padding: 1rem;
-    font-weight: bold;
-    width: 100%;
+  background-color: rgba(0, 100, 0, 0.3);
+  color: darkgreen;
+  padding: 1rem;
+  font-weight: bold;
+  width: 100%;
 }
 
 .alert-danger .alert-message {
-    background-color: rgba(220, 20, 60, 0.3);
-    color: crimson;
-    padding: 1rem;
-    font-weight: bold;
-    width: 100%;
+  background-color: rgba(220, 20, 60, 0.3);
+  color: crimson;
+  padding: 1rem;
+  font-weight: bold;
+  width: 100%;
 }
 
 .alert-warning .alert-message {
-    background-color: rgba(255, 140, 0, 0.3);
-    color: darkorange;
-    padding: 1rem;
-    font-weight: bold;
-    width: 100%;
+  background-color: rgba(255, 140, 0, 0.3);
+  color: darkorange;
+  padding: 1rem;
+  font-weight: bold;
+  width: 100%;
 }
 
 /* Titres */
 
 h1 {
-    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
-
+  font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
 }
 
 /* Boutons  */
 
 .groupeBtn {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.groupeBtn .modifSupp {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .btnOk,
 .btnModifier,
 .btnSupprimer,
 .btnRetour {
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 100;
-    padding: .5rem;
-    width: 5rem;
-    height: 2rem;
-
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 100;
+  padding: 0.5rem;
+  width: 5rem;
+  height: 2rem;
 }
 
 .btnOk {
-    background-color: var(--color-three);
-    color: var(--color-one);
-
+  background-color: var(--color-three);
+  color: var(--color-one);
 }
 
 .btnModifier {
-    background-color: var(--color-one);
-    color: var(--color-three);
-
+  background-color: var(--color-one);
+  color: var(--color-three);
 }
 
 .btnSupprimer {
-    background-color: var(--color-four);
+  background-color: var(--color-four);
 }
 
 .btnRetour {
-    background-color: var(--color-five);
-    border: 1px solid gray;
-
+  background-color: var(--color-five);
+  border: 1px solid gray;
 }
 
 /*  Icones */
@@ -135,48 +135,47 @@ h1 {
 .iconeAjout,
 .iconeModifier,
 .iconeSupprimer {
-    padding: .3rem;
-    font-size: 1rem;
-   
+  padding: 0.3rem;
+  font-size: 1rem;
 }
 
 .iconeAjout {
-    color: var(--color-three);
+  color: var(--color-three);
 }
-.iconeOk{
-    background-color: var(--color-three);
-    color: var(--color-light);
-    border-radius: 5px;
+.iconeOk {
+  background-color: var(--color-three);
+  color: var(--color-light);
+  border-radius: 5px;
 }
 .iconeModifier {
-    color: var(--color-two);
-}.iconeSupprimer {
-    color: var(--color-four);
-    background-color: #ffffff00;
+  color: var(--color-two);
+}
+.iconeSupprimer {
+  color: var(--color-four);
+  background-color: #ffffff00;
 }
 
 /* formulaires */
 
-
- input {
-    max-width: 30rem;
+input {
+  max-width: 30rem;
 }
 
- .form-field {
-    padding: .7rem 0;
-    margin-top: 0;
-    margin-bottom: 0;
+.form-field {
+  padding: 0.7rem 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
- ul {
-    list-style-type: none;
-    color: crimson;
-    padding: 0;
-    margin: 0;
-    line-height: 1rem;
+ul {
+  list-style-type: none;
+  color: crimson;
+  padding: 0;
+  margin: 0;
+  line-height: 1rem;
 }
 
 .groupeBtn {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
