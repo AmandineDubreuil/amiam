@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ami{% endblock %}
+
+{% block body %}
+    <h1>Create new Ami</h1>
+
+    {{ include('ami/_form.html.twig') }}
+
+    <a href="{{ path('app_ami_index') }}">back to list</a>
+{% endblock %}

@@ -33,12 +33,16 @@ class Aliment
     #[ORM\OneToMany(mappedBy: 'aliment', targetEntity: RecetteIngredient::class)]
     private Collection $recetteIngredients;
 
+    #[ORM\ManyToMany(targetEntity: Ami::class, mappedBy: 'degout')]
+    private Collection $degoutAmis;
+
     public function __construct()
     {
         $this->allergene = new ArrayCollection();
         $this->regime = new ArrayCollection();
         $this->saison = new ArrayCollection();
         $this->recetteIngredients = new ArrayCollection();
+        $this->degoutAmis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,6 +174,33 @@ class Aliment
             if ($recetteIngredient->getAliment() === $this) {
                 $recetteIngredient->setAliment(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getDegoutAmis(): Collection
+    {
+        return $this->degoutAmis;
+    }
+
+    public function addDegoutAmi(Ami $degoutAmi): static
+    {
+        if (!$this->degoutAmis->contains($degoutAmi)) {
+            $this->degoutAmis->add($degoutAmi);
+            $degoutAmi->addDegout($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDegoutAmi(Ami $degoutAmi): static
+    {
+        if ($this->degoutAmis->removeElement($degoutAmi)) {
+            $degoutAmi->removeDegout($this);
         }
 
         return $this;

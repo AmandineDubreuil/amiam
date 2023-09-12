@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AmiFamilleRepository;
 
@@ -22,6 +24,14 @@ class AmiFamille
 
     #[ORM\ManyToOne(inversedBy: 'amiFamilles')]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'famille', targetEntity: Ami::class)]
+    private Collection $amis;
+
+    public function __construct()
+    {
+        $this->amis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -66,5 +76,35 @@ class AmiFamille
     public function __toString(): string
     {
         return $this->getNom();   
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getAmis(): Collection
+    {
+        return $this->amis;
+    }
+
+    public function addAmi(Ami $ami): static
+    {
+        if (!$this->amis->contains($ami)) {
+            $this->amis->add($ami);
+            $ami->setFamille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAmi(Ami $ami): static
+    {
+        if ($this->amis->removeElement($ami)) {
+            // set the owning side to null (unless already changed)
+            if ($ami->getFamille() === $this) {
+                $ami->setFamille(null);
+            }
+        }
+
+        return $this;
     }
 }

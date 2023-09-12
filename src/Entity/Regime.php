@@ -21,9 +21,13 @@ class Regime
     #[ORM\ManyToMany(targetEntity: Aliment::class, mappedBy: 'regime')]
     private Collection $aliments;
 
+    #[ORM\ManyToMany(targetEntity: Ami::class, mappedBy: 'regimes')]
+    private Collection $amis;
+
     public function __construct()
     {
         $this->aliments = new ArrayCollection();
+        $this->amis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,6 +73,33 @@ class Regime
     {
         if ($this->aliments->removeElement($aliment)) {
             $aliment->removeRegime($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getAmis(): Collection
+    {
+        return $this->amis;
+    }
+
+    public function addAmi(Ami $ami): static
+    {
+        if (!$this->amis->contains($ami)) {
+            $this->amis->add($ami);
+            $ami->addRegime($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAmi(Ami $ami): static
+    {
+        if ($this->amis->removeElement($ami)) {
+            $ami->removeRegime($this);
         }
 
         return $this;

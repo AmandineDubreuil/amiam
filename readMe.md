@@ -31,7 +31,7 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 ### Modification mdp et mdp oublié user
 - Services JWTService.php et SendMailService.php
 
-### Avatar
+### Avatars / photos des recettes
 - utilisation d'un service PictureService.php
 
 ## Description d'une recette avec CKEditor5

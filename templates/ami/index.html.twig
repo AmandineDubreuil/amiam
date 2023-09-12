@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ami index{% endblock %}
+
+{% block body %}
+    <h1>Ami index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prenom</th>
+                <th>DateNaissance</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ami in amis %}
+            <tr>
+                <td>{{ ami.id }}</td>
+                <td>{{ ami.prenom }}</td>
+                <td>{{ ami.dateNaissance ? ami.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_ami_show', {'id': ami.id}) }}">show</a>
+                    <a href="{{ path('app_ami_edit', {'id': ami.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ami_new') }}">Create new</a>
+{% endblock %}
