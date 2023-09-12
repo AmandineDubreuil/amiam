@@ -88,16 +88,27 @@ h1 {
 .groupeBtn {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+
 }
 
-.groupeBtn .modifSupp {
+.groupeBtnModifSupp {
+  justify-content: space-between;
+}
+.groupeBtnModifSupp .modifSupp {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
+
+.groupeBtnModifSupp .modifSupp i {
+  font-size: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 
 .btnOk,
 .btnModifier,
@@ -175,7 +186,4 @@ ul {
   line-height: 1rem;
 }
 
-.groupeBtn {
-  display: flex;
-  justify-content: center;
-}
+

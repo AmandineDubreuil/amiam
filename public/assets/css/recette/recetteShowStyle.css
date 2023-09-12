@@ -1,45 +1,36 @@
 .recettesShow {
-    margin: 1rem;
-}
-.recettesShow .groupeBtn {
-    justify-content: space-between;
-}
-
-.recettesShow .modifSupp i{
-    font-size: 2rem;
-padding-left: .5rem;
-padding-right: .5rem;
+  margin: 1rem;
 }
 
 .recettesShow .imgRecette {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }
 
 .recettesShow .imgRecette img {
-    max-width: 400px;
+  max-width: 400px;
 }
 
 .tempsGroupe {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.recettesShow .saisons p, .recettesShow .tempsGroupe p{
-    margin-top: 1rem;
-    margin-bottom: 0;
-    font-weight: bold;
+.recettesShow .saisons p,
+.recettesShow .tempsGroupe p {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-weight: bold;
 }
 
 .recettesShow .cardRepasRecette {
-    padding: 1rem;
-    background-color: var(--color-three);
+  padding: 1rem;
+  background-color: var(--color-three);
 }
 
 .recettesShow .cardRepasRecette span {
-    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
-
+  font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
 }

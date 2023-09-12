@@ -1,30 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}AmiFamille{% endblock %}
+{% block title %}
+	{{ ami_famille.nom }}
+	- Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/ami/amiFamilleShowDeleteStyle.css')}}">
+
+{% endblock %}
 
 {% block body %}
-    <h1>AmiFamille</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ami_famille.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ ami_famille.nom }}</td>
-            </tr>
-            <tr>
-                <th>Avatar</th>
-                <td>{{ ami_famille.avatar }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<section class="amiFamilleShowDelete">
+		<div class="groupeBtn groupeBtnModifSupp">
+			<div>
+				<a class="btn btnRetour" href="javascript:history.go(-1)">
+					<i class="fa-solid fa-arrow-left"></i>
+				</a>
+			</div>
+			<div class="modifSupp">
+				<a class="btn iconeModifier" href="{{ path('app_ami_famille_edit', {'id': ami_famille.id}) }}">
+					<i class="fa-solid fa-pen-to-square"></i>
+				</a>
 
-    <a href="{{ path('app_ami_famille_index') }}">back to list</a>
+				{{ include('ami_famille/_delete_form.html.twig') }}
+			</div>
+		</div>
+<div class="entete">
+		<h1>Famille
+			{{ ami_famille.nom }}</h1>
 
-    <a href="{{ path('app_ami_famille_edit', {'id': ami_famille.id}) }}">edit</a>
+		{% if ami_famille.avatar %}
+			<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami_famille.avatar }}" alt="{{ ami_famille.nom }}"></div>
+		{% else  %}
+			<div class="imgAmiFamille"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami_famille.nom }}"></div>
+		{% endif  %}
+</div>
+		<ul>
+        <li class="h3">je veux pouvoir</li>
+        <li>voir mes amis sous forme de card</li>
+        <li>ajouter un ami</li>
+        <li>cliquer sur un ami pour l'afficher, le modifier ou le supprimer</li>
 
-    {{ include('ami_famille/_delete_form.html.twig') }}
+        </ul>
+
+
+	</section>
 {% endblock %}
