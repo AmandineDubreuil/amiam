@@ -28,7 +28,9 @@
 	<section class="amiFamilleIndex">
 		<h1>Mes Amis</h1>
 
-		<a</i class="btn iconeAjout" href="{{ path('app_ami_famille_new') }}" <i class="fa-solid fa-circle-plus">></a>
+		<a class="btn iconeAjout" href="{{ path('app_ami_famille_new') }}">
+			<i class="fa-solid fa-circle-plus"></i>
+		</a>
 		<div class="cards">
 			{% for ami in app.user.amiFamilles | sort((a, b)=> a.nom <=> b.nom)  %}
 
@@ -36,10 +38,10 @@
 					<a href="{{ path('app_ami_famille_show', {'id': ami.id}) }}">
 						<div class="card-header">
 							{% if ami.avatar %}
-							<div class="imgRecette"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami.avatar }}" alt="{{ ami.nom }}"></div>
-						{% else  %}
-							<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ ami.nom }}"></div>
-						{% endif  %}
+								<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami.avatar }}" alt="{{ ami.nom }}"></div>
+							{% else  %}
+								<div class="imgAmiFamille"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami.nom }}"></div>
+							{% endif  %}
 						</div>
 						<div class="card-header">
 							{{ ami.nom }}
@@ -57,34 +59,4 @@
 
 
 	</section>
-
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nom</th>
-				<th>Avatar</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for ami_famille in ami_familles %}
-				<tr>
-					<td>{{ ami_famille.id }}</td>
-					<td>{{ ami_famille.nom }}</td>
-					<td>{{ ami_famille.avatar }}</td>
-					<td>
-						<a href="{{ path('app_ami_famille_show', {'id': ami_famille.id}) }}">show</a>
-						<a href="{{ path('app_ami_famille_edit', {'id': ami_famille.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="4">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
 {% endblock %}

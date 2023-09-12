@@ -1,0 +1,33 @@
+.amiFamilleIndex .cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.amiFamilleIndex .card {
+    margin: 1rem .5rem;
+    /* background-color: var(--color-three); */
+    width: 31%;
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+
+.amiFamilleIndex .card-content div {
+    padding: 0 1rem;
+}
+
+.amiFamilleIndex .card .imgAmiFamille {
+    max-width: 150px;
+}
+.amiFamilleIndex .card-header {
+    font-size: 1rem;
+}

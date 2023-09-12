@@ -64,7 +64,7 @@ class AmiFamilleController extends AbstractController
                     unlink($oldImagePath);
                 }
                 //on appelle le service d'ajout
-                $fichier = $pictureService->add($image, $folder, 300, 300);
+                $fichier = $pictureService->add($image, $folder, 170, 170);
                 $amiFamille->setAvatar($fichier);
             }
          // *****
