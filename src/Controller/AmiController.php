@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ami;
 use App\Form\AmiType;
+use App\Repository\AmiFamilleRepository;
 use App\Repository\AmiRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,17 +24,26 @@ class AmiController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ami_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, 
+    EntityManagerInterface $entityManager,
+    AmiFamilleRepository $amiFamilleRepository
+    ): Response
     {
+        $familleId = $_GET['famille'];
+        $famille = $amiFamilleRepository->find($familleId);
+
         $ami = new Ami();
         $form = $this->createForm(AmiType::class, $ami);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ami -> setFamille($famille);
             $entityManager->persist($ami);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_ami_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_ami_famille_show', [
+                'id'=> $familleId,
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('ami/new.html.twig', [

@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\AmiRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AmiRepository;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: AmiRepository::class)]
 class Ami
@@ -34,11 +35,16 @@ class Ami
     #[ORM\ManyToOne(inversedBy: 'amis')]
     private ?AmiFamille $famille = null;
 
+    #[ORM\ManyToMany(targetEntity: Aliment::class, inversedBy: 'amis')]
+    #[JoinTable(name: 'ami_aliment_allergie')]
+    private Collection $allergiesAliment;
+
     public function __construct()
     {
         $this->regimes = new ArrayCollection();
         $this->allergies = new ArrayCollection();
         $this->degout = new ArrayCollection();
+        $this->allergiesAliment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +156,30 @@ class Ami
     public function setFamille(?AmiFamille $famille): static
     {
         $this->famille = $famille;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Aliment>
+     */
+    public function getAllergiesAliment(): Collection
+    {
+        return $this->allergiesAliment;
+    }
+
+    public function addAllergiesAliment(Aliment $allergiesAliment): static
+    {
+        if (!$this->allergiesAliment->contains($allergiesAliment)) {
+            $this->allergiesAliment->add($allergiesAliment);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergiesAliment(Aliment $allergiesAliment): static
+    {
+        $this->allergiesAliment->removeElement($allergiesAliment);
 
         return $this;
     }

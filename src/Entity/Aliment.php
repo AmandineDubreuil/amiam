@@ -36,6 +36,9 @@ class Aliment
     #[ORM\ManyToMany(targetEntity: Ami::class, mappedBy: 'degout')]
     private Collection $degoutAmis;
 
+    #[ORM\ManyToMany(targetEntity: Ami::class, mappedBy: 'allergiesAliment')]
+    private Collection $allergieAmis;
+
     public function __construct()
     {
         $this->allergene = new ArrayCollection();
@@ -43,6 +46,7 @@ class Aliment
         $this->saison = new ArrayCollection();
         $this->recetteIngredients = new ArrayCollection();
         $this->degoutAmis = new ArrayCollection();
+        $this->allergieAmis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -201,6 +205,33 @@ class Aliment
     {
         if ($this->degoutAmis->removeElement($degoutAmi)) {
             $degoutAmi->removeDegout($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getAllergieAmis(): Collection
+    {
+        return $this->allergieAmis;
+    }
+
+    public function addAllergieAmis(Ami $allergieAmis): static
+    {
+        if (!$this->allergieAmis->contains($allergieAmis)) {
+            $this->allergieAmis->add($allergieAmis);
+            $allergieAmis->addAllergiesAliment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergieAmis(Ami $allergieAmis): static
+    {
+        if ($this->allergieAmis->removeElement($allergieAmis)) {
+            $allergieAmis->removeAllergiesAliment($this);
         }
 
         return $this;

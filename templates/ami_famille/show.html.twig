@@ -52,6 +52,14 @@
 			<div class="imgAmiFamille"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami_famille.nom }}"></div>
 		{% endif  %}
 </div>
+<div class="amis">
+  <a class="btn btnOk" href="{{path('app_ami_new', {'famille': ami_famille})}}"><i class="fa-solid fa-circle-plus"></i> Ami</a>
+
+{% for ami in ami_famille.amis %}
+	<div>{{ami.prenom}}</div>
+{% endfor %}
+
+</div>
 		<ul>
         <li class="h3">je veux pouvoir</li>
         <li>voir mes amis sous forme de card</li>
