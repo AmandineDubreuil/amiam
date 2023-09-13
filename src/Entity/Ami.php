@@ -39,6 +39,9 @@ class Ami
     #[JoinTable(name: 'ami_aliment_allergie')]
     private Collection $allergiesAliment;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $avatar = null;
+
     public function __construct()
     {
         $this->regimes = new ArrayCollection();
@@ -180,6 +183,18 @@ class Ami
     public function removeAllergiesAliment(Aliment $allergiesAliment): static
     {
         $this->allergiesAliment->removeElement($allergiesAliment);
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): static
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }
