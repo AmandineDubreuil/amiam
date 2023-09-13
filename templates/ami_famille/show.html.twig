@@ -42,31 +42,90 @@
 				{{ include('ami_famille/_delete_form.html.twig') }}
 			</div>
 		</div>
-<div class="entete">
-		<h1>Famille
-			{{ ami_famille.nom }}</h1>
+		<div class="entete">
+			<h1>Famille
+				{{ ami_famille.nom }}</h1>
 
-		{% if ami_famille.avatar %}
-			<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami_famille.avatar }}" alt="{{ ami_famille.nom }}"></div>
-		{% else  %}
-			<div class="imgAmiFamille"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami_famille.nom }}"></div>
-		{% endif  %}
-</div>
-<div class="amis">
-  <a class="btn btnOk" href="{{path('app_ami_new', {'famille': ami_famille})}}"><i class="fa-solid fa-circle-plus"></i> Ami</a>
+			{% if ami_famille.avatar %}
+				<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami_famille.avatar }}" alt="{{ ami_famille.nom }}"></div>
+			{% else  %}
+				<div class="imgAmiFamille"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami_famille.nom }}"></div>
+			{% endif  %}
+		</div>
+		<div class="amis">
+			<a class="btn btnOk" href="{{path('app_ami_new', {'famille': ami_famille})}}">
+				<i class="fa-solid fa-circle-plus"></i>
+				Ami</a>
 
-{% for ami in ami_famille.amis %}
-	<div>{{ami.prenom}}</div>
-{% endfor %}
+			{% for ami in ami_famille.amis %}
+				<div class="card shadow-1 hoverable-1 rounded-3 ">
+					<a href="{{ path('app_ami_show', {'id': ami.id}) }}">
+						<div class="card-header">
+							{% if ami.avatar %}
+								<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
+							{% else  %}
+								<div class="imgAmiFamille"><img src="{{asset('./assets/img/avatar.png')}}" alt="{{ ami.prenom }}"></div>
+							{% endif  %}
+						</div>
+						<div class="card-header">
+							<h2>{{ ami.prenom }}</h2>
 
-</div>
+
+							<div>
+								<p>{{ami.dateNaissance ? ami.dateNaissance|date('d-m-Y') : ''  }}</p>
+								-
+								<p>statut à mettre
+								</p>
+							</div>
+
+							<div>
+								<div>
+									<h3>Régime spécifique</h3>
+									<ul>
+										{% for regime in ami.regimes %}
+											<li>{{regime.regime}}</li>
+										{% endfor %}
+									</ul>
+								</div>
+								<div>
+									<h3>Allergies</h3>
+									<div>
+										<h4>à un groupe d'aliments</h4>
+										<ul>
+											{% for allergie in ami.allergies %}
+												<li>{{allergie.allergene}}</li>
+											{% endfor %}
+										</ul>
+									</div>
+									<div>
+										<h4>à un aliment</h4>
+										<ul>
+											{% for allergieAliment in ami.allergiesAliment %}
+												<li>{{allergieAliment.aliment}}</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+								<div>
+									<h3>N'aime pas</h3>
+									<ul>
+										{% for degout in ami.degout %}
+											<li>{{degout.aliment}}</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					</a>
+				</div>
+			{% endfor %}
+
+		</div>
 		<ul>
-        <li class="h3">je veux pouvoir</li>
-        <li>voir mes amis sous forme de card</li>
-        <li>ajouter un ami</li>
-        <li>cliquer sur un ami pour l'afficher, le modifier ou le supprimer</li>
+			<li class="h3">je veux pouvoir</li>
+			<li>cliquer sur un ami pour l'afficher, le modifier ou le supprimer</li>
 
-        </ul>
+		</ul>
 
 
 	</section>
