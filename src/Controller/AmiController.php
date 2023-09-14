@@ -86,6 +86,7 @@ class AmiController extends AbstractController
         Request $request,
         Ami $ami,
         EntityManagerInterface $entityManager,
+        PictureService $pictureService,
     ): Response {
         $familleId = $ami->getFamille();
 
@@ -93,6 +94,24 @@ class AmiController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // on récupère l'image
+            $image = $form->get('avatar')->getData();
+            // on définit le dossier de destination
+            $folder = 'photosAmis';
+            if ($image) {
+                // on supprime l'ancienne image
+                $oldImage = $ami->getAvatar();
+                if ($oldImage) {
+                    $pictureService->delete($oldImage, $folder);
+                }
+                //on appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 100, 100);
+
+                $ami->setAvatar($fichier);
+            }
+
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ami_famille_show', [

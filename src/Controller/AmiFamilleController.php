@@ -57,17 +57,12 @@ class AmiFamilleController extends AbstractController
             // on définit le dossier de destination
             $folder = 'photosAmisFamille';
             if ($image) {
-                // on supprime l'ancienne photo si existante
-                $oldImage = $amiFamille->getAvatar();
-                if ($oldImage) {
-                    $oldImagePath = $this->params->get('images_directory') . $folder . '/mini/' . $oldImage;
-                    unlink($oldImagePath);
-                }
+                
                 //on appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 170, 170);
                 $amiFamille->setAvatar($fichier);
             }
-         // *****
+            // *****
 
             $entityManager->persist($amiFamille);
             $entityManager->flush();
@@ -90,12 +85,33 @@ class AmiFamilleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_ami_famille_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, AmiFamille $amiFamille, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, 
+    AmiFamille $amiFamille, 
+    EntityManagerInterface $entityManager,
+    PictureService $pictureService,
+    ): Response
     {
         $form = $this->createForm(AmiFamilleType::class, $amiFamille);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // on récupère l'image
+            $image = $form->get('avatar')->getData();
+            // on définit le dossier de destination
+            $folder = 'photosAmisFamille';
+            if ($image) {
+                // on supprime l'ancienne image
+                $oldImage = $amiFamille->getAvatar();
+                if ($oldImage) {
+                    $pictureService->delete($oldImage, $folder);
+                }
+                //on appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 170, 170);
+
+                $amiFamille->setAvatar($fichier);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ami_famille_index', [], Response::HTTP_SEE_OTHER);

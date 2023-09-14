@@ -101,12 +101,11 @@ class RecetteController extends AbstractController
             // on définit le dossier de destination
             $folder = 'photosRecettes';
             if ($image) {
-                // on supprime l'ancienne photo si existante
-                $oldImage = $recette->getPhoto();
-                if ($oldImage) {
-                    $oldImagePath = $this->params->get('images_directory') . $folder . '/mini/' . $oldImage;
-                    unlink($oldImagePath);
-                }
+               // on supprime l'ancienne image
+               $oldImage = $recette->getPhoto();
+               if ($oldImage) {
+                   $pictureService->delete($oldImage, $folder);
+               }
                 //on appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 300, 300);
                 $recette->setPhoto($fichier);

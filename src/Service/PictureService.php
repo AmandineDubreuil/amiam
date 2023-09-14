@@ -113,15 +113,14 @@ class PictureService
         if (file_exists($original)) {
             unlink($original);
         }
-        //dd($miniImagePath);
+
         return $miniImage;
     }
 
     public function delete(
         string $fichier,
         ?string $folder = '',
-        ?int $width = 250,
-        ?int $height = 250
+      
     ) {
 
         if ($fichier !== 'default.webp') {
@@ -129,18 +128,13 @@ class PictureService
             $path = $this->params->get('images_directory') . $folder;
 
             // suppression de la miniature
-            $mini = $path . '/mini/' . $width . 'x' . $height . '-' . $fichier;
+            $mini = $path . '/mini/' . $fichier;
+
             if (file_exists($mini)) {
                 unlink($mini);
                 $success = true;
             }
 
-            // suppression de l'original
-            $original = $path . '/' . $fichier;
-            if (file_exists($original)) {
-                unlink($original);
-                $success = true;
-            }
             return $success;
         }
         return false;

@@ -52,10 +52,13 @@ class UserController extends AbstractController
             // on définit le dossier de destination
             $folder = 'avatars';
             if ($image) {
-
+                // on supprime l'ancienne image
+                $oldImage = $user->getAvatar();
+                $pictureService->delete($oldImage, $folder);
+                
                 //on appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 300, 300);
-                //$avatar = new Images();
+               
                 $user->setAvatar($fichier);
             }
 
