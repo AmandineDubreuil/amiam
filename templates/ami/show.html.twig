@@ -57,8 +57,21 @@
 				<div class="dateNaissance">
 					<p>&nbsp;{{ami.dateNaissance ? ami.dateNaissance|date('d-m-Y') : ''  }}</p>
 					<p>&nbsp;-&nbsp;</p>
-					<p>statut à mettre
-					</p>
+					{% if ami.age > 18 %}
+						<p>Adulte</p>
+
+					{% elseif ami.age > 11 %}
+
+						<p>Adolescent</p>
+
+					{% elseif ami.age > 2 %}
+						<p>Enfant</p>
+
+					{% else %}
+						<p>Bébé</p>
+					{% endif %}
+
+
 				</div>
 			</div>
 		</div>
@@ -113,6 +126,6 @@
 
 
 	{# <a href="{{ path('app_ami_edit', {'id': ami.id}) }}">edit</a>
-			
-				{{ include('ami/_delete_form.html.twig') }} #}
+				
+					{{ include('ami/_delete_form.html.twig') }} #}
 {% endblock %}

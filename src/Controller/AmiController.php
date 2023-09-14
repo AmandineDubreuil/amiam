@@ -72,8 +72,12 @@ class AmiController extends AbstractController
     #[Route('/{id}', name: 'app_ami_show', methods: ['GET'])]
     public function show(Ami $ami): Response
     {
+        $age = $ami->getAge();
+
+
         return $this->render('ami/show.html.twig', [
             'ami' => $ami,
+            'age' => $age,
         ]);
     }
 

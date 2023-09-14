@@ -79,6 +79,13 @@ class Ami
         return $this;
     }
 
+    public function getAge()
+    {
+        $dateInterval = $this->dateNaissance->diff(new \DateTime());
+ 
+        return $dateInterval->y;
+    }
+
     /**
      * @return Collection<int, Regime>
      */
