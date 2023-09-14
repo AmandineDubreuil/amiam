@@ -1,4 +1,41 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-field">
+	{{ form_row(form.prenom, {
+            label: 'Prénom ou Surnom *',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(form.dateNaissance, {
+            label: 'Date de naissance *',
+                   }) }}
+</div>
+<div class="form-field">
+	{{ form_row(form.avatar, {
+            label: 'Avatar (fichier image)',
+                   }) }}
+</div>
+
+<h2>Informations</h2>
+<div class="form-field gras">
+	{{ form_row(form.regimes) }}
+</div>
+
+<h3>Allergies</h3>
+<div class="allergies">
+	<div class="form-field">
+		{{ form_row(form.allergies) }}
+	</div>
+	<div class="form-field">
+		{{ form_row(form.allergiesAliment) }}
+	</div>
+</div>
+<div class="form-field gras">
+	{{ form_row(form.degout) }}
+</div>
+<p>* Champs requis</p>
+<div class="groupeBtn">
+	<button class="btn iconeOk">
+		<i class="fa-solid fa-check"></i>
+	</button>
+</div>
 {{ form_end(form) }}

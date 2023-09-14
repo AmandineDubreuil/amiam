@@ -37,7 +37,7 @@ class AmiType extends AbstractType
             ])
             ->add('regimes', EntityType::class, [
                 'class' => Regime::class,
-                'label' => 'Régime alimentaire ',
+                'label' => 'Régimes alimentaires ',
                 'choice_label' => 'regime',
                 'multiple' => true,
                 'required' => false,
@@ -51,7 +51,7 @@ class AmiType extends AbstractType
             ])
             ->add('allergies', EntityType::class, [
                 'class' => Allergene::class,
-                'label' => 'Allergie à un groupe d\'aliments ',
+                'label' => 'Allergies à un groupe d\'aliments ',
                 'choice_label' => 'allergene',
                 'multiple' => true,
                 'required' => false,

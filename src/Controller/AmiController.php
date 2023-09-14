@@ -83,7 +83,7 @@ class AmiController extends AbstractController
         Ami $ami,
         EntityManagerInterface $entityManager,
     ): Response {
-        $familleId = $_GET['famille'];
+        $familleId = $ami->getFamille();
 
         $form = $this->createForm(AmiType::class, $ami);
         $form->handleRequest($request);

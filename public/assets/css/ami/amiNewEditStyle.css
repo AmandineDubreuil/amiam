@@ -1,0 +1,33 @@
+.amiNewEdit h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  line-height: normal;
+}
+.amiNewEdit h3 {
+  font-size: 1rem;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  line-height: normal;
+}
+.amiNewEdit .gras label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.amiNewEdit .allergies {
+  display: flex;
+  flex-wrap: wrap;
+}
+.amiNewEdit .allergies div {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: fit-content;
+}
+
+.amiNewEdit select {
+    width: 15rem;
+}
+
+.amiNewEdit p {
+    color: gray;
+}

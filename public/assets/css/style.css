@@ -90,7 +90,6 @@ h1 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
 }
 
 .groupeBtnModifSupp {
@@ -108,7 +107,6 @@ h1 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
-
 
 .btnOk,
 .btnModifier,
@@ -180,10 +178,7 @@ input {
 
 ul {
   list-style-type: none;
-  color: crimson;
   padding: 0;
   margin: 0;
   line-height: 1rem;
 }
-
-
