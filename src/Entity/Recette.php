@@ -58,9 +58,13 @@ class Recette
     #[ORM\Column]
     private ?\DateTimeImmutable $modifiedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'recettes', targetEntity: Repas::class)]
+    private Collection $repas;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->repas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -253,6 +257,36 @@ class Recette
     public function setModifiedAt(\DateTimeImmutable $modifiedAt): static
     {
         $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Repas>
+     */
+    public function getRepas(): Collection
+    {
+        return $this->repas;
+    }
+
+    public function addRepa(Repas $repa): static
+    {
+        if (!$this->repas->contains($repa)) {
+            $this->repas->add($repa);
+            $repa->setRecettes($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepa(Repas $repa): static
+    {
+        if ($this->repas->removeElement($repa)) {
+            // set the owning side to null (unless already changed)
+            if ($repa->getRecettes() === $this) {
+                $repa->setRecettes(null);
+            }
+        }
 
         return $this;
     }

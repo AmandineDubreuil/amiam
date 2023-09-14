@@ -28,9 +28,13 @@ class AmiFamille
     #[ORM\OneToMany(mappedBy: 'famille', targetEntity: Ami::class)]
     private Collection $amis;
 
+    #[ORM\ManyToMany(targetEntity: Repas::class, mappedBy: 'amis')]
+    private Collection $repas;
+
     public function __construct()
     {
         $this->amis = new ArrayCollection();
+        $this->repas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -103,6 +107,33 @@ class AmiFamille
             if ($ami->getFamille() === $this) {
                 $ami->setFamille(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Repas>
+     */
+    public function getRepas(): Collection
+    {
+        return $this->repas;
+    }
+
+    public function addRepa(Repas $repa): static
+    {
+        if (!$this->repas->contains($repa)) {
+            $this->repas->add($repa);
+            $repa->addAmi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepa(Repas $repa): static
+    {
+        if ($this->repas->removeElement($repa)) {
+            $repa->removeAmi($this);
         }
 
         return $this;
