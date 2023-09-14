@@ -1,30 +1,118 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ami{% endblock %}
+{% block title %}
+	{{ ami.prenom }}
+	{{ami.famille.nom}}
+	- Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/ami/amiShowDeleteStyle.css')}}">
+
+{% endblock %}
 
 {% block body %}
-    <h1>Ami</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ami.id }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ ami.prenom }}</td>
-            </tr>
-            <tr>
-                <th>DateNaissance</th>
-                <td>{{ ami.dateNaissance ? ami.dateNaissance|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<section class="amiShowDelete">
+		<div class="groupeBtn groupeBtnModifSupp">
+			<div>
+				<a class="btn btnRetour" href="javascript:history.go(-1)">
+					<i class="fa-solid fa-arrow-left"></i>
+				</a>
+			</div>
+			<div class="modifSupp">
+				<a class="btn iconeModifier" href="{{ path('app_ami_edit', {'id': ami.id}) }}">
+					<i class="fa-solid fa-pen-to-square"></i>
+				</a>
 
-    <a href="{{ path('app_ami_index') }}">back to list</a>
+				{{ include('ami/_delete_form.html.twig') }}
+			</div>
+		</div>
 
-    <a href="{{ path('app_ami_edit', {'id': ami.id}) }}">edit</a>
+		<div class="entete">
 
-    {{ include('ami/_delete_form.html.twig') }}
+			{% if ami.avatar %}
+				<div class="avatar "><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
+			{% else  %}
+				<div class="avatar "><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+			{% endif  %}
+			<div class="enteteNom">
+				<h1>&nbsp;{{ ami.prenom }}
+					{{ami.famille.nom}}</h1>
+				<div class="dateNaissance">
+					<p>&nbsp;{{ami.dateNaissance ? ami.dateNaissance|date('d-m-Y') : ''  }}</p>
+					<p>&nbsp;-&nbsp;</p>
+					<p>statut à mettre
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="informations">
+			<h2>Informations</h2>
+			<div>
+				<h3>Régimes spécifiques</h3>
+				<ul>
+					{% for regime in ami.regimes %}
+						<li>.
+							{{regime.regime}}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div>
+				<h3>Allergies</h3>
+				<div class="allergies">
+					<div>
+						<h4>à un groupe d'aliments</h4>
+						<ul>
+							{% for allergie in ami.allergies %}
+								<li>.
+									{{allergie.allergene}}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div>
+						<h4>à un aliment</h4>
+						<ul>
+							{% for allergieAliment in ami.allergiesAliment %}
+								<li>.
+									{{allergieAliment.aliment}}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div>
+				<h3>N'aime pas</h3>
+				<ul>
+					{% for degout in ami.degout %}
+						<li>.
+							{{degout.aliment}}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+
+	</section>
+
+
+	{# <a href="{{ path('app_ami_edit', {'id': ami.id}) }}">edit</a>
+			
+				{{ include('ami/_delete_form.html.twig') }} #}
 {% endblock %}

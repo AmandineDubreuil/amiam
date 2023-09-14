@@ -56,70 +56,67 @@
 			<a class="btn btnOk" href="{{path('app_ami_new', {'famille': ami_famille})}}">
 				<i class="fa-solid fa-circle-plus"></i>
 				Ami</a>
-
-			{% for ami in ami_famille.amis %}
-				<div class="card shadow-1 hoverable-1 rounded-3 ">
-					<a href="{{ path('app_ami_show', {'id': ami.id}) }}">
-						<div class="card-header">
-							{% if ami.avatar %}
-								<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
-							{% else  %}
-								<div class="imgAmiFamille"><img src="{{asset('./assets/img/avatar.png')}}" alt="{{ ami.prenom }}"></div>
-							{% endif  %}
-						</div>
-						<div class="card-header">
-							<h2>{{ ami.prenom }}</h2>
-
-
-							<div>
-								<p>{{ami.dateNaissance ? ami.dateNaissance|date('d-m-Y') : ''  }}</p>
-								-
-								<p>statut à mettre
-								</p>
+			<div class="cards">
+				{% for ami in ami_famille.amis |  sort((a, b)=> a.dateNaissance <=> b.dateNaissance) %}
+					<div class="card shadow-1 hoverable-1 rounded-3 ">
+						<a href="{{ path('app_ami_show', {'id': ami.id}) }}">
+							<div class="card-header">
+								{% if ami.avatar %}
+									<div class="imgAmi"><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
+								{% else  %}
+									<div class="imgAmi"><img src="{{asset('./assets/img/avatar.png')}}" alt="{{ ami.prenom }}"></div>
+								{% endif  %}
 							</div>
-
-							<div>
-								<div>
-									<h3>Régime spécifique</h3>
-									<ul>
-										{% for regime in ami.regimes %}
-											<li>{{regime.regime}}</li>
-										{% endfor %}
-									</ul>
+							<div class="card-content">
+								<h2>{{ ami.prenom }}</h2>
+							{# 	<div class="dateNaissance">
+									<p>{{ami.dateNaissance ? ami.dateNaissance|date('d-m-Y') : ''  }}</p>
+									<p> - </p>
+									<p>statut à mettre
+									</p>
 								</div>
 								<div>
-									<h3>Allergies</h3>
 									<div>
-										<h4>à un groupe d'aliments</h4>
+										<h3>Régimes spécifiques</h3>
 										<ul>
-											{% for allergie in ami.allergies %}
-												<li>{{allergie.allergene}}</li>
+											{% for regime in ami.regimes %}
+												<li>. {{regime.regime}}</li>
 											{% endfor %}
 										</ul>
 									</div>
 									<div>
-										<h4>à un aliment</h4>
+										<h3>Allergies</h3>
+										<div>
+											<h4>à un groupe d'aliments</h4>
+											<ul>
+												{% for allergie in ami.allergies %}
+													<li>. {{allergie.allergene}}</li>
+												{% endfor %}
+											</ul>
+										</div>
+										<div>
+											<h4>à un aliment</h4>
+											<ul>
+												{% for allergieAliment in ami.allergiesAliment %}
+													<li>. {{allergieAliment.aliment}}</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+									<div>
+										<h3>N'aime pas</h3>
 										<ul>
-											{% for allergieAliment in ami.allergiesAliment %}
-												<li>{{allergieAliment.aliment}}</li>
+											{% for degout in ami.degout %}
+												<li>. {{degout.aliment}}</li>
 											{% endfor %}
 										</ul>
 									</div>
-								</div>
-								<div>
-									<h3>N'aime pas</h3>
-									<ul>
-										{% for degout in ami.degout %}
-											<li>{{degout.aliment}}</li>
-										{% endfor %}
-									</ul>
-								</div>
+								</div> #}
 							</div>
-						</div>
-					</a>
-				</div>
-			{% endfor %}
-
+						</a>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 		<ul>
 			<li class="h3">je veux pouvoir</li>
