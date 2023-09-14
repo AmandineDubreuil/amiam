@@ -26,13 +26,13 @@ class AmiController extends AbstractController
     }
 
     #[Route('/new', name: 'app_ami_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, 
-    EntityManagerInterface $entityManager,
-    AmiFamilleRepository $amiFamilleRepository,
-    PictureService $pictureService,
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        AmiFamilleRepository $amiFamilleRepository,
+        PictureService $pictureService,
 
-    ): Response
-    {
+    ): Response {
         $familleId = $_GET['famille'];
         $famille = $amiFamilleRepository->find($familleId);
 
@@ -41,25 +41,25 @@ class AmiController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $ami -> setFamille($famille);
+            $ami->setFamille($famille);
 
-// on récupère l'image
-$image = $form->get('avatar')->getData();
-// on définit le dossier de destination
-$folder = 'photosAmis';
-if ($image) {
+            // on récupère l'image
+            $image = $form->get('avatar')->getData();
+            // on définit le dossier de destination
+            $folder = 'photosAmis';
+            if ($image) {
 
-    //on appelle le service d'ajout
-    $fichier = $pictureService->add($image, $folder, 100, 100);
-    //$avatar = new Images();
-    $ami->setAvatar($fichier);
-}
+                //on appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 100, 100);
+                //$avatar = new Images();
+                $ami->setAvatar($fichier);
+            }
 
             $entityManager->persist($ami);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ami_famille_show', [
-                'id'=> $familleId,
+                'id' => $familleId,
             ], Response::HTTP_SEE_OTHER);
         }
 
@@ -78,11 +78,11 @@ if ($image) {
     }
 
     #[Route('/{id}/edit', name: 'app_ami_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, 
-    Ami $ami, 
-    EntityManagerInterface $entityManager,
-    ): Response
-    {
+    public function edit(
+        Request $request,
+        Ami $ami,
+        EntityManagerInterface $entityManager,
+    ): Response {
         $familleId = $_GET['famille'];
 
         $form = $this->createForm(AmiType::class, $ami);
@@ -92,7 +92,7 @@ if ($image) {
             $entityManager->flush();
 
             return $this->redirectToRoute('app_ami_famille_show', [
-                'id'=> $familleId,
+                'id' => $familleId,
             ], Response::HTTP_SEE_OTHER);
         }
 
@@ -105,11 +105,15 @@ if ($image) {
     #[Route('/{id}', name: 'app_ami_delete', methods: ['POST'])]
     public function delete(Request $request, Ami $ami, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$ami->getId(), $request->request->get('_token'))) {
+        $familleId = $ami->getFamille();
+
+        if ($this->isCsrfTokenValid('delete' . $ami->getId(), $request->request->get('_token'))) {
             $entityManager->remove($ami);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_ami_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_ami_famille_show', [
+            'id' => $familleId,
+        ], Response::HTTP_SEE_OTHER);
     }
 }
