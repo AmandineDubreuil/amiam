@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Repas
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/repas/repasNewEditStyle.css')}}">
+
+{% endblock %}
+
+{% block body %}
+	<h1>Create new Repas</h1>
+
+
+	<section class="repasNewBegin">
+
+		<div>
+			<a class="btn btnRetour" href="javascript:history.go(-1)">Retour</a>
+		</div>
+		<h2>Amis invités</h2>
+
+
+		{# {% if famillesPresentes %}
+									<div>
+										{% for famille in famillesPresentes | sort((a, b)=> a.nom <=> b.nom)  %}
+											{{ famille.nom }}
+										{% endfor %}
+						
+									</div>
+								{% else %} #}
+
+
+		<form method="POST">
+			<ul>
+				{% for famille in familles  %}
+					<li><input onclick='handleClick(this);' type="checkbox" id="{{ famille.nom }}" class="main-checkbox" name="familleAmisPourRecettes[]" value="{{ famille.id }}" data-dependant="{% for ami in famille.amis %}{{ami.id}},{% endfor %}">
+						<label for="{{ famille.nom }}">Famille {{ famille.nom }}</label>
+						<ul>
+							{% for ami in famille.amis %}
+								<li><input type="checkbox" id="{{ ami.prenom }}" name="amisPourRecettes[]" class="famille{{ famille.nom }}" value="{{ ami.id }}">
+									<label for="{{ ami.prenom }}">{{ ami.prenom }}</label>
+								</li>
+							{% endfor %}
+						</ul>
+					</li>
+				{% endfor %}
+			</ul>
+			<input type="submit" value="Chercher" name="submit" class="btn btnValider">
+		</form>
+		{# {% endif %} #}
+
+		{{ include('repas/_form.html.twig') }}
+
+		<a href="{{ path('app_repas_index') }}">back to list</a>
+	</section>
+{% endblock %}
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script src="{{asset('assets/js/repasNew.js')}}"></script>
+{% endblock %}

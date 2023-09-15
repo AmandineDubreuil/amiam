@@ -28,6 +28,9 @@ class Repas
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $commentaire = null;
 
+    #[ORM\ManyToOne(inversedBy: 'repas')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->amis = new ArrayCollection();
@@ -94,6 +97,18 @@ class Repas
     public function setCommentaire(?string $commentaire): static
     {
         $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

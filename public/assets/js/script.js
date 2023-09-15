@@ -1,3 +1,5 @@
+console.log('hello script')
+
 // utilisation de select2 dans RecetteIngredientType pour le select de l'ingredient et dans AmiType pour le select de l'aliment dégout
 
 $(function () {
