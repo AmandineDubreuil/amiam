@@ -24,16 +24,15 @@
 {% endblock %}
 
 {% block body %}
+
 	<section class="entete">
-	<h1>Nouveau repas</h1>
-
-	{# <ul>
-		{% for regime in regimes %}
-			<li>{{regime.regime}}</li>
-		{% endfor %}
-	</ul> #}
-
-	{% if amisPresents %}
+		<div>
+			<a class="btn btnRetour" href="javascript:history.go(-1)">Retour</a>
+		</div>
+	</section>
+	<section class="amis">
+		<h2>Amis invités</h2>
+{% if amisPresents %}
 
 		<h3>amis</h3>
 		<ul>
@@ -43,16 +42,41 @@
 						{{ami.prenom}}
 					</p>
 					<ul>
-						{% for regime in ami.regimes %}
-							<li>{{regime.regime}}</li>
+						{% for allergieAliment in ami.allergiesAliment %}
+							<li>{{allergieAliment.id}} - {{allergieAliment.aliment}}</li>
 						{% endfor %}
 					</ul>
 				</li>
 			{% endfor %}
 		</ul>
+
+
+{% else %}
+	
+<form method="POST">
+			<ul>
+				{% for famille in familles | sort ((a, b)=> a.nom <=> b.nom) %}
+					<li><input onclick='handleClick(this);' type="checkbox" id="{{ famille.nom }}" class="main-checkbox" name="familleAmisPourRecettes[]" value="{{ famille.id }}" data-dependant="{% for ami in famille.amis %}{{ami.id}},{% endfor %}">
+						<label for="{{ famille.nom }}">Famille
+							{{ famille.nom }}</label>
+						<ul>
+							{% for ami in famille.amis %}
+								<li><input type="checkbox" id="{{ ami.prenom }}" name="amisPourRecettes[]" class="famille{{ famille.nom }}" value="{{ ami.id }}">
+									<label for="{{ ami.prenom }}">{{ ami.prenom }}</label>
+								</li>
+							{% endfor %}
+						</ul>
+					</li>
+				{% endfor %}
+			</ul>
+			<input type="submit" value="Liste des recettes" name="submit" class="btn btnValider">
+
+		</form>
+
 	{% endif %}
 	
 	</section>
+
 	<section class="recettes">
 		<h2>Recettes possibles</h2>
 
@@ -115,11 +139,6 @@
 	</section>
 
 
-
-
-		{{ include('repas/_form.html.twig') }}
-
-	
 {% endblock %}
 {% block javascripts %}
 	<script src="{{asset('assets/js/repasNew.js')}}"></script>

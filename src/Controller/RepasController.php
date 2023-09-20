@@ -44,15 +44,14 @@ class RepasController extends AbstractController
         EntityManagerInterface $entityManager,
         AmiFamilleRepository $amiFamilleRepository,
         AmiRepository $amiRepository,
+        RecetteRepository $recetteRepository,
     ): Response {
         $user = $this->security->getUser();
-        
         $familles = $amiFamilleRepository->findBy(['user' => $user]);
-        
-        $amis = $amiRepository->findBy(['famille'=> $familles ]);
+        $amis = $amiRepository->findBy(['famille' => $familles]);
+        $recettes = $recetteRepository->findBy(['user' => $user]);
 
-        
-       // dd($user);
+        // dd($user);
 
         $repa = new Repas();
         $form = $this->createForm(RepasType::class, $repa);
@@ -72,6 +71,7 @@ class RepasController extends AbstractController
             'form' => $form,
             'familles' => $familles,
             'amis' => $amis,
+            'recettes' => $recettes,
         ]);
     }
 

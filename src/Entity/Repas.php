@@ -17,7 +17,7 @@ class Repas
     private ?int $id = null;
 
     #[ORM\ManyToMany(targetEntity: amiFamille::class, inversedBy: 'repas')]
-    private Collection $amis;
+    private Collection $amiFamilles;
 
     #[ORM\ManyToOne(inversedBy: 'repas')]
     private ?recette $recettes = null;
@@ -33,7 +33,7 @@ class Repas
 
     public function __construct()
     {
-        $this->amis = new ArrayCollection();
+        $this->amiFamilles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,23 +44,23 @@ class Repas
     /**
      * @return Collection<int, amiFamille>
      */
-    public function getAmis(): Collection
+    public function getAmiFamilles(): Collection
     {
-        return $this->amis;
+        return $this->amiFamilles;
     }
 
-    public function addAmi(amiFamille $ami): static
+    public function addAmiFamille(amiFamille $amiFamille): static
     {
-        if (!$this->amis->contains($ami)) {
-            $this->amis->add($ami);
+        if (!$this->amiFamilles->contains($amiFamille)) {
+            $this->amiFamilles->add($amiFamille);
         }
 
         return $this;
     }
 
-    public function removeAmi(amiFamille $ami): static
+    public function removeAmiFamille(amiFamille $amiFamille): static
     {
-        $this->amis->removeElement($ami);
+        $this->amiFamilles->removeElement($amiFamille);
 
         return $this;
     }
