@@ -72,29 +72,29 @@ class RepasnewController extends AbstractController
 
                 // récupérer leurs allergies aliment
                 $allergiesAliment = $amiPresent->getAllergiesAliment();
-                  
-                  foreach ($allergiesAliment as $allergieAliment) {
-               
-                    $allergiesAlimentPresentes[] = $allergieAliment;
-                     
+
+                foreach ($allergiesAliment as $al) {
+                    $allergiesAlimentPresentes[] = $al;
                 }
-              dd($allergiesAlimentPresentes);
 
+              //  récupérer leurs dégouts
+                $degouts = $amiPresent->getDegout();
+                    foreach ($degouts as $degout) {
+                        $degoutsPresents[] = $degout;
+                    }
 
-             
-
-                // récupérer leurs dégouts
-                // $degouts = $amiPresent->getDegout();
-                // if (empty($degouts)) {
-
-                //     foreach ($degouts as $degout) {
-                //         $degoutsPresents[] = $degout;
-                //     }
-                // } else {
-                //     $degoutsPresents = [];
-                // }
                 ############  fin de la boucle amiPresent
             }
+
+            // créer tableau vide si pas d'allergies Aliment, pas de dégout
+            if (empty($allergiesAlimentPresentes)) {
+                $allergiesAlimentPresentes = [];
+            }
+            if (empty($degoutsPresents)) {
+                $degoutsPresents = [];
+            }
+
+
 
             //récupérer les recettes avec allergies, dégouts, régime sans porc et régime Halal dans un tableau
             foreach ($recettes as $recette) {
@@ -114,7 +114,7 @@ class RepasnewController extends AbstractController
                 ######## pour Degouts #########
                 // comparer les ingrédients de la recette aux dégouts présents
 
-                // $recettesAvecDegoutConstruct = array_intersect($alimentArray, $degoutsPresents);
+                 $recettesAvecDegoutConstruct = array_intersect($alimentArray, $degoutsPresents);
 
                 foreach ($ingredients as $ingredient) {
                     $aliment = $ingredient->getAliment();
@@ -128,12 +128,12 @@ class RepasnewController extends AbstractController
                     }
 
                     ######## pour Degouts #########
-                    // if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
-                    //     // ajouter la recette au tableau $recettesConformes
-                    //     $recettesAvecDegout[] = $recette;
-                    // } else {
-                    //     $recettesAvecDegout = [];
-                    // }
+                    if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
+                        // ajouter la recette au tableau $recettesConformes
+                        $recettesAvecDegout[] = $recette;
+                    } else {
+                        $recettesAvecDegout = [];
+                    }
                 }
 
                 // récupérer les recettes sans présence d'allergie ou de dégout
@@ -145,10 +145,10 @@ class RepasnewController extends AbstractController
                 }
 
                 ######## pour Degouts #########
-                // if (!in_array($recette, $recettesAvecDegout)) {
-                //     // ajouter la recette au tableau $recettesConformes
-                //     $recettesOkDegout[] = $recette;
-                // }
+                if (!in_array($recette, $recettesAvecDegout)) {
+                    // ajouter la recette au tableau $recettesConformes
+                    $recettesOkDegout[] = $recette;
+                }
 
 
 
@@ -157,7 +157,7 @@ class RepasnewController extends AbstractController
 
 
 
-            dd($recettesOkAllergiesAliment);
+            dd($recettesOkDegout);
 
 
 
