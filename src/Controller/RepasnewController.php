@@ -110,9 +110,9 @@ class RepasnewController extends AbstractController
                     $alimentArray[] = $aliment;
 
                     $allergene = $aliment->getAllergene();
-                   $allergene1stArray = $allergene->toArray();
-                   $allergeneString = implode(',', $allergene1stArray);
-                    $allergeneArray[] = $allergene->find($allergeneString);
+                    $allergene1stArray = $allergene->toArray();
+                    $allergeneString = implode(',', $allergene1stArray);
+                    $allergeneArray[] = $allergeneRepository->find($allergeneString);
                 }
 
 
@@ -164,8 +164,8 @@ class RepasnewController extends AbstractController
                 ############  fin de la boucle recette
             }
 
-
             dd($allergeneArray);
+
 
             // dd($recettesOkDegout);
 
