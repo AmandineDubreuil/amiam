@@ -90,14 +90,16 @@ class RepasnewController extends AbstractController
                 ############  fin de la boucle amiPresent
             }
 
-            // créer tableau vide si pas d'allergies Aliment, pas de dégout
+            // créer tableau vide si pas d'allergies Aliment, pas de dégout, pas d'allergie groupe
             if (empty($allergiesAlimentPresentes)) {
                 $allergiesAlimentPresentes = [];
             }
             if (empty($degoutsPresents)) {
                 $degoutsPresents = [];
             }
-
+            if (empty($allergiesGroupePresents)) {
+                $allergiesGroupePresents = [];
+            }
             ########## DEBUT PARTIE RECETTES #########
 
             //récupérer les recettes avec allergies, dégouts, régime sans porc et régime Halal dans un tableau
@@ -126,6 +128,11 @@ class RepasnewController extends AbstractController
 
                 $recettesAvecDegoutConstruct = array_intersect($alimentArray, $degoutsPresents);
 
+                ######## pour AllergiesGroupe #########
+                // comparer les allergenes de la recette aux allergiesGroupe présents
+                $recettesAvecAllergeneConstruct = array_intersect($allergeneArray, $allergiesGroupePresents);
+
+
                 foreach ($ingredients as $ingredient) {
                     $aliment = $ingredient->getAliment();
 
@@ -144,6 +151,19 @@ class RepasnewController extends AbstractController
                     } else {
                         $recettesAvecDegout = [];
                     }
+
+                    ######## pour AllergiesGroupe #########
+                    $allergene = $aliment->getAllergene();
+                    $allergene1stArray = $allergene->toArray();
+                    $allergeneString = implode(',', $allergene1stArray);
+                    $allergeneEntity = $allergeneRepository->find($allergeneString);
+
+                    if (!empty($recettesAvecAllergeneConstruct) && in_array($allergeneEntity, $recettesAvecAllergeneConstruct)) {
+                        // ajouter la recette au tableau $recettesConformes
+                        $recettesAvecAllergene[] = $recette;
+                    } else {
+                        $recettesAvecAllergene = [];
+                    }
                 }
 
                 // récupérer les recettes sans présence d'allergie ou de dégout
@@ -160,14 +180,19 @@ class RepasnewController extends AbstractController
                     $recettesOkDegout[] = $recette;
                 }
 
+                ######## pour AllergiesGroupe #########
+                if (!in_array($recette, $recettesAvecAllergene)) {
+                    // ajouter la recette au tableau $recettesConformes
+                    $recettesOkAllergene[] = $recette;
+                }
+
 
                 ############  fin de la boucle recette
             }
 
-            dd($allergeneArray);
+            dd($recettesOkAllergene);
 
 
-            // dd($recettesOkDegout);
 
 
 
