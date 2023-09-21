@@ -31,11 +31,9 @@ class RepasnewController extends AbstractController
     #[Route('/repasnew', name: 'app_repasnew')]
     public function index(
         Request $request,
-        EntityManagerInterface $entityManager,
         AmiFamilleRepository $amiFamilleRepository,
         AmiRepository $amiRepository,
         RecetteRepository $recetteRepository,
-        AlimentRepository $alimentRepository,
         AllergeneRepository $allergeneRepository,
     ): Response {
 
@@ -46,10 +44,16 @@ class RepasnewController extends AbstractController
         $amisPresents = "";
         $regimes = "";
         $allergiesGroupe = "";
+        $recettesAvecAllergene = [];
         $allergiesAliment = "";
         $degouts = "";
         $regimeSsPorc = 0;
         $recettePorc = 0;
+        $recettesAvecPorc = [];
+        $recetteAEviter = 0;
+        $recettesOk = [];
+
+
         if ($request->isMethod('POST') && $request->request->has('submit')) {
 
             ########## DEBUT PARTIE AMIS #########
@@ -161,7 +165,8 @@ class RepasnewController extends AbstractController
                     ######## pour AllergiesAliment #########
                     if (!empty($recettesAvecAllergieAlimentConstruct) && in_array($aliment, $recettesAvecAllergieAlimentConstruct)) {
                         // ajouter la recette au tableau $recettesConformes
-                        $recettesAvecAllergieAliment[] = $recette;
+                        // $recettesAvecAllergieAliment[] = $recette;
+                        $recetteAEviter += 1;
                     } else {
                         $recettesAvecAllergieAliment = [];
                     }
@@ -169,7 +174,8 @@ class RepasnewController extends AbstractController
                     ######## pour Degouts #########
                     if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
                         // ajouter la recette au tableau $recettesConformes
-                        $recettesAvecDegout[] = $recette;
+                        //   $recettesAvecDegout[] = $recette;
+                        $recetteAEviter += 1;
                     } else {
                         $recettesAvecDegout = [];
                     }
@@ -182,51 +188,30 @@ class RepasnewController extends AbstractController
 
                     if (!empty($recettesAvecAllergeneConstruct) && in_array($allergeneEntity, $recettesAvecAllergeneConstruct)) {
                         // ajouter la recette au tableau $recettesConformes
-                        $recettesAvecAllergene[] = $recette;
-                    } else {
-                        $recettesAvecAllergene = [];
+                        //  $recettesAvecAllergene[] = $recette;
+                        $recetteAEviter += 1;
                     }
                 }
-
 
                 ######## pour régimes sans porc et halal #########
                 if ($regimeSsPorc > 0) {
 
                     if ($recettePorc > 0) {
-                        $recettesAvecPorc[] = $recette;
                         $recettePorc = 0;
+                        $recetteAEviter += 1;
                     }
                 }
-                // récupérer les recettes sans présence d'allergie ou de dégout
 
-                ######## pour AllergiesAliment #########
-                if (!in_array($recette, $recettesAvecAllergieAliment)) {
-                    // ajouter la recette au tableau $recettesConformes
-                    $recettesOkAllergiesAliment[] = $recette;
+                ######## RECUPERATION DES RECETTES OK #########
+                dump($recetteAEviter);
+                if ($recetteAEviter === 0) {
+                    $recettesOk[] = $recette;
+                } else {
+                    $recetteAEviter = 0;
                 }
-
-                ######## pour Degouts #########
-                if (!in_array($recette, $recettesAvecDegout)) {
-                    // ajouter la recette au tableau $recettesConformes
-                    $recettesOkDegout[] = $recette;
-                }
-
-                ######## pour AllergiesGroupe #########
-                if (!in_array($recette, $recettesAvecAllergene)) {
-                    // ajouter la recette au tableau $recettesConformes
-                    $recettesOkAllergene[] = $recette;
-                }
-
 
                 ############  fin de la boucle recette
             }
-
-
-            dd($recettesAvecPorc);
-
-
-
-
             ############  fin du submit en dessous
         }
 
@@ -241,6 +226,7 @@ class RepasnewController extends AbstractController
             'allergiesGroupe' => $allergiesGroupe,
             'allergiesAliment' => $allergiesAliment,
             'recettes' => $recettes,
+            'recettesOk' => $recettesOk,
         ]);
     }
 }
