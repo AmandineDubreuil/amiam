@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Regime;
+use App\Repository\AlimentRepository;
 use App\Repository\AllergeneRepository;
 use App\Repository\AmiRepository;
 use App\Repository\RecetteRepository;
@@ -34,7 +35,8 @@ class RepasnewController extends AbstractController
         AmiFamilleRepository $amiFamilleRepository,
         AmiRepository $amiRepository,
         RecetteRepository $recetteRepository,
-        RecetteIngredientRepository $recetteIngredientRepository,
+        AlimentRepository $alimentRepository,
+        AllergeneRepository $allergeneRepository,
     ): Response {
 
         $user = $this->security->getUser();
@@ -48,6 +50,8 @@ class RepasnewController extends AbstractController
         $degouts = "";
 
         if ($request->isMethod('POST') && $request->request->has('submit')) {
+
+            ########## DEBUT PARTIE AMIS #########
 
             // Récupérez les amis sélectionnés
             $amisPresentsId = $request->request->all('amisPourRecettes');
@@ -77,11 +81,11 @@ class RepasnewController extends AbstractController
                     $allergiesAlimentPresentes[] = $al;
                 }
 
-              //  récupérer leurs dégouts
+                //  récupérer leurs dégouts
                 $degouts = $amiPresent->getDegout();
-                    foreach ($degouts as $degout) {
-                        $degoutsPresents[] = $degout;
-                    }
+                foreach ($degouts as $degout) {
+                    $degoutsPresents[] = $degout;
+                }
 
                 ############  fin de la boucle amiPresent
             }
@@ -94,7 +98,7 @@ class RepasnewController extends AbstractController
                 $degoutsPresents = [];
             }
 
-
+            ########## DEBUT PARTIE RECETTES #########
 
             //récupérer les recettes avec allergies, dégouts, régime sans porc et régime Halal dans un tableau
             foreach ($recettes as $recette) {
@@ -104,7 +108,13 @@ class RepasnewController extends AbstractController
                 foreach ($ingredients as $ingredient) {
                     $aliment = $ingredient->getAliment();
                     $alimentArray[] = $aliment;
+
+                    $allergene = $aliment->getAllergene();
+                   $allergene1stArray = $allergene->toArray();
+                   $allergeneString = implode(',', $allergene1stArray);
+                    $allergeneArray[] = $allergene->find($allergeneString);
                 }
+
 
                 ######## pour AllergiesAliment #########
                 // comparer les ingrédients de la recette aux allergies présentes
@@ -114,7 +124,7 @@ class RepasnewController extends AbstractController
                 ######## pour Degouts #########
                 // comparer les ingrédients de la recette aux dégouts présents
 
-                 $recettesAvecDegoutConstruct = array_intersect($alimentArray, $degoutsPresents);
+                $recettesAvecDegoutConstruct = array_intersect($alimentArray, $degoutsPresents);
 
                 foreach ($ingredients as $ingredient) {
                     $aliment = $ingredient->getAliment();
@@ -151,13 +161,13 @@ class RepasnewController extends AbstractController
                 }
 
 
-
                 ############  fin de la boucle recette
             }
 
 
+            dd($allergeneArray);
 
-            dd($recettesOkDegout);
+            // dd($recettesOkDegout);
 
 
 
