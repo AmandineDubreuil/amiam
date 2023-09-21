@@ -48,7 +48,7 @@ class RepasnewController extends AbstractController
         $allergiesGroupe = "";
         $allergiesAliment = "";
         $degouts = "";
-
+        $regimeSsPorc = 0;
         if ($request->isMethod('POST') && $request->request->has('submit')) {
 
             ########## DEBUT PARTIE AMIS #########
@@ -60,28 +60,34 @@ class RepasnewController extends AbstractController
             // Parcourir les amis sélectionnés 
             $amisPresents = $amiRepository->findBy(['id' => $amisPresentsId]);
             foreach ($amisPresents as $amiPresent) {
+
                 //récupérer leurs régimes
                 $regimes = $amiPresent->getRegimes();
-
                 foreach ($regimes as $regime) {
                     $regimesPresents[] = $regime;
+
+                    // récupération spécifique régimes sans porc pour filtre des recettes
+                    if ($regime->getRegime() === 'Halal') {
+                        $regimeSsPorc += 1;
+                    }
+                    if ($regime->getRegime() === 'Sans porc') {
+                        $regimeSsPorc += 1;
+                    }
                 }
 
-                // récupérer leurs allergies groupe
+                // récupérer leurs allergies groupe pour filtre des recettes
                 $allergiesGroupe = $amiPresent->getAllergies();
-
                 foreach ($allergiesGroupe as $allergieGroupe) {
                     $allergiesGroupePresents[] = $allergieGroupe;
                 }
 
-                // récupérer leurs allergies aliment
+                // récupérer leurs allergies aliment pour filtre des recettes
                 $allergiesAliment = $amiPresent->getAllergiesAliment();
-
                 foreach ($allergiesAliment as $al) {
                     $allergiesAlimentPresentes[] = $al;
                 }
 
-                //  récupérer leurs dégouts
+                //  récupérer leurs dégouts pour filtre des recettes
                 $degouts = $amiPresent->getDegout();
                 foreach ($degouts as $degout) {
                     $degoutsPresents[] = $degout;
@@ -115,6 +121,10 @@ class RepasnewController extends AbstractController
                     $allergene1stArray = $allergene->toArray();
                     $allergeneString = implode(',', $allergene1stArray);
                     $allergeneArray[] = $allergeneRepository->find($allergeneString);
+
+                    $sousGroupeAliment = $aliment->getSousGroupe();
+
+             
                 }
 
 
@@ -190,7 +200,7 @@ class RepasnewController extends AbstractController
                 ############  fin de la boucle recette
             }
 
-            dd($recettesOkAllergene);
+            dd($regimeSsPorc);
 
 
 
