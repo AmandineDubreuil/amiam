@@ -49,6 +49,7 @@ class RepasnewController extends AbstractController
         $allergiesAliment = "";
         $degouts = "";
         $regimeSsPorc = 0;
+        $recettePorc = 0;
         if ($request->isMethod('POST') && $request->request->has('submit')) {
 
             ########## DEBUT PARTIE AMIS #########
@@ -106,25 +107,37 @@ class RepasnewController extends AbstractController
             if (empty($allergiesGroupePresents)) {
                 $allergiesGroupePresents = [];
             }
+
+
             ########## DEBUT PARTIE RECETTES #########
 
-            //récupérer les recettes avec allergies, dégouts, régime sans porc et régime Halal dans un tableau
+            //récupérer les recettes avec allergies, dégouts dans un tableau
+            // récupération également des recettes contenant du porc si une personne au moins souhaite sans porc
+
             foreach ($recettes as $recette) {
 
                 $ingredients = $recette->getIngredients();
                 //   récupération des ingrédients de la recette
                 foreach ($ingredients as $ingredient) {
+
+                    // récupération ingrédient
                     $aliment = $ingredient->getAliment();
                     $alimentArray[] = $aliment;
 
+                    //récupération allergène
                     $allergene = $aliment->getAllergene();
                     $allergene1stArray = $allergene->toArray();
                     $allergeneString = implode(',', $allergene1stArray);
                     $allergeneArray[] = $allergeneRepository->find($allergeneString);
 
+                    //récupération aliment à base de porc
+                    // $recettePorc = 0;
                     $sousGroupeAliment = $aliment->getSousGroupe();
+                    $sousGroupeString = $sousGroupeAliment->getSousGroupe();
 
-             
+                    if ($sousGroupeString === 'Porc') {
+                        $recettePorc += 1;
+                    }
                 }
 
 
@@ -141,7 +154,6 @@ class RepasnewController extends AbstractController
                 ######## pour AllergiesGroupe #########
                 // comparer les allergenes de la recette aux allergiesGroupe présents
                 $recettesAvecAllergeneConstruct = array_intersect($allergeneArray, $allergiesGroupePresents);
-
 
                 foreach ($ingredients as $ingredient) {
                     $aliment = $ingredient->getAliment();
@@ -176,6 +188,15 @@ class RepasnewController extends AbstractController
                     }
                 }
 
+
+                ######## pour régimes sans porc et halal #########
+                if ($regimeSsPorc > 0) {
+
+                    if ($recettePorc > 0) {
+                        $recettesAvecPorc[] = $recette;
+                        $recettePorc = 0;
+                    }
+                }
                 // récupérer les recettes sans présence d'allergie ou de dégout
 
                 ######## pour AllergiesAliment #########
@@ -200,8 +221,8 @@ class RepasnewController extends AbstractController
                 ############  fin de la boucle recette
             }
 
-            dd($regimeSsPorc);
 
+            dd($recettesAvecPorc);
 
 
 
