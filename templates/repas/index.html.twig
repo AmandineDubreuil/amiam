@@ -3,7 +3,7 @@
 {% block title %}Repas index{% endblock %}
 
 {% block body %}
-    <h1>Repas index</h1>
+    {# <h1>Repas index</h1>
 
     <table class="table">
         <thead>
@@ -17,12 +17,12 @@
         <tbody>
         {% for repa in repas %}
             <tr>
-                <td>{{ repa.id }}</td>
+                 <td>{{ repa.id }}</td>
                 <td>{{ repa.date ? repa.date|date('Y-m-d') : '' }}</td>
                 <td>{{ repa.commentaire }}</td>
                 <td>
-                    <a href="{{ path('app_repas_show', {'id': repa.id}) }}">show</a>
-                    <a href="{{ path('app_repas_edit', {'id': repa.id}) }}">edit</a>
+                     <a href="{{ path('app_repas_show', {'id': repa.id}) }}">show</a>
+                    <a href="{{ path('app_repas_edit', {'id': repa.id}) }}">edit</a> 
                 </td>
             </tr>
         {% else %}
@@ -31,7 +31,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
 
-    <a href="{{ path('app_repas_new') }}">Create new</a>
+    {# <a href="{{ path('app_repas_new') }}">Create new</a> #}
 {% endblock %}
