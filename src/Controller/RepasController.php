@@ -2,15 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Allergene;
-use App\Entity\Regime;
 use App\Entity\Repas;
 use App\Form\RepasType;
-use App\Repository\AllergeneRepository;
 use App\Repository\AmiFamilleRepository;
 use App\Repository\AmiRepository;
 use App\Repository\RecetteRepository;
-use App\Repository\RegimeRepository;
 use App\Repository\RepasRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -38,9 +34,8 @@ class RepasController extends AbstractController
     }
 
     #[Route('/new', name: 'app_repas_new', methods: ['GET', 'POST'])]
-    public function newBegin(
+    public function new(
         Request $request,
-        Repas $repas,
         EntityManagerInterface $entityManager,
         AmiFamilleRepository $amiFamilleRepository,
         AmiRepository $amiRepository,
@@ -49,7 +44,6 @@ class RepasController extends AbstractController
 
         $user = $this->security->getUser();
         $amisId = $_GET['amisId'];
-      
         foreach ($amisId as $amiId) {
             $ami = $amiRepository->find($amiId);
             $amis[] = $ami;
@@ -57,11 +51,7 @@ class RepasController extends AbstractController
 
         $famillesId = $_GET['famillesPresentes'];
         $recetteId = $_GET['recetteId'];
-   
         $recette = $recetteRepository->find($recetteId);
-    
-
-
 
         $repa = new Repas();
         $form = $this->createForm(RepasType::class, $repa);
@@ -71,12 +61,11 @@ class RepasController extends AbstractController
 
             $repa->setUser($user);
             $repa->setRecettes($recette);
-           
             foreach ($famillesId as $familleId) {
                 $famille = $amiFamilleRepository->find($familleId);
                 $repa->addAmiFamille($famille);
             }
-//  dd($repa);
+
             $entityManager->persist($repa);
             $entityManager->flush();
 
@@ -89,35 +78,6 @@ class RepasController extends AbstractController
             'familles' => $famillesId,
             'recette' => $recette,
             'amis' => $amis,
-        ]);
-    }
-
-
-    #[Route('/newend', name: 'app_repas_new_end', methods: ['GET', 'POST'])]
-    public function newEnd(
-        Request $request,
-        Repas $repas,
-        EntityManagerInterface $entityManager
-    ): Response {
-        $user = $this->security->getUser();
-
-
-        $repa = new Repas();
-        $form = $this->createForm(RepasType::class, $repa);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $repa->setUser($user);
-            $entityManager->persist($repa);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_repas_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('repas/new.html.twig', [
-            'repa' => $repa,
-            'form' => $form,
         ]);
     }
 

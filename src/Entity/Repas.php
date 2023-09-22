@@ -20,7 +20,7 @@ class Repas
     private Collection $amiFamilles;
 
     #[ORM\ManyToOne(inversedBy: 'repas')]
-    private ?recette $recettes = null;
+    private ?Recette $recettes = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
