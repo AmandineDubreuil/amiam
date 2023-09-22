@@ -1,37 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Repas index{% endblock %}
+{% block title %}Mes repas - Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/repas/repasIndexStyle.css')}}">
+
+{% endblock %}
 
 {% block body %}
-    {# <h1>Repas index</h1>
+	<section class="repasIndex">
+		<h1>Mes repas</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Commentaire</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for repa in repas %}
-            <tr>
-                 <td>{{ repa.id }}</td>
-                <td>{{ repa.date ? repa.date|date('Y-m-d') : '' }}</td>
-                <td>{{ repa.commentaire }}</td>
-                <td>
-                     <a href="{{ path('app_repas_show', {'id': repa.id}) }}">show</a>
-                    <a href="{{ path('app_repas_edit', {'id': repa.id}) }}">edit</a> 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table> #}
+		<a class="btn iconeAjout" href="{{ path('app_repasnew') }}">
+			<i class="fa-solid fa-circle-plus"></i>
+		</a>
+		<div class="cards">
+			{% for repa in repas  | sort((b, a)=> a.date <=> b.date)%}
+				<div class="card shadow-1 hoverable-1 rounded-3 ">
+					<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
+						<div class="card-header">
+							<p>
+								{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
+							</p>
+							<p class="cardRepasTitre">
+								&nbsp;{{ repa.recettes.titre}}&nbsp;
+							</p>
+						</div>
+						<div class="card-content">
+							<p>
+								{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
+									Famille
+									{{ famille.nom }},&nbsp;
+								{% endfor %}
+							</p>
+						</div>
+					</a>
 
-    {# <a href="{{ path('app_repas_new') }}">Create new</a> #}
+				</div>
+			{% else %}
+				<div>Aucun repas enregistré !</div>
+
+			{% endfor %}
+		</div>
+
+	</section>
+
 {% endblock %}
