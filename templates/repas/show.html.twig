@@ -1,30 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Repas{% endblock %}
+{% block title %}Repas du
+	{{ repa.date ? repa.date|date('d-m-Y') : '' }}
+	- Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/repas/repasShowStyle.css')}}">
+
+{% endblock %}
+
 
 {% block body %}
-    <h1>Repas</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ repa.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ repa.date ? repa.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Commentaire</th>
-                <td>{{ repa.commentaire }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<section class="entete">
+		<div class="groupeBtn groupeBtnModifSupp">
+			<div>
+				<a class="btn btnRetour" href="javascript:history.go(-1)">
+					<i class="fa-solid fa-arrow-left"></i>
+				</a>
+			</div>
+			<div class="modifSupp">
+				<a class="btn iconeModifier" href="{{ path('app_repas_edit', {'id': repa.id}) }}">
+					<i class="fa-solid fa-pen-to-square"></i>
+				</a>
 
-    <a href="{{ path('app_repas_index') }}">back to list</a>
+				{{ include('repas/_delete_form.html.twig') }}
+			</div>
+		</div>
+		<div class="df">
+			<h1>Repas du
+				{{ repa.date ? repa.date|date('d-m-Y') : '' }}</h1>
+			<a class="btn iconeModifier" href="{{path('app_repas_edit_date', {'id': repa.id})}}">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a>
+		</div>
+	</section>
+	<section class="repasShow">
+		<div class="df">
+			<h3>Recette utilisée</h3>
+			{# <a class="btn iconeSupp" href="{{path('app_repas_edit_date', {'id': repa.id})}}">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a> #}
+		</div>
+		<p>{{repa.recettes.titre}}</p>
 
-    <a href="{{ path('app_repas_edit', {'id': repa.id}) }}">edit</a>
 
-    {{ include('repas/_delete_form.html.twig') }}
+		<div class="df">
+			<h3>Amis présents</h3>
+			{# <a class="btn iconeSupp" href="{{path('app_repas_edit_amis', {'id': repa.id})}}">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a> #}
+		</div>
+		<ul>
+			{% for ami in repa.amiFamilles %}
+				<li>Famille
+					{{ami.nom}}</li>
+			{% endfor %}
+		</ul>
+		<div class="df">
+			<h3>Commentaire</h3>
+			<a class="btn iconeModifier" href="{{path('app_repas_edit_comment', {'id': repa.id})}}">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a>
+		</div>
+		<p>{{repa.commentaire}}</p>
+	</section>
 {% endblock %}

@@ -29,8 +29,6 @@
 
 	<section class="recettesShow">
 
-		<h1>{{ recette.titre }}</h1>
-		<h5>{{ recette.categorie.categorie }}</h5>
 
 		<div class="groupeBtn groupeBtnModifSupp">
 			<div>
@@ -46,7 +44,8 @@
 				{{ include('recette/_delete_form.html.twig') }}
 			</div>
 		</div>
-
+		<h1>{{ recette.titre }}</h1>
+		<h5>{{ recette.categorie.categorie }}</h5>
 		{% if recette.photo %}
 			<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 		{% else  %}
@@ -109,31 +108,31 @@
 	</section>
 
 	{#    <h1>{{ recette.titre }}</h1>
-					
-					    <table class="table">
-					        <tbody>
-					            
-					           
-					            <tr>
-					                <th>Photo</th>
-					                <td> <img src="{{asset('./assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt=""></td>
-					            </tr>
-					            <tr>
-					                <th>Video</th>
-					                <td>{{ recette.video }}</td>
-					            </tr>
-					            <tr>
-					                <th>Prive</th>
-					                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
-					            </tr>
-					        </tbody>
-					    </table>
-					
-					    <a href="{{ path('app_recette_index') }}">back to list</a>
-					
-					    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
-					
-					    {{ include('recette/_delete_form.html.twig') }}
-					#}
+							
+							    <table class="table">
+							        <tbody>
+							            
+							           
+							            <tr>
+							                <th>Photo</th>
+							                <td> <img src="{{asset('./assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt=""></td>
+							            </tr>
+							            <tr>
+							                <th>Video</th>
+							                <td>{{ recette.video }}</td>
+							            </tr>
+							            <tr>
+							                <th>Prive</th>
+							                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
+							            </tr>
+							        </tbody>
+							    </table>
+							
+							    <a href="{{ path('app_recette_index') }}">back to list</a>
+							
+							    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
+							
+							    {{ include('recette/_delete_form.html.twig') }}
+							#}
 
 {% endblock %}
