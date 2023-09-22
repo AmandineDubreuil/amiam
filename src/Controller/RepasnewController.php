@@ -39,17 +39,17 @@ class RepasnewController extends AbstractController
 
         $user = $this->security->getUser();
         $familles = $amiFamilleRepository->findBy(['user' => $user]);
+        $famillesPresentes = [];
         $amis = $amiRepository->findBy(['famille' => $familles]);
         $recettes = $recetteRepository->findBy(['user' => $user]);
         $amisPresents = "";
+        $amisPresentsId = "";
         $regimes = "";
         $allergiesGroupe = "";
-        $recettesAvecAllergene = [];
         $allergiesAliment = "";
         $degouts = "";
         $regimeSsPorc = 0;
         $recettePorc = 0;
-        $recettesAvecPorc = [];
         $recetteAEviter = 0;
         $recettesOk = [];
 
@@ -65,7 +65,8 @@ class RepasnewController extends AbstractController
             // Parcourir les amis sélectionnés 
             $amisPresents = $amiRepository->findBy(['id' => $amisPresentsId]);
             foreach ($amisPresents as $amiPresent) {
-
+                //récupérer leur famille
+                $famillesPresentes[] = $amiPresent->getFamille();
                 //récupérer leurs régimes
                 $regimes = $amiPresent->getRegimes();
                 foreach ($regimes as $regime) {
@@ -167,18 +168,14 @@ class RepasnewController extends AbstractController
                         // ajouter la recette au tableau $recettesConformes
                         // $recettesAvecAllergieAliment[] = $recette;
                         $recetteAEviter += 1;
-                    } else {
-                        $recettesAvecAllergieAliment = [];
-                    }
+                    } 
 
                     ######## pour Degouts #########
                     if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
                         // ajouter la recette au tableau $recettesConformes
                         //   $recettesAvecDegout[] = $recette;
                         $recetteAEviter += 1;
-                    } else {
-                        $recettesAvecDegout = [];
-                    }
+                    } 
 
                     ######## pour AllergiesGroupe #########
                     $allergene = $aliment->getAllergene();
@@ -219,7 +216,9 @@ class RepasnewController extends AbstractController
         return $this->render('repasnew/index.html.twig', [
             'controller_name' => 'RepasnewController',
             'familles' => $familles,
+            'famillesPresentes' =>$famillesPresentes,
             'amis' => $amis,
+            'amisId' => $amisPresentsId,
             'amisPresents' => $amisPresents,
             'regimes' => $regimes,
             'allergiesGroupe' => $allergiesGroupe,

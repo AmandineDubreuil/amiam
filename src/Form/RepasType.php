@@ -17,6 +17,9 @@ class RepasType extends AbstractType
             ->add('date', DateType::class, array(
                 'widget' => 'single_text', 
                 'format' => 'yyyy-MM-dd', 
+                'attr' => [
+                    'class' => 'form-control rounded-1',
+                ],
             ))
             ->add('commentaire', TextType::class, [
                 'required' => false,

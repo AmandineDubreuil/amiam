@@ -36,8 +36,6 @@
 	<section class="amis">
 		<h2>Amis invités</h2>
 		{% if amisPresents %}
-
-			<h3>amis</h3>
 			<ul>
 				{% for ami in amisPresents %}
 					<li>
@@ -130,7 +128,7 @@
 										</div>
 									</a>
 
-									<a href="{{ path('app_repas_new', {'recetteId': recette.id, 'amisId': amisId}) }}" class="btn btnValider">Choisir</a>
+									<a href="{{ path('app_repas_new', {'recetteId': recette.id, 'famillesPresentes':famillesPresentes, 'amisId':amisId}) }}" class="btn btnValider">Choisir</a>
 
 								</div>
 

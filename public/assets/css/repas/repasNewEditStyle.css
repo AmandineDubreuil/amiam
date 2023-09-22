@@ -5,6 +5,7 @@ section {
     padding-bottom: 0;
 }
 
+
 /* entete */
 h1 {
     margin-bottom: 0;
@@ -75,3 +76,8 @@ h1 {
 
 }
 
+/* fichier repas/new */
+
+.repas .iconeOk {
+    margin-bottom: 1rem;
+}

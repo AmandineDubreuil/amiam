@@ -46,12 +46,22 @@ class RepasController extends AbstractController
         AmiRepository $amiRepository,
         RecetteRepository $recetteRepository,
     ): Response {
-        $user = $this->security->getUser();
-        $familles = $amiFamilleRepository->findBy(['user' => $user]);
-        $amis = $amiRepository->findBy(['famille' => $familles]);
-        $recettes = $recetteRepository->findBy(['user' => $user]);
 
-        // dd($user);
+        $user = $this->security->getUser();
+        $amisId = $_GET['amisId'];
+      
+        foreach ($amisId as $amiId) {
+            $ami = $amiRepository->find($amiId);
+            $amis[] = $ami;
+        }
+
+        $famillesId = $_GET['famillesPresentes'];
+        $recetteId = $_GET['recetteId'];
+   
+        $recette = $recetteRepository->find($recetteId);
+    
+
+
 
         $repa = new Repas();
         $form = $this->createForm(RepasType::class, $repa);
@@ -60,6 +70,13 @@ class RepasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $repa->setUser($user);
+            $repa->setRecettes($recette);
+           
+            foreach ($famillesId as $familleId) {
+                $famille = $amiFamilleRepository->find($familleId);
+                $repa->addAmiFamille($famille);
+            }
+//  dd($repa);
             $entityManager->persist($repa);
             $entityManager->flush();
 
@@ -69,9 +86,9 @@ class RepasController extends AbstractController
         return $this->render('repas/new.html.twig', [
             'repa' => $repa,
             'form' => $form,
-            'familles' => $familles,
+            'familles' => $famillesId,
+            'recette' => $recette,
             'amis' => $amis,
-            'recettes' => $recettes,
         ]);
     }
 

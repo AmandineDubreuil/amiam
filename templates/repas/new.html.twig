@@ -25,101 +25,41 @@
 
 {% block body %}
 	<section class="entete">
-	<h1>Nouveau repas</h1>
-
-	{# <ul>
-		{% for regime in regimes %}
-			<li>{{regime.regime}}</li>
-		{% endfor %}
-	</ul> #}
-
-	{% if amisPresents %}
-
-		<h3>amis</h3>
+		<div>
+			<a class="btn btnRetour" href="javascript:history.go(-1)">Retour</a>
+		</div>
+		<h1>Nouveau repas</h1>
+	</section>
+	<section class="amis">
+		<h2>Amis invités</h2>
 		<ul>
-			{% for ami in amisPresents %}
+			{% for ami in amis %}
 				<li>
 					<p>
 						{{ami.prenom}}
 					</p>
 					<ul>
-						{% for regime in ami.regimes %}
-							<li>{{regime.regime}}</li>
+						{% for allergieAliment in ami.allergiesAliment %}
+							<li>{{allergieAliment.id}}
+								-
+								{{allergieAliment.aliment}}</li>
 						{% endfor %}
 					</ul>
 				</li>
 			{% endfor %}
 		</ul>
-	{% endif %}
-	
 	</section>
 	<section class="recettes">
-		<h2>Recettes possibles</h2>
-
-		<form method="POST">
-			<ul>
-				{% for recette in recettes  | sort((a, b)=> a.titre <=> b.titre) %}
-					<div class="card shadow-1 hoverable-1 rounded-3 ">
-						<div
-							class="cardRecette">
-
-							{# {% if recette.photo %}
-																					<div class="imgRecette">
-																						<a href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
-																					</div>
-																				{% else  %}
-																					<div class="imgRecette">
-																						<a href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
-																					</div>
-																				{% endif  %} #}
-
-							<div class="slugRecette">
-								<div class="titreRecette">
-									<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-										<h3>{{ recette.titre }}</h3>
-									</a>
-								</div>
-								<div class="tpsRecette">
-									<div>
-										<div>Préparation</div>
-										<div>{{ recette.tpsPreparation }}
-											min</div>
-									</div>
-									<div>
-										<div>Repos</div>
-										<div>{{ recette.tpsRepos }}
-											min</div>
-									</div>
-									<div>
-										<div>Cuisson</div>
-										<div>{{ recette.tpsCuisson }}
-											min</div>
-									</div>
-
-								</div>
-								{# <div>{{ recette.saison }}</div> #}
-
-								{# <a href="{{ path('app_repas_new', {'recetteId': recette.id, 'amisId': amisId}) }}" class="btn btnValider">Choisir</a> #}
-
-							</div>
-
-						</div>
-					</div>
-				{% else %}
-					<div>Aucune recette ne correspond...</div>
-				{% endfor %}
-			</ul>
-			<input type="submit" value="Chercher" name="submit" class="btn btnValider">
-		</form>
+	
+		<h2>Recette cuisinée</h2>
+		<p class="titre">{{recette.titre}}</p>
 
 	</section>
-
-
-
+	<section class="repas">
 
 		{{ include('repas/_form.html.twig') }}
+	</section>
 
-	
 {% endblock %}
 {% block javascripts %}
 	<script src="{{asset('assets/js/repasNew.js')}}"></script>
