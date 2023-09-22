@@ -1,0 +1,77 @@
+/* général */
+
+section {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* entete */
+h1 {
+    margin-bottom: 0;
+}
+
+/* amis */
+
+.amis h2, .recettes h2 {
+    font-size: 1.5rem;
+}
+.amis h2 {
+    margin-top: 0;
+}
+.amis .famille-checkbox {
+    padding-bottom: 1rem;
+}
+
+.amis .famille-checkbox .main-checkbox + label{
+    font-weight: bold;
+}
+
+.amis .ami-checkbox  {
+    padding-left: 2rem;
+}
+
+.amis .btnOk {
+    width: fit-content;
+    
+    }
+
+/* recettes */
+
+.recettes .cardRecette {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;    
+}
+
+.recettes .imgRecette img {
+    width: 100%;
+}
+
+.recettes .imgRecette {
+    width: 25%;
+}
+
+.recettes .slugRecette {
+    padding: 1rem;
+    width: 75%;
+}
+
+.recettes .titreRecette h3{
+    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+}
+
+.recettes .tpsRecette {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 20rem;
+    padding-bottom: 1rem;
+}
+
+.recettes .tpsRecette div {
+    display: flex;
+    flex-direction: column;
+
+}
+

@@ -29,113 +29,177 @@
 		<div>
 			<a class="btn btnRetour" href="javascript:history.go(-1)">Retour</a>
 		</div>
+		<h1>Nouveau repas</h1>
 	</section>
+
+
 	<section class="amis">
 		<h2>Amis invités</h2>
-{% if amisPresents %}
+		{% if amisPresents %}
 
-		<h3>amis</h3>
-		<ul>
-			{% for ami in amisPresents %}
-				<li>
-					<p>
-						{{ami.prenom}}
-					</p>
-					<ul>
-						{% for allergieAliment in ami.allergiesAliment %}
-							<li>{{allergieAliment.id}} - {{allergieAliment.aliment}}</li>
-						{% endfor %}
-					</ul>
-				</li>
-			{% endfor %}
-		</ul>
-
-
-{% else %}
-	
-<form method="POST">
+			<h3>amis</h3>
 			<ul>
-				{% for famille in familles | sort ((a, b)=> a.nom <=> b.nom) %}
-					<li><input onclick='handleClick(this);' type="checkbox" id="{{ famille.nom }}" class="main-checkbox" name="familleAmisPourRecettes[]" value="{{ famille.id }}" data-dependant="{% for ami in famille.amis %}{{ami.id}},{% endfor %}">
-						<label for="{{ famille.nom }}">Famille
-							{{ famille.nom }}</label>
+				{% for ami in amisPresents %}
+					<li>
+						<p>
+							{{ami.prenom}}
+						</p>
 						<ul>
-							{% for ami in famille.amis %}
-								<li><input type="checkbox" id="{{ ami.prenom }}" name="amisPourRecettes[]" class="famille{{ famille.nom }}" value="{{ ami.id }}">
-									<label for="{{ ami.prenom }}">{{ ami.prenom }}</label>
-								</li>
+							{% for allergieAliment in ami.allergiesAliment %}
+								<li>{{allergieAliment.id}}
+									-
+									{{allergieAliment.aliment}}</li>
 							{% endfor %}
 						</ul>
 					</li>
 				{% endfor %}
 			</ul>
-			<input type="submit" value="Liste des recettes" name="submit" class="btn btnValider">
 
-		</form>
+		{% else %}
 
-	{% endif %}
-	
+			<form method="POST">
+				<ul>
+					{% for famille in familles | sort ((a, b)=> a.nom <=> b.nom) %}
+						<li class="famille-checkbox"><input onclick='handleClick(this);' type="checkbox" id="{{ famille.nom }}" class="main-checkbox" name="familleAmisPourRecettes[]" value="{{ famille.id }}" data-dependant="{% for ami in famille.amis %}{{ami.id}},{% endfor %}">
+							<label for="{{ famille.nom }}">Famille
+								{{ famille.nom }}</label>
+							<ul class="ami-checkbox">
+								{% for ami in famille.amis %}
+									<li><input type="checkbox" id="{{ ami.prenom }}" name="amisPourRecettes[]" class="famille{{ famille.nom }}" value="{{ ami.id }}">
+										<label for="{{ ami.prenom }}">{{ ami.prenom }}</label>
+									</li>
+								{% endfor %}
+							</ul>
+						</li>
+					{% endfor %}
+				</ul>
+				<div class="groupeBtn">
+					<input type="submit" value="Mettre à jour les recettes" name="submit" class="btn btnOk">
+				</div>
+			</form>
+		{% endif %}
+
 	</section>
 
 	<section class="recettes">
 		<h2>Recettes possibles</h2>
 
-		<form method="POST">
-			<ul>
-				{% for recette in recettes  | sort((a, b)=> a.titre <=> b.titre) %}
-					<div class="card shadow-1 hoverable-1 rounded-3 ">
-						<div
-							class="cardRecette">
+		{% if amisPresents %}
+			<form method="POST">
+				<ul>
+					{% for recette in recettesOk  | sort((a, b)=> a.titre <=> b.titre) %}
+						<div class="card shadow-1 hoverable-1 rounded-3 ">
+							<div class="cardRecette">
 
-							{# {% if recette.photo %}
-																					<div class="imgRecette">
-																						<a href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
-																					</div>
-																				{% else  %}
-																					<div class="imgRecette">
-																						<a href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
-																					</div>
-																				{% endif  %} #}
+								{% if recette.photo %}
+									<div class="imgRecette">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
+									</div>
+								{% else  %}
+									<div class="imgRecette">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
+									</div>
+								{% endif  %}
 
-							<div class="slugRecette">
-								<div class="titreRecette">
-									<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-										<h3>{{ recette.titre }}</h3>
+
+								<div class="slugRecette">
+
+									<div class="titreRecette">
+										<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											<h3>{{ recette.titre }}</h3>
+										</a>
+									</div>
+									<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+										<div class="tpsRecette">
+											<div>
+												<div>Préparation</div>
+												<div>{{ recette.tpsPreparation }}
+													min</div>
+											</div>
+											<div>
+												<div>Repos</div>
+												<div>{{ recette.tpsRepos }}
+													min</div>
+											</div>
+											<div>
+												<div>Cuisson</div>
+												<div>{{ recette.tpsCuisson }}
+													min</div>
+											</div>
+
+										</div>
 									</a>
-								</div>
-								<div class="tpsRecette">
-									<div>
-										<div>Préparation</div>
-										<div>{{ recette.tpsPreparation }}
-											min</div>
-									</div>
-									<div>
-										<div>Repos</div>
-										<div>{{ recette.tpsRepos }}
-											min</div>
-									</div>
-									<div>
-										<div>Cuisson</div>
-										<div>{{ recette.tpsCuisson }}
-											min</div>
-									</div>
+
+									<a href="{{ path('app_repas_new', {'recetteId': recette.id, 'amisId': amisId}) }}" class="btn btnValider">Choisir</a>
 
 								</div>
-								{# <div>{{ recette.saison }}</div> #}
-
-								{# <a href="{{ path('app_repas_new', {'recetteId': recette.id, 'amisId': amisId}) }}" class="btn btnValider">Choisir</a> #}
 
 							</div>
-
 						</div>
-					</div>
-				{% else %}
-					<div>Aucune recette ne correspond...</div>
-				{% endfor %}
-			</ul>
-			<input type="submit" value="Chercher" name="submit" class="btn btnValider">
-		</form>
+					{% else %}
+						<div>Aucune recette ne correspond...</div>
+					{% endfor %}
+				</ul>
+				<input type="submit" value="Chercher" name="submit" class="btn btnValider">
+			</form>
 
+		{% else %}
+
+			<form method="POST">
+				<ul>
+					{% for recette in recettes  | sort((a, b)=> a.titre <=> b.titre) %}
+						<div class="card shadow-1 hoverable-1 rounded-3 ">
+							<div class="cardRecette">
+
+								{% if recette.photo %}
+									<div class="imgRecette">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
+									</div>
+								{% else  %}
+									<div class="imgRecette">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
+									</div>
+								{% endif  %}
+
+
+								<div class="slugRecette">
+
+									<div class="titreRecette">
+										<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											<h3>{{ recette.titre }}</h3>
+										</a>
+									</div>
+									<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+										<div class="tpsRecette">
+											<div>
+												<div>Préparation</div>
+												<div>{{ recette.tpsPreparation }}
+													min</div>
+											</div>
+											<div>
+												<div>Repos</div>
+												<div>{{ recette.tpsRepos }}
+													min</div>
+											</div>
+											<div>
+												<div>Cuisson</div>
+												<div>{{ recette.tpsCuisson }}
+													min</div>
+											</div>
+
+										</div>
+									</a>
+								</div>
+
+							</div>
+						</div>
+					{% else %}
+						<div>Aucune recette enregistrée...</div>
+					{% endfor %}
+				</ul>
+
+			</form>
+		{% endif %}
 	</section>
 
 

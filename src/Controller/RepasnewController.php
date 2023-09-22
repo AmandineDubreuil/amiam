@@ -203,7 +203,6 @@ class RepasnewController extends AbstractController
                 }
 
                 ######## RECUPERATION DES RECETTES OK #########
-                dump($recetteAEviter);
                 if ($recetteAEviter === 0) {
                     $recettesOk[] = $recette;
                 } else {
