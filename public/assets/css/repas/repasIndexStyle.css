@@ -1,0 +1,27 @@
+.repasIndex p {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: normal;
+}
+
+.repasIndex .iconeAjout {
+    font-size: 1.5rem;
+}
+
+
+/* cards repas */
+
+.repasIndex .cardRepas .card-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1.2rem;
+    padding-bottom: 0;
+}
+
+.repasIndex .cardRepas .cardRepasTitre {
+    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
+}
