@@ -213,7 +213,7 @@ class RepasController extends AbstractController
             $degouts = $ami->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
-                $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $al);
+                $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $degout);
             }
 
 

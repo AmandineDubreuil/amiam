@@ -13,7 +13,7 @@ h1 {
 
 /* amis */
 
-.amis h2, .recettes h2 {
+.amis h2, .recette h2 {
     font-size: 1.5rem;
 }
 .amis h2 {
@@ -36,33 +36,33 @@ h1 {
     
     }
 
-/* recettes */
+/* recette */
 
-.recettes .cardRecette {
+.recette .cardRecette {
     display: flex;
     flex-wrap: wrap;
     align-items: center;    
 }
 
-.recettes .imgRecette img {
+.recette .imgRecette img {
     width: 100%;
 }
 
-.recettes .imgRecette {
+.recette .imgRecette {
     width: 25%;
 }
 
-.recettes .slugRecette {
+.recette .slugRecette {
     padding: 1rem;
     width: 75%;
 }
 
-.recettes .titreRecette h3{
+.recette .titreRecette h3{
     font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
 }
 
-.recettes .tpsRecette {
+.recette .tpsRecette {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -70,7 +70,7 @@ h1 {
     padding-bottom: 1rem;
 }
 
-.recettes .tpsRecette div {
+.recette .tpsRecette div {
     display: flex;
     flex-direction: column;
 
