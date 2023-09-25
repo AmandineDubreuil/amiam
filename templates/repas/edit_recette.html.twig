@@ -26,8 +26,6 @@
 {% block body %}
 	<section class="recette">
 		<h1>Modification de la recette</h1>
-
-
 		<ul>
 			{% for recette in recettesOk  | sort((a, b)=> a.titre <=> b.titre) %}
 				<form method="POST">

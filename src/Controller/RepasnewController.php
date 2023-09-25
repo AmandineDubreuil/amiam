@@ -79,24 +79,31 @@ class RepasnewController extends AbstractController
                     if ($regime->getRegime() === 'Sans porc') {
                         $regimeSsPorc += 1;
                     }
+                    $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
+
                 }
 
                 // récupérer leurs allergies groupe pour filtre des recettes
                 $allergiesGroupe = $amiPresent->getAllergies();
                 foreach ($allergiesGroupe as $allergieGroupe) {
                     $allergiesGroupePresents[] = $allergieGroupe;
+                    $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à :' . $allergieGroupe);
                 }
 
                 // récupérer leurs allergies aliment pour filtre des recettes
                 $allergiesAliment = $amiPresent->getAllergiesAliment();
                 foreach ($allergiesAliment as $al) {
                     $allergiesAlimentPresentes[] = $al;
+                    $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
+
                 }
 
                 //  récupérer leurs dégouts pour filtre des recettes
                 $degouts = $amiPresent->getDegout();
                 foreach ($degouts as $degout) {
                     $degoutsPresents[] = $degout;
+                    $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $al);
+
                 }
 
                 ############  fin de la boucle amiPresent

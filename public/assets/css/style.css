@@ -76,6 +76,14 @@ section {
   font-weight: bold;
   width: 100%;
 }
+.alert-warning-jaune .alert-message {
+  background-color: rgba(222, 208, 82, 0.3);
+  
+  color: rgb(201, 184, 34);
+  padding: 1rem;
+  font-weight: bold;
+  width: 100%;
+}
 
 /* Titres */
 

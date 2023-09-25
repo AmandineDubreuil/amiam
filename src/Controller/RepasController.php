@@ -165,9 +165,10 @@ class RepasController extends AbstractController
         $repasId = $repa->getId();
         $amis = $repa->getAmis();
         $recettes = $recetteRepository->findBy(['user' => $user]);
-        $regimes = "";
+
         $allergiesGroupe = "";
         $allergiesAliment = "";
+        $regimes = "";
         $degouts = "";
         $regimeSsPorc = 0;
         $recettePorc = 0;
@@ -175,6 +176,23 @@ class RepasController extends AbstractController
         $recettesOk = [];
 
         foreach ($amis as $ami) {
+
+
+            // récupérer leurs allergies groupe pour filtre des recettes
+            $allergiesGroupe = $ami->getAllergies();
+            foreach ($allergiesGroupe as $allergieGroupe) {
+                $allergiesGroupePresents[] = $allergieGroupe;
+
+                $this->addFlash('danger', $ami->getPrenom() . ' est allergique à :' . $allergieGroupe);
+            }
+
+            // récupérer leurs allergies aliment pour filtre des recettes
+            $allergiesAliment = $ami->getAllergiesAliment();
+            foreach ($allergiesAliment as $al) {
+                $allergiesAlimentPresentes[] = $al;
+
+                $this->addFlash('danger', $ami->getPrenom() . ' est allergique à : ' . $al);
+            }
             //récupérer leurs régimes
             $regimes = $ami->getRegimes();
             foreach ($regimes as $regime) {
@@ -187,25 +205,17 @@ class RepasController extends AbstractController
                 if ($regime->getRegime() === 'Sans porc') {
                     $regimeSsPorc += 1;
                 }
+                $this->addFlash('warning', $ami->getPrenom() . ' a un régime ' . $regime);
             }
 
-            // récupérer leurs allergies groupe pour filtre des recettes
-            $allergiesGroupe = $ami->getAllergies();
-            foreach ($allergiesGroupe as $allergieGroupe) {
-                $allergiesGroupePresents[] = $allergieGroupe;
-            }
-
-            // récupérer leurs allergies aliment pour filtre des recettes
-            $allergiesAliment = $ami->getAllergiesAliment();
-            foreach ($allergiesAliment as $al) {
-                $allergiesAlimentPresentes[] = $al;
-            }
 
             //  récupérer leurs dégouts pour filtre des recettes
             $degouts = $ami->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
+                $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $al);
             }
+
 
             ############  fin de la boucle amiPresent
         }
@@ -221,6 +231,7 @@ class RepasController extends AbstractController
         if (empty($allergiesGroupePresents)) {
             $allergiesGroupePresents = [];
         }
+
 
         ########## DEBUT PARTIE RECETTES #########
 
@@ -273,15 +284,11 @@ class RepasController extends AbstractController
 
                 ######## pour AllergiesAliment #########
                 if (!empty($recettesAvecAllergieAlimentConstruct) && in_array($aliment, $recettesAvecAllergieAlimentConstruct)) {
-                    // ajouter la recette au tableau $recettesConformes
-                    // $recettesAvecAllergieAliment[] = $recette;
                     $recetteAEviter += 1;
                 }
 
                 ######## pour Degouts #########
                 if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
-                    // ajouter la recette au tableau $recettesConformes
-                    //   $recettesAvecDegout[] = $recette;
                     $recetteAEviter += 1;
                 }
 
@@ -292,8 +299,6 @@ class RepasController extends AbstractController
                 $allergeneEntity = $allergeneRepository->find($allergeneString);
 
                 if (!empty($recettesAvecAllergeneConstruct) && in_array($allergeneEntity, $recettesAvecAllergeneConstruct)) {
-                    // ajouter la recette au tableau $recettesConformes
-                    //  $recettesAvecAllergene[] = $recette;
                     $recetteAEviter += 1;
                 }
             }
@@ -317,6 +322,7 @@ class RepasController extends AbstractController
             ############  fin de la boucle recette
         }
 
+
         if ($request->isMethod('POST') && $request->request->has('submit')) {
             $recetteId = $request->request->get('recetteId');
             $recette = $recetteRepository->find($recetteId);
@@ -325,7 +331,6 @@ class RepasController extends AbstractController
             $repa->setRecettes($recette);
             $entityManager->persist($repa);
             $entityManager->flush();
-
 
             return $this->redirectToRoute('app_repas_show', [
                 'id' => $repasId,
