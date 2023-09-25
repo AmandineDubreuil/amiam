@@ -349,7 +349,7 @@ class RepasController extends AbstractController
 
         ]);
     }
-    /*
+   
     #[Route('/{id}/editamis', name: 'app_repas_edit_amis', methods: ['GET', 'POST'])]
     public function editAmis(
         Request $request,
@@ -363,11 +363,16 @@ class RepasController extends AbstractController
         $repasId = $repa->getId();
         $user = $this->security->getUser();
         $familles = $amiFamilleRepository->findBy(['user' => $user]);
-        $famillesPresentes = [];
+        $famillesPresentes = $repa->getAmiFamilles();
+
         $amis = $amiRepository->findBy(['famille' => $familles]);
-        $amisPresents = "";
+        $amisPresents = $repa->getAmis();
         $amisPresentsId = "";
 
+
+
+
+        //dd($amisPresents);
         if ($request->isMethod('POST') && $request->request->has('submit')) {
 
             // Récupérez les amis sélectionnés
@@ -395,11 +400,13 @@ class RepasController extends AbstractController
         return $this->render('repas/edit_amis.html.twig', [
             'repa' => $repa,
             'familles' => $familles,
+            'famillesPresentes' => $famillesPresentes,
+            'amisPresents' => $amisPresents
 
         ]);
     }
     
-    */
+   
 
     #[Route('/{id}', name: 'app_repas_delete', methods: ['POST'])]
     public function delete(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response

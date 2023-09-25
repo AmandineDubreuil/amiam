@@ -39,6 +39,9 @@
 }
 
 /* recette */
+.repasShow .recette .card {
+    padding: 1rem;
+}
 
 .repasShow .recette .imgRecette {
     display: flex;
