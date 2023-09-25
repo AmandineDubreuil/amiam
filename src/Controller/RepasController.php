@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Ami;
 use App\Entity\Recette;
 use App\Entity\Repas;
 use App\Form\RepasType;
@@ -91,7 +92,7 @@ class RepasController extends AbstractController
     #[Route('/{id}', name: 'app_repas_show', methods: ['GET'])]
     public function show(Repas $repa): Response
     {
-        $nbCouverts = 1 ;
+        $nbCouverts = 1;
         $recetteRepa = $repa->getRecettes();
         $ingredients = $recetteRepa->getIngredients();
         return $this->render('repas/show.html.twig', [
@@ -349,7 +350,7 @@ class RepasController extends AbstractController
 
         ]);
     }
-   
+
     #[Route('/{id}/editamis', name: 'app_repas_edit_amis', methods: ['GET', 'POST'])]
     public function editAmis(
         Request $request,
@@ -357,32 +358,44 @@ class RepasController extends AbstractController
         EntityManagerInterface $entityManager,
         AmiFamilleRepository $amiFamilleRepository,
         AmiRepository $amiRepository,
+        Ami $ami,
     ): Response {
 
-        
+
         $repasId = $repa->getId();
         $user = $this->security->getUser();
-        $familles = $amiFamilleRepository->findBy(['user' => $user]);
-        $famillesPresentes = $repa->getAmiFamilles();
 
+        // afficher les familles et amis déjà enregistrés
+        $familles = $amiFamilleRepository->findBy(['user' => $user]);
+        $oldFamillesPresentes = $repa->getAmiFamilles();
         $amis = $amiRepository->findBy(['famille' => $familles]);
-        $amisPresents = $repa->getAmis();
+        $oldAmisPresents = $repa->getAmis();
         $amisPresentsId = "";
 
 
-
-
-        //dd($amisPresents);
         if ($request->isMethod('POST') && $request->request->has('submit')) {
+            //reset les familles et amis
+
+
+            foreach ($oldAmisPresents as $oldAmiPresent) {
+                $repa->removeAmi($oldAmiPresent);
+            }
+
+            foreach ($oldFamillesPresentes as $oldFamille) {
+             $repa->removeAmiFamille($oldFamille);
+            }
+
 
             // Récupérez les amis sélectionnés
-
             $amisPresentsId = $request->request->all('amisPourRecettes');
+
             // Parcourir les amis sélectionnés 
             $amisPresents = $amiRepository->findBy(['id' => $amisPresentsId]);
+            // dd($amisPresents);
             foreach ($amisPresents as $amiPresent) {
                 //récupérer leur famille
                 $famillesPresentes[] = $amiPresent->getFamille();
+                $repa->addAmi($amiPresent);
             }
 
 
@@ -400,13 +413,13 @@ class RepasController extends AbstractController
         return $this->render('repas/edit_amis.html.twig', [
             'repa' => $repa,
             'familles' => $familles,
-            'famillesPresentes' => $famillesPresentes,
-            'amisPresents' => $amisPresents
+            'oldFamillesPresentes' => $oldFamillesPresentes,
+            'oldAmisPresents' => $oldAmisPresents
 
         ]);
     }
-    
-   
+
+
 
     #[Route('/{id}', name: 'app_repas_delete', methods: ['POST'])]
     public function delete(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
