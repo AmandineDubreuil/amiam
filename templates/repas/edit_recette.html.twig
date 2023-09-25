@@ -29,7 +29,7 @@
 
 
 		<ul>
-			{% for recette in app.user.recettes  | sort((a, b)=> a.titre <=> b.titre) %}
+			{% for recette in recettesOk  | sort((a, b)=> a.titre <=> b.titre) %}
 				<form method="POST">
 					<div class="card shadow-1 hoverable-1 rounded-3 ">
 						<div class="cardRecette">
