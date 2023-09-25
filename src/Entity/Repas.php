@@ -31,9 +31,13 @@ class Repas
     #[ORM\ManyToOne(inversedBy: 'repas')]
     private ?User $user = null;
 
+    #[ORM\ManyToMany(targetEntity: Ami::class, inversedBy: 'repas')]
+    private Collection $amis;
+
     public function __construct()
     {
         $this->amiFamilles = new ArrayCollection();
+        $this->amis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +113,30 @@ class Repas
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getAmis(): Collection
+    {
+        return $this->amis;
+    }
+
+    public function addAmi(Ami $ami): static
+    {
+        if (!$this->amis->contains($ami)) {
+            $this->amis->add($ami);
+        }
+
+        return $this;
+    }
+
+    public function removeAmi(Ami $ami): static
+    {
+        $this->amis->removeElement($ami);
 
         return $this;
     }

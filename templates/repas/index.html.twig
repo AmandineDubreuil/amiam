@@ -31,7 +31,7 @@
 			<i class="fa-solid fa-circle-plus"></i>
 		</a>
 		<div class="cards">
-			{% for repa in repas  | sort((b, a)=> a.date <=> b.date)%}
+			{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
 				<div class="card shadow-1 hoverable-1 rounded-3 ">
 					<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
 						<div class="card-header">

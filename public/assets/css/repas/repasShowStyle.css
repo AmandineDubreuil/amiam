@@ -13,6 +13,21 @@
     font-size: 1.2rem;
     margin: 1rem 0 0 0 ;
 }
+.repasShow .famille{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.repasShow .famille li {
+    padding-right: 1rem;
+}
+.repasShow .ami{
+    padding-left: 2rem;
+}
+.repasShow ul {
+    padding-bottom: .5rem;
+
+}
 .repasShow .btn {
     margin: 1rem 0 0 0 ;  
       padding: 0;

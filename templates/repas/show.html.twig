@@ -54,9 +54,9 @@
 	<section class="repasShow">
 		<div class="df">
 			<h3>Recette utilisée</h3>
-			{# <a class="btn iconeSupp" href="{{path('app_repas_edit_date', {'id': repa.id})}}">
-				<i class="fa-solid fa-pen-to-square"></i>
-			</a> #}
+			<a class="btn iconeSupp" href="{{path('app_repas_edit_recette', {'id': repa.id})}}">
+													<i class="fa-solid fa-pen-to-square"></i>
+												</a>
 		</div>
 		<p>{{repa.recettes.titre}}</p>
 
@@ -64,13 +64,24 @@
 		<div class="df">
 			<h3>Amis présents</h3>
 			{# <a class="btn iconeSupp" href="{{path('app_repas_edit_amis', {'id': repa.id})}}">
-				<i class="fa-solid fa-pen-to-square"></i>
-			</a> #}
+													<i class="fa-solid fa-pen-to-square"></i>
+												</a> #}
 		</div>
-		<ul>
-			{% for ami in repa.amiFamilles %}
+		<ul class="famille">
+			{% for famille in repa.amiFamilles | sort((a, b)=> a.nom <=> b.nom) %}
 				<li>Famille
-					{{ami.nom}}</li>
+					{{famille.nom}}
+					<ul>
+
+						{% for ami in repa.amis | sort((a, b)=> a.dateNaissance <=> b.dateNaissance) %}
+							{% if ami.famille is same as famille %}
+
+								<li class="ami">{{ami.prenom}}</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</li>
+
 			{% endfor %}
 		</ul>
 		<div class="df">

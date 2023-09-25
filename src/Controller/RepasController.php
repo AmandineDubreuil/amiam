@@ -67,7 +67,10 @@ class RepasController extends AbstractController
                 $famille = $amiFamilleRepository->find($familleId);
                 $repa->addAmiFamille($famille);
             }
-
+            foreach ($amisId as $amiId) {
+                $ami = $amiRepository->find($amiId);
+                $repa->addAmi($ami);
+            }
             $entityManager->persist($repa);
             $entityManager->flush();
 
@@ -148,7 +151,37 @@ class RepasController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
     }
+    #[Route('/{id}/editrecette', name: 'app_repas_edit_recette', methods: ['GET', 'POST'])]
+    public function editRecette(
+        Request $request,
+        Repas $repa,
+        EntityManagerInterface $entityManager,
+        RecetteRepository $recetteRepository,
+    ): Response {
+        $repasId = $repa->getId();
 
+        if ($request->isMethod('POST') && $request->request->has('submit')) {
+            $recetteId = $request->request->get('recetteId');
+            $recette = $recetteRepository->find($recetteId);
+       // dd($recette);
+   
+            $repa->setRecettes($recette);
+            $entityManager->persist($repa);
+            $entityManager->flush();
+
+            
+            return $this->redirectToRoute('app_repas_show', [
+                'id' => $repasId,
+
+            ], Response::HTTP_SEE_OTHER);
+            
+        }
+        return $this->render('repas/edit_recette.html.twig', [
+            'repa' => $repa,
+            //  'recettes' => $recettes,
+
+        ]);
+    }
     /*
     #[Route('/{id}/editamis', name: 'app_repas_edit_amis', methods: ['GET', 'POST'])]
     public function editAmis(

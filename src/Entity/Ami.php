@@ -42,12 +42,16 @@ class Ami
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
+    #[ORM\ManyToMany(targetEntity: Repas::class, mappedBy: 'amis')]
+    private Collection $repas;
+
     public function __construct()
     {
         $this->regimes = new ArrayCollection();
         $this->allergies = new ArrayCollection();
         $this->degout = new ArrayCollection();
         $this->allergiesAliment = new ArrayCollection();
+        $this->repas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,6 +206,33 @@ class Ami
     public function setAvatar(?string $avatar): static
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Repas>
+     */
+    public function getRepas(): Collection
+    {
+        return $this->repas;
+    }
+
+    public function addRepa(Repas $repa): static
+    {
+        if (!$this->repas->contains($repa)) {
+            $this->repas->add($repa);
+            $repa->addAmi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepa(Repas $repa): static
+    {
+        if ($this->repas->removeElement($repa)) {
+            $repa->removeAmi($this);
+        }
 
         return $this;
     }

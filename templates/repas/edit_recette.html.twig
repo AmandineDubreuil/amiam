@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification repas - Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/repas/repasNewEditStyle.css')}}">
+
+{% endblock %}
+
+{% block body %}
+	<section class="recette">
+		<h1>Modification de la recette</h1>
+
+
+		<ul>
+			{% for recette in app.user.recettes  | sort((a, b)=> a.titre <=> b.titre) %}
+				<form method="POST">
+					<div class="card shadow-1 hoverable-1 rounded-3 ">
+						<div class="cardRecette">
+
+							{% if recette.photo %}
+								<div class="imgRecette">
+									<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
+								</div>
+							{% else  %}
+								<div class="imgRecette">
+									<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
+								</div>
+							{% endif  %}
+
+
+							<div class="slugRecette">
+
+								<div class="titreRecette">
+									<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
+										<h3>{{ recette.titre }}</h3>
+									</a>
+								</div>
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+									<div class="tpsRecette">
+										<div>
+											<div>Préparation</div>
+											<div>{{ recette.tpsPreparation }}
+												min</div>
+										</div>
+										<div>
+											<div>Repos</div>
+											<div>{{ recette.tpsRepos }}
+												min</div>
+										</div>
+										<div>
+											<div>Cuisson</div>
+											<div>{{ recette.tpsCuisson }}
+												min</div>
+										</div>
+
+									</div>
+								</a>
+
+								<div class="groupeBtn">
+									<pre>
+										
+									</pre>
+									<input type="submit" value="Mettre à jour la recette" name="submit" class="btn btnOk">
+									<input type="hidden" name="recetteId" value="{{recette.id}}">
+
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+				</form>
+			{% endfor %}
+		</ul>
+
+
+	</section>
+
+{% endblock %}

@@ -46,6 +46,9 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
           - { path: ^/user, roles: ROLE_USER }
           - { path: ^/recette, roles: ROLE_MEMBER }
+          - { path: ^/repas, roles: ROLE_MEMBER }
+          - { path: ^/amis, roles: ROLE_MEMBER }
+
 
 
 
