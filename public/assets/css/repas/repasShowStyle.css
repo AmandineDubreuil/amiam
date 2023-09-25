@@ -33,3 +33,43 @@
       padding: 0;
       padding-left: 1rem;
 }
+.repasShow .gris {
+    color: gray;
+    font-size: .7rem;
+}
+
+/* recette */
+
+.repasShow .recette .imgRecette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+  }
+  
+  .repasShow .recette .imgRecette img {
+    max-width: 400px;
+  }
+  
+  .tempsGroupe {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .repasShow .recette .saisons p,
+  .repasShow .recette .tempsGroupe p {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+  
+  .repasShow .recette .cardRepasRecette {
+    padding: 1rem;
+    background-color: var(--color-three);
+  }
+  
+  .repasShow .recette .cardRepasRecette span {
+    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
+  }
+  

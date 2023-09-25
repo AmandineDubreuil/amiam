@@ -25,6 +25,15 @@
 
 {% block body %}
 	<section class="recette">
+		<div class="groupeBtn groupeBtnModifSupp">
+			<div>
+				<a class="btn btnRetour" href="javascript:history.go(-1)">
+					<i class="fa-solid fa-arrow-left"></i>
+				</a>
+			</div>
+
+		</div>
+
 		<h1>Modification de la recette</h1>
 		<ul>
 			{% for recette in recettesOk  | sort((a, b)=> a.titre <=> b.titre) %}
