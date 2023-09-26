@@ -76,6 +76,33 @@
 				{% endfor %}
 			</div>
 		</div>
+		<div class="repas">
+			<h5>Repas effectués</h5>
+			<div class="cards">
+
+				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
+					{% for famille in repa.amiFamilles %}
+						{% if ami_famille.id is same as famille.id %}
+							<div class="card shadow-1 hoverable-1 rounded-3 ">
+								<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
+
+									<div class="card-content">
+										<p>
+											{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
+										</p>
+										<p>
+											{{ repa.recettes.titre }}
+										</p>
+									</div>
+								</a>
+
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
+
+		</div>
 
 	</section>
 {% endblock %}

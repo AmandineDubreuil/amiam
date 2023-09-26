@@ -103,36 +103,35 @@
 
 		</div>
 
+<div class="repas">
 		<h5>Repas effectués</h5>
-		<div class="cards"></div>
+		<div class="cards">
+
+
+			{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
+				{% if recette.id is same as repa.recettes.id %}
+
+					<div class="card shadow-1 hoverable-1 rounded-3 ">
+						<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
+
+							<div class="card-content">
+								<p>
+									{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
+								</p>
+								<p>
+									{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
+										Famille
+										{{ famille.nom }}&nbsp;
+									{% endfor %}
+								</p>
+							</div>
+						</a>
+
+					</div>
+				{% endif %}
+
+			{% endfor %}
+		</div>
+		</div>
 	</section>
-
-	{#    <h1>{{ recette.titre }}</h1>
-							
-							    <table class="table">
-							        <tbody>
-							            
-							           
-							            <tr>
-							                <th>Photo</th>
-							                <td> <img src="{{asset('./assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt=""></td>
-							            </tr>
-							            <tr>
-							                <th>Video</th>
-							                <td>{{ recette.video }}</td>
-							            </tr>
-							            <tr>
-							                <th>Prive</th>
-							                <td>{{ recette.prive ? 'Yes' : 'No' }}</td>
-							            </tr>
-							        </tbody>
-							    </table>
-							
-							    <a href="{{ path('app_recette_index') }}">back to list</a>
-							
-							    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
-							
-							    {{ include('recette/_delete_form.html.twig') }}
-							#}
-
 {% endblock %}
