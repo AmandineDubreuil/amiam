@@ -77,19 +77,22 @@
 										{% set nbCouverts = nbCouverts + 0.5 %}
 									{% else %}
 										{% set nbCouverts = nbCouverts  %}
-										<div>+0</div>
 									{% endif %}
 								{% endif %}
 							{% endfor %}
 						</ul>
 					</li>
-
 				{% endfor %}
 			</ul>
 			<div class="couverts">
 				{% for membre in app.user.userFamilies %}
-					{% set nbCouverts = nbCouverts + 1 %}
-
+					{% if membre.age > 11  %}
+										{% set nbCouverts = nbCouverts + 1 %}
+									{% elseif membre.age > 2 %}
+										{% set nbCouverts = nbCouverts + 0.5 %}
+									{% else %}
+										{% set nbCouverts = nbCouverts  %}
+									{% endif %}
 				{% endfor %}
 
 			</div>
