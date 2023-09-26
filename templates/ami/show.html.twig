@@ -121,7 +121,32 @@
 				</ul>
 			</div>
 		</div>
+<div class="repas">
+<h5>Repas effectués</h5>
+			<div class="cards">
 
+				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
+					{% for amiR in repa.amis %}
+						{% if ami.id is same as amiR.id %}
+							<div class="card shadow-1 hoverable-1 rounded-3 ">
+								<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
+
+									<div class="card-content">
+										<p>
+											{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
+										</p>
+										<p>
+											{{ repa.recettes.titre }}
+										</p>
+									</div>
+								</a>
+
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
+</div>
 	</section>
 
 
