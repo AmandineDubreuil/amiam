@@ -37,32 +37,38 @@ h1 {
     }
 
 /* recette */
-
-.recette .cardRecette {
+.recettes h3{
+    font-size: 1.5rem;
+}
+.recettes h3 span {
+    font-size: 1rem;
+    color: grey;
+}
+.recettes .cardRecette {
     display: flex;
     flex-wrap: wrap;
     align-items: center;    
 }
 
-.recette .imgRecette img {
+.recettes .imgRecette img {
     width: 100%;
 }
 
-.recette .imgRecette {
+.recettes .imgRecette {
     width: 25%;
 }
 
-.recette .slugRecette {
+.recettes .slugRecette {
     padding: 1rem;
     width: 75%;
 }
 
-.recette .titreRecette h3{
+.recettes .titreRecette h3{
     font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
 }
 
-.recette .tpsRecette {
+.recettes .tpsRecette {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -70,7 +76,7 @@ h1 {
     padding-bottom: 1rem;
 }
 
-.recette .tpsRecette div {
+.recettes .tpsRecette div {
     display: flex;
     flex-direction: column;
 

@@ -51,6 +51,14 @@ section {
   padding: 1rem;
 }
 
+.dnone {
+  display: none;
+}
+.dblock {
+  display: block;
+}
+
+
 /* Messages flash */
 
 .alert-success .alert-message {
