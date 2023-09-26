@@ -36,7 +36,10 @@
 .repasShow .gris {
     color: gray;
     font-size: .7rem;
+    line-height: normal;
 }
+
+
 
 /* recette */
 .repasShow .recette .card {

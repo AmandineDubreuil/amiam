@@ -92,13 +92,17 @@ class RepasController extends AbstractController
     #[Route('/{id}', name: 'app_repas_show', methods: ['GET'])]
     public function show(Repas $repa): Response
     {
+       // $amisR = $repa->getAmis();
+
         $nbCouverts = 1;
         $recetteRepa = $repa->getRecettes();
         $ingredients = $recetteRepa->getIngredients();
+
         return $this->render('repas/show.html.twig', [
             'repa' => $repa,
             'ingredients' => $ingredients,
             'nbCouverts' => $nbCouverts,
+            
         ]);
     }
 

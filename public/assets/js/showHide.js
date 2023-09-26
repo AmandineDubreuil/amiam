@@ -22,6 +22,9 @@ const platAmisPresents = document.querySelector("#platAmisPresents");
 const dessertH2AmisPresents = document.querySelector("#dessertH2AmisPresents");
 const dessertAmisPresents = document.querySelector("#dessertAmisPresents");
 
+const questionI = document.querySelector("#questionI");
+const question = document.querySelector("#question");
+
 
 function showHide(divId) {
   if (divId.className === "dnone") {

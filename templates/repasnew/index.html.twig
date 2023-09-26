@@ -630,55 +630,6 @@
 							{% endif %}
 						{% endfor %}
 					</div>
-					{# {% for recette in recettes  | sort((a, b)=> a.titre <=> b.titre) %}
-																															<div class="card shadow-1 hoverable-1 rounded-3 ">
-																																<div class="cardRecette">
-																									
-																																	{% if recette.photo %}
-																																		<div class="imgRecette">
-																																			<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
-																																		</div>
-																																	{% else  %}
-																																		<div class="imgRecette">
-																																			<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
-																																		</div>
-																																	{% endif  %}
-																									
-																									
-																																	<div class="slugRecette">
-																									
-																																		<div class="titreRecette">
-																																			<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-																																				<h3>{{ recette.titre }}</h3>
-																																			</a>
-																																		</div>
-																																		<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
-																																			<div class="tpsRecette">
-																																				<div>
-																																					<div>Préparation</div>
-																																					<div>{{ recette.tpsPreparation }}
-																																						min</div>
-																																				</div>
-																																				<div>
-																																					<div>Repos</div>
-																																					<div>{{ recette.tpsRepos }}
-																																						min</div>
-																																				</div>
-																																				<div>
-																																					<div>Cuisson</div>
-																																					<div>{{ recette.tpsCuisson }}
-																																						min</div>
-																																				</div>
-																									
-																																			</div>
-																																		</a>
-																																	</div>
-																									
-																																</div>
-																															</div>
-																														{% else %}
-																															<div>Aucune recette enregistrée...</div>
-																														{% endfor %} #}
 				</ul>
 
 			</form>
@@ -689,6 +640,6 @@
 {% endblock %}
 {% block javascripts %}
 	<script src="{{asset('assets/js/repasNew.js')}}"></script>
-	<script src="{{asset('assets/js/showHideCatRecette.js')}}"></script>
+	<script src="{{asset('assets/js/showHide.js')}}"></script>
 
 {% endblock %}

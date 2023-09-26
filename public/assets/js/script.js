@@ -28,3 +28,5 @@ $(function () {
 $(function () {
   $(".selectRegime").select2({});
 });
+
+
