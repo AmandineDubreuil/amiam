@@ -8,6 +8,14 @@
     
 }
 
+.recettesIndex h2 {
+    font-size: 1.5rem;
+}
+.recettesIndex h2 span {
+    font-size: 1rem;
+    color: grey;
+}
+
 .recettesIndex .imgRecette img {
     width: 100%;
 }
