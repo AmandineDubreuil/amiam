@@ -24,12 +24,6 @@
 	<section class="home">
 		{% if is_granted('ROLE_USER') %}
 
-			<ul>
-				<li class="h3">je veux pouvoir :</li>
-				<li>bouton rechercher pour chercher une recette</li>
-
-			</ul>
-
 			<div class="granted">
 				<div class="groupeBtn">
 					<a class="btn btnOk" href="{{path('app_repasnew')}}">
@@ -44,58 +38,241 @@
 					</a>
 
 					<div class="cards">
-						{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+						<h2 id="aperitifH2" onclick="showHide(aperitif)" >Apéritif
+							<span>
+								<i class="fa-solid fa-sort-down"></i>
+							</span>
+						</h2>
+						<div id="aperitif" class="dnone">
 
-							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
-									{% if recette.photo %}
-										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-									{% else  %}
-										<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-									{% endif  %}
+							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+								{% if recette.categorie.categorie is same as 'Apéritif' %}
 
-									<div class="slugRecette">
-										<div class="titreRecette">{{ recette.titre }}</div>
+									<div class="card shadow-1 hoverable-1 rounded-3 ">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											{% if recette.photo %}
+												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+											{% else  %}
+												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+											{% endif  %}
 
-										<div>{{ recette.categorie.categorie }}
+											<div class="slugRecette">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+												<div>{{ recette.categorie.categorie }}
 
 
-										</div>
-										<div class="tpsRecette">
-											{% if recette.tpsPreparation %}
-												<div>
-													<div>Préparation</div>
-													<div>{{ recette.tpsPreparation }}
-														min</div>
 												</div>
-											{% endif %}
-											{% if recette.tpsRepos %}
-												<div>
-													<div>Repos</div>
-													<div>{{ recette.tpsRepos }}
-														min</div>
-												</div>
-											{% endif %}
-											{% if recette.tpsCuisson %}
+												<div class="tpsRecette">
+													{% if recette.tpsPreparation %}
+														<div>
+															<div>Préparation</div>
+															<div>{{ recette.tpsPreparation }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsRepos %}
+														<div>
+															<div>Repos</div>
+															<div>{{ recette.tpsRepos }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsCuisson %}
 
-												<div>
-													<div>Cuisson</div>
-													<div>{{ recette.tpsCuisson }}
-														min</div>
-												</div>
-											{% endif %}
+														<div>
+															<div>Cuisson</div>
+															<div>{{ recette.tpsCuisson }}
+																min</div>
+														</div>
+													{% endif %}
 
-										</div>
+												</div>
+											</div>
+										</a>
 									</div>
-								</a>
-							</div>
-						{% else %}
-							<div>Aucune recette enregistrée !</div>
-						{% endfor %}
+
+								{% endif %}
+
+							{% endfor %}
+
+						</div>
+
+						<h2 id="entreeH2" onclick="showHide(entree)" >Entrées
+							<span>
+								<i class="fa-solid fa-sort-down"></i>
+							</span>
+						</h2>
+						<div id="entree" class="dnone">
+							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+								{% if recette.categorie.categorie is same as 'Entrée' %}
+
+									<div class="card shadow-1 hoverable-1 rounded-3 ">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											{% if recette.photo %}
+												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+											{% else  %}
+												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+											{% endif  %}
+
+											<div class="slugRecette">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+												<div>{{ recette.categorie.categorie }}
+
+
+												</div>
+												<div class="tpsRecette">
+													{% if recette.tpsPreparation %}
+														<div>
+															<div>Préparation</div>
+															<div>{{ recette.tpsPreparation }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsRepos %}
+														<div>
+															<div>Repos</div>
+															<div>{{ recette.tpsRepos }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsCuisson %}
+
+														<div>
+															<div>Cuisson</div>
+															<div>{{ recette.tpsCuisson }}
+																min</div>
+														</div>
+													{% endif %}
+
+												</div>
+											</div>
+										</a>
+									</div>
+								{% endif %}
+
+							{% endfor %}
+
+						</div>
+
+						<h2 id="platH2" onclick="showHide(plat)" >Plats principaux
+							<span>
+								<i class="fa-solid fa-sort-down"></i>
+							</span>
+						</h2>
+
+						<div id="plat" class="dnone">
+							
+							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+								{% if recette.categorie.categorie is same as 'Plat principal' %}
+
+									<div class="card shadow-1 hoverable-1 rounded-3 ">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											{% if recette.photo %}
+												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+											{% else  %}
+												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+											{% endif  %}
+
+											<div class="slugRecette">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+												<div>{{ recette.categorie.categorie }}
+
+
+												</div>
+												<div class="tpsRecette">
+													{% if recette.tpsPreparation %}
+														<div>
+															<div>Préparation</div>
+															<div>{{ recette.tpsPreparation }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsRepos %}
+														<div>
+															<div>Repos</div>
+															<div>{{ recette.tpsRepos }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsCuisson %}
+
+														<div>
+															<div>Cuisson</div>
+															<div>{{ recette.tpsCuisson }}
+																min</div>
+														</div>
+													{% endif %}
+
+												</div>
+											</div>
+										</a>
+									</div>
+								{% endif %}
+
+							{% endfor %}
+
+						</div>
+
+						<h2 id="dessertH2" onclick="showHide(dessert)" >Desserts
+							<span>
+								<i class="fa-solid fa-sort-down"></i>
+							</span>
+						</h2>
+
+						<div id="dessert" class="dnone">
+							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+								{% if recette.categorie.categorie is same as 'Dessert' %}
+
+									<div class="card shadow-1 hoverable-1 rounded-3 ">
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											{% if recette.photo %}
+												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+											{% else  %}
+												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+											{% endif  %}
+
+											<div class="slugRecette">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+												<div>{{ recette.categorie.categorie }}
+
+
+												</div>
+												<div class="tpsRecette">
+													{% if recette.tpsPreparation %}
+														<div>
+															<div>Préparation</div>
+															<div>{{ recette.tpsPreparation }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsRepos %}
+														<div>
+															<div>Repos</div>
+															<div>{{ recette.tpsRepos }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsCuisson %}
+
+														<div>
+															<div>Cuisson</div>
+															<div>{{ recette.tpsCuisson }}
+																min</div>
+														</div>
+													{% endif %}
+												</div>
+											</div>
+										</a>
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
 					</div>
 				</div>
-
-
 			</div>
 		{% else %}
 			<div class="notGranted">
@@ -156,4 +333,7 @@
 
 
 	</section>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('./assets/js/showHideCatRecette.js')}}"></script>
 {% endblock %}

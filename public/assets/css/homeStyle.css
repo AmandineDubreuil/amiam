@@ -3,6 +3,18 @@
 }
 /*User granted */
 
+.home .granted h2 span {
+    font-size: 1rem;
+    color: gray;
+}
+
+.dnone {
+    display: none;
+}
+.dblock {
+    display: block;
+}
+
 
 /* User not granted */
 
