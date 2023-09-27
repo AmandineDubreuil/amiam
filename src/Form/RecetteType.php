@@ -70,15 +70,10 @@ class RecetteType extends AbstractType
                     ])
                 ]
             ])
-            ->add('video')
+            ->add('video', HiddenType::class)
             ->add('prive', CheckboxType::class, [
                 'label' => 'Recette privée ',
                 'required' => false,
-              //  'data' => true,
-                // 'label_html' => true,
-                // 'constraints' => [
-                //     new IsTrue(),
-                // ],
 
             ])
 

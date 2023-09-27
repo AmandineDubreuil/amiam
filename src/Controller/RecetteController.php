@@ -34,8 +34,8 @@ class RecetteController extends AbstractController
     #[Route('/', name: 'app_recette_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
-      
-       return $this->render('recette/index.html.twig', [
+
+        return $this->render('recette/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
         ]);
     }
@@ -86,11 +86,11 @@ class RecetteController extends AbstractController
         EntityManagerInterface $entityManager,
         PictureService $pictureService
     ): Response {
-
+        $idRecette = $recette->getId();
         $ingredients = $recette->getIngredients();
         $form = $this->createForm(RecetteType::class, $recette);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setModifiedAt(new \DateTimeImmutable);
 
@@ -101,11 +101,11 @@ class RecetteController extends AbstractController
             // on définit le dossier de destination
             $folder = 'photosRecettes';
             if ($image) {
-               // on supprime l'ancienne image
-               $oldImage = $recette->getPhoto();
-               if ($oldImage) {
-                   $pictureService->delete($oldImage, $folder);
-               }
+                // on supprime l'ancienne image
+                $oldImage = $recette->getPhoto();
+                if ($oldImage) {
+                    $pictureService->delete($oldImage, $folder);
+                }
                 //on appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 300, 300);
                 $recette->setPhoto($fichier);
@@ -114,7 +114,8 @@ class RecetteController extends AbstractController
             // *****
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_recette_index', [
+            return $this->redirectToRoute('app_recette_show', [
+                'id' => $idRecette,
             ], Response::HTTP_SEE_OTHER);
         }
 
