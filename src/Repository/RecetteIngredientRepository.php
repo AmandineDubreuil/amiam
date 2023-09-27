@@ -45,4 +45,23 @@ class RecetteIngredientRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findByRecette($recetteId): array
+{
+    return $this->createQueryBuilder('r')
+           ->andWhere('r.recette = :val')
+           ->setParameter('val', $recetteId)
+           ->orderBy('r.id', 'ASC')
+       //    ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+}
+
+// public function removeIngredient(RecetteIngredient $recetteIngredient): void
+// {
+//     $this->getEntityManager()->remove($recetteIngredient);
+//     $this->getEntityManager()->flush();
+// }
+
 }

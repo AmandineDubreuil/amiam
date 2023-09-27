@@ -56,4 +56,16 @@ public function findByUser($value): array
         ->getResult();
 }
 
+public function findByRecette($recetteId): array
+{
+    return $this->createQueryBuilder('r')
+           ->andWhere('r.recettes = :val')
+           ->setParameter('val', $recetteId)
+           ->orderBy('r.id', 'ASC')
+       //    ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+}
+
 }

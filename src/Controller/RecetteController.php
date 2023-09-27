@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Recette;
+use App\Entity\RecetteIngredient;
 use App\Form\RecetteType;
 use App\Service\PictureService;
 use App\Form\RecetteNewBeginType;
+use App\Repository\RecetteIngredientRepository;
 use App\Repository\RecetteRepository;
+use App\Repository\RepasRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -127,9 +130,29 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_recette_delete', methods: ['POST'])]
-    public function delete(Request $request, Recette $recette, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request,
+        Recette $recette,
+        RecetteIngredientRepository $recetteIngredientRepository,
+        RepasRepository $repasRepository,
+        EntityManagerInterface $entityManager,
+    ): Response {
+        $recetteId = $recette->getId();
+        $recetteIngredients = $recetteIngredientRepository->findByRecette($recetteId);
+        $recetteRepas = $repasRepository->findByRecette($recetteId);
         if ($this->isCsrfTokenValid('delete' . $recette->getId(), $request->request->get('_token'))) {
+
+            foreach ($recetteIngredients as $recetteIngredient) {
+                $entityManager->remove($recetteIngredient);
+              // $recetteIngredientRepository->removeIngredient($recetteIngredient);
+             //   dd($recetteIngredientRepository);
+            }
+            foreach ($recetteRepas as $repas) {
+                $entityManager->remove($repas);
+              // $recetteIngredientRepository->removeIngredient($recetteIngredient);
+             //   dd($recetteIngredientRepository);
+            }
+
             $entityManager->remove($recette);
             $entityManager->flush();
         }
