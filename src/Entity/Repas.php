@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\RepasRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\AmiFamille;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RepasRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: RepasRepository::class)]
 class Repas
@@ -16,7 +17,7 @@ class Repas
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToMany(targetEntity: amiFamille::class, inversedBy: 'repas')]
+    #[ORM\ManyToMany(targetEntity: AmiFamille::class, inversedBy: 'repas')]
     private Collection $amiFamilles;
 
     #[ORM\ManyToOne(inversedBy: 'repas')]
@@ -53,7 +54,7 @@ class Repas
         return $this->amiFamilles;
     }
 
-    public function addAmiFamille(amiFamille $amiFamille): static
+    public function addAmiFamille(AmiFamille $amiFamille): static
     {
         if (!$this->amiFamilles->contains($amiFamille)) {
             $this->amiFamilles->add($amiFamille);
@@ -62,7 +63,7 @@ class Repas
         return $this;
     }
 
-    public function removeAmiFamille(amiFamille $amiFamille): static
+    public function removeAmiFamille(AmiFamille $amiFamille): static
     {
         $this->amiFamilles->removeElement($amiFamille);
 

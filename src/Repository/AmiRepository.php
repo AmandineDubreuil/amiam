@@ -45,4 +45,16 @@ class AmiRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function findByFamille($familleId): array
+{
+    return $this->createQueryBuilder('r')
+           ->andWhere('r.famille = :val')
+           ->setParameter('val', $familleId)
+           ->orderBy('r.id', 'ASC')
+       //    ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+}
 }

@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Ami;
 use App\Entity\AmiFamille;
 use App\Form\AmiFamilleType;
 use App\Repository\AmiFamilleRepository;
+use App\Repository\AmiRepository;
+use App\Repository\RepasRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -57,7 +60,7 @@ class AmiFamilleController extends AbstractController
             // on définit le dossier de destination
             $folder = 'photosAmisFamille';
             if ($image) {
-                
+
                 //on appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 170, 170);
                 $amiFamille->setAvatar($fichier);
@@ -85,12 +88,12 @@ class AmiFamilleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_ami_famille_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, 
-    AmiFamille $amiFamille, 
-    EntityManagerInterface $entityManager,
-    PictureService $pictureService,
-    ): Response
-    {
+    public function edit(
+        Request $request,
+        AmiFamille $amiFamille,
+        EntityManagerInterface $entityManager,
+        PictureService $pictureService,
+    ): Response {
         $form = $this->createForm(AmiFamilleType::class, $amiFamille);
         $form->handleRequest($request);
 
@@ -124,9 +127,24 @@ class AmiFamilleController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_ami_famille_delete', methods: ['POST'])]
-    public function delete(Request $request, AmiFamille $amiFamille, EntityManagerInterface $entityManager): Response
-    {
+    public function delete(
+        Request $request,
+        AmiFamille $amiFamille,
+        AmiRepository $amiRepository,
+        EntityManagerInterface $entityManager,
+    ): Response {
+
+        $familleId = $amiFamille->getId();
+        $amis = $amiRepository->findByFamille($familleId);
+        $repas = $amiFamille->getRepas();
         if ($this->isCsrfTokenValid('delete' . $amiFamille->getId(), $request->request->get('_token'))) {
+
+            foreach ($amis as $ami) {
+                $entityManager->remove($ami);
+            }
+            foreach ($repas as $repa) {
+                $entityManager->remove($repa);
+            }
             $entityManager->remove($amiFamille);
             $entityManager->flush();
         }
