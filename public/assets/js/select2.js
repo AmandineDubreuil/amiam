@@ -1,4 +1,4 @@
-console.log('hello select')
+// console.log('hello select')
 
 /*****************************
  *  UTILISATION DES SELECT2

@@ -1,4 +1,4 @@
-console.log("hello showHide")
+//console.log("hello showHide")
 
 const aperitifH2 = document.querySelector("#aperitifH2");
 const aperitif = document.querySelector("#aperitif");
