@@ -46,7 +46,7 @@
 							<p>
 								{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
 									Famille
-									{{ famille.nom }},&nbsp;
+									{{ famille.nom }}&nbsp;
 								{% endfor %}
 							</p>
 						</div>

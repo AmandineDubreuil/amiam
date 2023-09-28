@@ -21,6 +21,7 @@ class Repas
     private Collection $amiFamilles;
 
     #[ORM\ManyToOne(inversedBy: 'repas')]
+    #[ORM\JoinColumn(name:"recettes_id", onDelete:"CASCADE")]
     private ?Recette $recettes = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -30,6 +31,7 @@ class Repas
     private ?string $commentaire = null;
 
     #[ORM\ManyToOne(inversedBy: 'repas')]
+    #[ORM\JoinColumn(name:"user_id", onDelete:"CASCADE")]
     private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Ami::class, inversedBy: 'repas')]

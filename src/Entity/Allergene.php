@@ -48,7 +48,7 @@ class Allergene
     }
     public function __toString(): string
     {
-        return $this->getId();   
+        return $this->getAllergene();   
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\UserEmailType;
+use App\Repository\AmiFamilleRepository;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
 use App\Service\JWTService;
@@ -55,10 +56,10 @@ class UserController extends AbstractController
                 // on supprime l'ancienne image
                 $oldImage = $user->getAvatar();
                 $pictureService->delete($oldImage, $folder);
-                
+
                 //on appelle le service d'ajout
                 $fichier = $pictureService->add($image, $folder, 300, 300);
-               
+
                 $user->setAvatar($fichier);
             }
 
@@ -129,9 +130,36 @@ class UserController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function delete(
+        Request $request,
+     User $user, 
+     AmiFamilleRepository $amiFamilleRepository,
+     EntityManagerInterface $entityManager
+     ): Response
     {
+        $userId = $user->getId();
+        $repas = $user->getRepas();
+        $recettes = $user->getRecettes();
+        $amiFamilles = $amiFamilleRepository->findByUser($userId);
+        dd($amiFamilles);
+       $userFamilies = $user->getUserFamilies($userId);
+
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+
+            foreach ($repas as $repa) {
+                $entityManager->remove($repa);
+            }
+            foreach ($recettes as $recette) {
+                $entityManager->remove($recette);
+            }
+            foreach ($amiFamilles as $amiFamille) {
+                $entityManager->remove($amiFamille);
+             }
+            foreach ($userFamilies as $userFamily) {
+                $entityManager->remove($userFamily);
+            }
+
+
             $entityManager->remove($user);
             $entityManager->flush();
         }

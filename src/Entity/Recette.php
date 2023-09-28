@@ -41,6 +41,7 @@ class Recette
     private ?string $video = null;
 
     #[ORM\ManyToOne(inversedBy: 'recettes')]
+    #[ORM\JoinColumn(name:"user_id", onDelete:"CASCADE")]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]

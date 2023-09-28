@@ -23,6 +23,7 @@ class AmiFamille
     private ?string $avatar = null;
 
     #[ORM\ManyToOne(inversedBy: 'amiFamilles')]
+    #[ORM\JoinColumn(name:"user_id", onDelete:"CASCADE")]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'famille', targetEntity: Ami::class)]

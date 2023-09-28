@@ -21,6 +21,7 @@ class UserFamily
     private ?\DateTimeInterface $dateNaissance = null;
 
     #[ORM\ManyToOne(inversedBy: 'userFamilies')]
+    #[ORM\JoinColumn(name:"user_id", onDelete:"CASCADE")]
     private ?User $user = null;
 
     public function getId(): ?int

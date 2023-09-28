@@ -39,16 +39,7 @@
 			<ul>
 				{% for ami in amisPresents %}
 					<li>
-						<p>
 							{{ami.prenom}}
-						</p>
-						<ul>
-							{% for allergieAliment in ami.allergiesAliment %}
-								<li>{{allergieAliment.id}}
-									-
-									{{allergieAliment.aliment}}</li>
-							{% endfor %}
-						</ul>
 					</li>
 				{% endfor %}
 			</ul>

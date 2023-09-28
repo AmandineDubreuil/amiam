@@ -23,6 +23,7 @@ class RecetteIngredient
     private ?Mesure $mesure = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    #[ORM\JoinColumn(name:"recette_id", onDelete:"CASCADE")]
     private ?Recette $recette = null;
 
    

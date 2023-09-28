@@ -33,6 +33,7 @@ class Ami
     private Collection $degout;
 
     #[ORM\ManyToOne(inversedBy: 'amis')]
+    #[ORM\JoinColumn(name:"famille_id", onDelete:"CASCADE")]
     private ?AmiFamille $famille = null;
 
     #[ORM\ManyToMany(targetEntity: Aliment::class, inversedBy: 'amis')]
