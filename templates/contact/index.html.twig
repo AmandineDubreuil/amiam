@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+
+{% endblock %}
+
+
+{% block body %}
+	<section>
+
+		<form method="POST">
+{% if is_granted('ROLE_USER') %}
+<div class="form-field">
+<p>Pseudo : {{app.user.pseudo}}</p>
+<p>E-mail : {{app.user.email}}</p>
+</div>
+{% else %}
+    <div class="form-field">
+				<label for="pseudo">Pseudo * :</label>
+				<input type="text" name="pseudo" id="pseudo" class="form-control rounded-1" required="required">
+			</div>
+			<div class="form-field">
+				<label for="pseudo">E-mail * :</label>
+				<input type="email" name="email" id="email"  class="form-control rounded-1" required="required">
+			</div>
+
+{% endif %} 
+
+			
+			<div  class="form-field">
+				<label for="objet">Objet * :</label>
+				<input type="text" name="objet" id="objet"  class="form-control rounded-1" required="required">
+			</div>
+			<div class="form-field">
+				<label for="commentaire">Commentaire * :</label>
+
+				<textarea name="commentaire" id="commentaire" cols="30" rows="10"  class="form-control rounded-1" required="required"></textarea>
+			</div>
+			<div class="groupeBtn">
+				<input type="submit" value="Envoyer" name="submit" class="btn btnOk">
+			</div>
+		</form>
+
+	</section>
+{% endblock %}

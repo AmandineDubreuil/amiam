@@ -26,15 +26,14 @@
 
 	<section class="recettesIndex">
 
-		<h1>Mes recettes</h1>
+		<h1>Mes recettes ({{app.user.recettes|length}})</h1>
 
 		<a class="btn iconeAjout" href="{{path('app_recette_new')}}">
 			<i class="fa-solid fa-circle-plus"></i>
 		</a>
 
 		<div class="cards">
-			<h2 id="aperitifH2" onclick="showHide(aperitif)">Apéritif
-				<span>
+			<h2 id="aperitifH2" onclick="showHide(aperitif)">Apéritif 				<span>
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h2>

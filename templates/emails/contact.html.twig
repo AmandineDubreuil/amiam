@@ -1,0 +1,15 @@
+{% extends 'emails/base_emails.html.twig' %}
+
+{% block body %}
+	<p>Bonjour !</p>
+
+	<p>Tu as reçu une nouvelle demande :</p>
+	<p><span class="text-viride dark-4 font-w600">Message de :</span> {{pseudo}}</p>
+	<p><span  class="text-viride dark-4 font-w600">Message :</span></p>
+	
+	<p class="bd-viride light-4 bd-solid bd-2 rounded-1 p-3">{{commentaire}}</p>
+	
+	<p>Je te souhaite une agréable journée</p>
+	<p>Amiam</p>
+
+{% endblock %}
