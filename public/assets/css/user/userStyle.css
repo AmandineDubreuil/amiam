@@ -1,5 +1,8 @@
 /* entete*/
-
+.user{
+    position: relative;
+    min-height: 80vh;
+}
 .user .entete,
 .user .email,
 .user .email a,
@@ -50,4 +53,12 @@
 
 .user .familleUser .enteteFamille i{
     font-size: 1.5rem;
+}
+.user .contact {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+}
+.user .contact .btn {
+    width: fit-content;
 }
