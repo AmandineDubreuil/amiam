@@ -82,6 +82,7 @@ class AmiFamilleController extends AbstractController
     #[Route('/{id}', name: 'app_ami_famille_show', methods: ['GET'])]
     public function show(AmiFamille $amiFamille): Response
     {
+        
         return $this->render('ami_famille/show.html.twig', [
             'ami_famille' => $amiFamille,
         ]);
