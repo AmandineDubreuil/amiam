@@ -105,7 +105,6 @@ class RepasnewController extends AbstractController
                     $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
 
                 }
-
                 ############  fin de la boucle amiPresent
             }
 
@@ -205,16 +204,20 @@ class RepasnewController extends AbstractController
                         $recetteAEviter += 1;
                     }
                 }
-
+ //dd($recetteAEviter);
                 ######## RECUPERATION DES RECETTES OK #########
                 if ($recetteAEviter === 0) {
                     $recettesOk[] = $recette;
+                //    dd($recettesOk);
                 } else {
                     $recetteAEviter = 0;
+              //      dd('ok');
                 }
 
                 ############  fin de la boucle recette
             }
+           
+
             ############  fin du submit en dessous
         }
 
