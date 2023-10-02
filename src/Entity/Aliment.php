@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\AlimentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AlimentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: AlimentRepository::class)]
 class Aliment
@@ -38,6 +39,15 @@ class Aliment
 
     #[ORM\ManyToMany(targetEntity: Ami::class, mappedBy: 'allergiesAliment')]
     private Collection $allergieAmis;
+
+    #[ORM\ManyToOne(inversedBy: 'aliments')]
+    private ?User $user = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
 
     public function __construct()
     {
@@ -233,6 +243,42 @@ class Aliment
         if ($this->allergieAmis->removeElement($allergieAmis)) {
             $allergieAmis->removeAllergiesAliment($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

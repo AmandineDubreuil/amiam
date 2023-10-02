@@ -50,6 +50,7 @@ class RecetteIngredientController extends AbstractController
         return $this->render('recette_ingredient/new.html.twig', [
             'recette_ingredient' => $recetteIngredient,
             'form' => $form,
+            'recette' =>$recetteId,
         ]);
     }
 
@@ -79,6 +80,7 @@ class RecetteIngredientController extends AbstractController
         return $this->render('recette_ingredient/edit.html.twig', [
             'recette_ingredient' => $recetteIngredient,
             'form' => $form,
+            'recette' => $recette,
         ]);
     }
 

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aliment - Amiam
+{% endblock %}
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/alimentStyle.css')}}">
+
+{% endblock %}
+
+
+{% block body %}
+	<section class="aliment">
+		<a class="btn btnRetour" href="javascript:history.go(-1)">
+			<i class="fa-solid fa-arrow-left"></i>
+		</a>
+
+		<h2>{{ aliment.aliment }}</h2>
+
+		<p>Groupe :
+			<span>{{ aliment.sousGroupe }}</span></p>
+		<div>
+			<p>Ne convient pas pour les régimes :</p>
+			<ul>
+				{% for regime in aliment.regime %}
+					<li><span>{{ regime.regime }}</span></li>
+				{% endfor %}
+
+			</ul>
+		</div>
+		<div>
+			<p>Groupe allergène :</p>
+			<ul>
+				{% for allergene in aliment.allergene %}
+					<li><span>{{ allergene.allergene }}</span></li>
+				{% endfor %}
+
+			</ul>
+		</div>
+		<div>
+			<p>Présents les mois suivants :</p>
+			<ul>
+				{% for mois in aliment.saison %}
+					<li><span>{{ mois.moisL }}</span></li>
+				{% endfor %}
+
+			</ul>
+		</div>
+		<div class="contact">
+			<p>Si tu apperçois une erreur, tu peux
+				<a href="{{ path('app_contact') }}" target="blank">
+
+					nous contacter ici</a>.
+			</p>
+		</div>
+
+
+	</section>
+{% endblock %}

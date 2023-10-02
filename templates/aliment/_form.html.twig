@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+<div class="form">
+	<div class="form-field">
+		{{ form_row(form.aliment, {
+            label: 'Ingrédient *',
+                   }) }}
+	</div>
+	<div class="groupe">
+		<div class="form-field">
+			{{ form_row(form.sousGroupe) }}
+		</div>
+		<div class="form-field">
+			{{ form_row(form.saison) }}
+		</div>
+	</div>
+        <div class="groupe">
+	<div class="form-field">
+		{{ form_row(form.allergene) }}
+	</div>
+	<div class="form-field">
+		{{ form_row(form.regime) }}
+	</div>
+</div>
+	<p>* Champs requis</p>
+
+	<div class="bouton">
+		<button class="btn iconeOk">
+			<i class="fa-solid fa-check"></i>
+		</button>
+	</div>
+	{{ form_end(form) }}

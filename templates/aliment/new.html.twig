@@ -1,19 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout d'un ingrédient
+{% block title %}Création Aliment - Amiam
 {% endblock %}
-
 {% block stylesheets %}
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 
 	<!-- Font Awesome -->
 	<link
-	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-     <!-- JQuery -->
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
 	<link
 	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-
 
 	<!-- Axentix CSS minified version -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
@@ -21,25 +18,20 @@
 
 	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
-	<link rel="stylesheet" href="{{asset('./assets/css/recette/ingredientNewEditStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/alimentStyle.css')}}">
 
 {% endblock %}
-
-
 {% block body %}
-	<section class="ingredientNewEdit">
-
+	<section class="aliment">
 		<div class="groupeBtn">
 			<a class="btn btnRetour" href="javascript:history.go(-1)">
 				<i class="fa-solid fa-arrow-left"></i>
 			</a>
 			<a class="btn btnOk" href="{{path('app_aliment_index')}}">Liste des ingrédients</a>
 		</div>
+		<h1>Création d'un ingrédient</h1>
 
-		<h1 class="h3 mb-3 font-weight-normal">Ajout d'un ingrédient</h1>
+		{{ include('aliment/_form.html.twig') }}
 
-		{{ include('recette_ingredient/_form.html.twig') }}
-		
 	</section>
-
 {% endblock %}

@@ -1,0 +1,27 @@
+.aliment p {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  line-height: normal;
+}
+.aliment span {
+  font-style: italic;
+}
+.aliment .contact a {
+  text-decoration: underline;
+}
+.aliment .groupeBtn {
+    justify-content: space-between;
+}
+.aliment .btnOk {
+    width: fit-content;
+}
+.aliment .groupe {
+    display: flex;
+    justify-content: space-between;
+}
+.aliment .bouton {
+    max-width: 30rem;
+    display: flex;
+   justify-content: flex-end;
+
+}
