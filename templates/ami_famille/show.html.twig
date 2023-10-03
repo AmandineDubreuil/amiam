@@ -90,9 +90,11 @@
 										<p>
 											{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
 										</p>
-										<p>
-											{{ repa.recettes.titre }}
-										</p>
+										{% for recette in repa.recettes %}
+											<p>
+												{{ recette.titre }}&nbsp;
+											</p>
+										{% endfor %}
 									</div>
 								</a>
 

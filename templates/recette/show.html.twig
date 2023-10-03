@@ -103,35 +103,34 @@
 
 		</div>
 
-<div class="repas">
-		<h5>Repas effectués</h5>
-		<div class="cards">
+		<div class="repas">
+			<h5>Repas effectués</h5>
+			<div class="cards">
 
 
-			{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
-				{% if recette.id is same as repa.recettes.id %}
+				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
+					{% for recette in repa.recettes %}
+						{% if recette.id is same as repa.recettes.id %}
+							<div class="card shadow-1 hoverable-1 rounded-3 ">
+								<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
 
-					<div class="card shadow-1 hoverable-1 rounded-3 ">
-						<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
-
-							<div class="card-content">
-								<p>
-									{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
-								</p>
-								<p>
-									{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
-										Famille
-										{{ famille.nom }}&nbsp;
-									{% endfor %}
-								</p>
+									<div class="card-content">
+										<p>
+											{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
+										</p>
+										<p>
+											{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
+												Famille
+												{{ famille.nom }}&nbsp;
+											{% endfor %}
+										</p>
+									</div>
+								</a>
 							</div>
-						</a>
-
-					</div>
-				{% endif %}
-
-			{% endfor %}
-		</div>
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+			</div>
 		</div>
 	</section>
 {% endblock %}

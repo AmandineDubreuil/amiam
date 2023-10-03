@@ -2,22 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Regime;
-use App\Repository\AlimentRepository;
 use App\Repository\AllergeneRepository;
 use App\Repository\AmiRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\AmiFamilleRepository;
-use App\Repository\RecetteIngredientRepository;
-use App\Repository\RegimeRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use function PHPUnit\Framework\isEmpty;
 
 class RepasnewController extends AbstractController
 {
@@ -37,6 +31,8 @@ class RepasnewController extends AbstractController
         AllergeneRepository $allergeneRepository,
     ): Response {
 
+        // partie récap amis présents et choix recettes
+
         $user = $this->security->getUser();
         $familles = $amiFamilleRepository->findBy(['user' => $user]);
         $famillesPresentes = [];
@@ -53,6 +49,9 @@ class RepasnewController extends AbstractController
         $recetteAEviter = 0;
         $recettesOk = [];
 
+        // partie récap recettes choisies
+    
+        $recettesChoisies = [];
 
         if ($request->isMethod('POST') && $request->request->has('submit')) {
 
@@ -80,7 +79,6 @@ class RepasnewController extends AbstractController
                         $regimeSsPorc += 1;
                     }
                     $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
-
                 }
 
                 // récupérer leurs allergies groupe pour filtre des recettes
@@ -95,7 +93,6 @@ class RepasnewController extends AbstractController
                 foreach ($allergiesAliment as $al) {
                     $allergiesAlimentPresentes[] = $al;
                     $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
-
                 }
 
                 //  récupérer leurs dégouts pour filtre des recettes
@@ -103,7 +100,6 @@ class RepasnewController extends AbstractController
                 foreach ($degouts as $degout) {
                     $degoutsPresents[] = $degout;
                     $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
-
                 }
                 ############  fin de la boucle amiPresent
             }
@@ -174,14 +170,14 @@ class RepasnewController extends AbstractController
                         // ajouter la recette au tableau $recettesConformes
                         // $recettesAvecAllergieAliment[] = $recette;
                         $recetteAEviter += 1;
-                    } 
+                    }
 
                     ######## pour Degouts #########
                     if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
                         // ajouter la recette au tableau $recettesConformes
                         //   $recettesAvecDegout[] = $recette;
                         $recetteAEviter += 1;
-                    } 
+                    }
 
                     ######## pour AllergiesGroupe #########
                     $allergene = $aliment->getAllergene();
@@ -204,29 +200,38 @@ class RepasnewController extends AbstractController
                         $recetteAEviter += 1;
                     }
                 }
- //dd($recetteAEviter);
+
                 ######## RECUPERATION DES RECETTES OK #########
                 if ($recetteAEviter === 0) {
                     $recettesOk[] = $recette;
-                //    dd($recettesOk);
                 } else {
                     $recetteAEviter = 0;
-              //      dd('ok');
                 }
 
                 ############  fin de la boucle recette
             }
-           
+
 
             ############  fin du submit en dessous
         }
 
+        // if ($this->isCsrfTokenValid('choix' . $recettes->getId(), $request->request->get('_token'))) {
+          
+        //     dd($recetteChoix);
+        // }
 
+
+        if ($request->isMethod('POST') && $request->request->has('submitChoixRecette')) {
+
+          //  dd('yata');
+
+                    ############  fin du submitChoixRecette en dessous
+        }
 
         return $this->render('repasnew/index.html.twig', [
             'controller_name' => 'RepasnewController',
             'familles' => $familles,
-            'famillesPresentes' =>$famillesPresentes,
+            'famillesPresentes' => $famillesPresentes,
             'amis' => $amis,
             'amisId' => $amisPresentsId,
             'amisPresents' => $amisPresents,
@@ -235,6 +240,7 @@ class RepasnewController extends AbstractController
             'allergiesAliment' => $allergiesAliment,
             'recettes' => $recettes,
             'recettesOk' => $recettesOk,
+            'recettesChoisies' =>$recettesChoisies,
         ]);
     }
 }

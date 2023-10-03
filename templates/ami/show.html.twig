@@ -121,8 +121,8 @@
 				</ul>
 			</div>
 		</div>
-<div class="repas">
-<h5>Repas effectués</h5>
+		<div class="repas">
+			<h5>Repas effectués</h5>
 			<div class="cards">
 
 				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
@@ -135,9 +135,11 @@
 										<p>
 											{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
 										</p>
-										<p>
-											{{ repa.recettes.titre }}
-										</p>
+										{% for recette in repa.recettes %}
+											<p>
+												{{ recette.titre }}&nbsp;
+											</p>
+										{% endfor %}
 									</div>
 								</a>
 
@@ -146,11 +148,11 @@
 					{% endfor %}
 				{% endfor %}
 			</div>
-</div>
+		</div>
 	</section>
 
 
 	{# <a href="{{ path('app_ami_edit', {'id': ami.id}) }}">edit</a>
-				
-					{{ include('ami/_delete_form.html.twig') }} #}
+					
+						{{ include('ami/_delete_form.html.twig') }} #}
 {% endblock %}

@@ -39,7 +39,11 @@
 								{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
 							</p>
 							<p class="cardRepasTitre">
-								&nbsp;{{ repa.recettes.titre}}&nbsp;
+							{% for recette in repa.recettes %}
+								
+						
+								&nbsp;{{ recette.titre}}&nbsp;
+									{% endfor %}
 							</p>
 						</div>
 						<div class="card-content">

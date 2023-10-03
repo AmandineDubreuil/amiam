@@ -32,14 +32,17 @@ amisPresentsFill(amis)
 function amisPresentsFill(amis) {
 let amisId = [];
   amis.forEach((ami) => { 
-    // console.dir(ami.attributes.value.nodeValue)
      if (ami.checked === true) {
         amisId += ami.attributes.value.nodeValue + ",";
        jsonAmisId = amisId.split(",").map(Number);
 
      }
-  console.dir(jsonAmisId)
   });
 }
 
+// *********** RECETTES CHOISIES ***********
 
+// quand user choisit une recette, son aspect change
+let recetteId = document.forms["aperitif"].elements["submitChoixRecette"];
+//let recetteChoix = document.querySelector("#choixRecette" + recette)
+console.dir(document.forms[1])

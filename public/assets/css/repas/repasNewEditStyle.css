@@ -82,6 +82,10 @@ h1 {
 
 }
 
+.recettes .choisie {
+    background-color: var(--color-light);
+}
+
 /* fichier repas/new */
 
 .repas .iconeOk {

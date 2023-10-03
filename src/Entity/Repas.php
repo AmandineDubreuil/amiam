@@ -20,9 +20,10 @@ class Repas
     #[ORM\ManyToMany(targetEntity: AmiFamille::class, inversedBy: 'repas')]
     private Collection $amiFamilles;
 
-    #[ORM\ManyToOne(inversedBy: 'repas')]
-    #[ORM\JoinColumn(name:"recettes_id", onDelete:"CASCADE")]
-    private ?Recette $recettes = null;
+    #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'repas')]
+    private Collection $recettes;
+    //  #[ORM\JoinColumn(name:"recettes_id", onDelete:"CASCADE")]
+    //  private ?Recette $recettes = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
@@ -31,7 +32,7 @@ class Repas
     private ?string $commentaire = null;
 
     #[ORM\ManyToOne(inversedBy: 'repas')]
-    #[ORM\JoinColumn(name:"user_id", onDelete:"CASCADE")]
+    #[ORM\JoinColumn(name: "user_id", onDelete: "CASCADE")]
     private ?User $user = null;
 
     #[ORM\ManyToMany(targetEntity: Ami::class, inversedBy: 'repas')]
@@ -72,14 +73,22 @@ class Repas
         return $this;
     }
 
-    public function getRecettes(): ?recette
+    public function getRecettes(): Collection
     {
         return $this->recettes;
     }
 
-    public function setRecettes(?recette $recettes): static
+    public function addRecette(Recette $recette): static
     {
-        $this->recettes = $recettes;
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+        }
+
+        return $this;
+    }
+    public function removeRecette(Recette $recette): static
+    {
+        $this->recettes->removeElement($recette);
 
         return $this;
     }

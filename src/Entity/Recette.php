@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\RecetteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RecetteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
 class Recette
@@ -59,7 +61,7 @@ class Recette
     #[ORM\Column]
     private ?\DateTimeImmutable $modifiedAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'recettes', targetEntity: Repas::class)]
+    #[ORM\ManyToMany(targetEntity: Repas::class, mappedBy: 'recettes')]
     private Collection $repas;
 
     public function __construct()
@@ -274,22 +276,16 @@ class Recette
     {
         if (!$this->repas->contains($repa)) {
             $this->repas->add($repa);
-            $repa->setRecettes($this);
+            $repa->addRecette($this);
         }
-
-        
         return $this;
+
     }
 
     public function removeRepa(Repas $repa): static
     {
         if ($this->repas->removeElement($repa)) {
-            // set the owning side to null (unless already changed)
-            if ($repa->getRecettes() === $this) {
-                $repa->setRecettes(null);
-            }
+            $repa->removeRecette($this);
         }
-
-        return $this;
     }
 }
