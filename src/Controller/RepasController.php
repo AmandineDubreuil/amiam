@@ -107,8 +107,8 @@ class RepasController extends AbstractController
 
         $nbCouverts = 1;
         $recettes = $repa->getRecettes();
-   
-       // $ingredients = $recetteRepa->getIngredients();
+
+        // $ingredients = $recetteRepa->getIngredients();
 
         return $this->render('repas/show.html.twig', [
             'repa' => $repa,
@@ -205,6 +205,7 @@ class RepasController extends AbstractController
 
         $repasId = $repa->getId();
         $amis = $repa->getAmis();
+        $recettesOld = $repa->getRecettes();
         $recettes = $recetteRepository->findBy(['user' => $user]);
 
         $allergiesGroupe = "";
@@ -365,11 +366,23 @@ class RepasController extends AbstractController
 
 
         if ($request->isMethod('POST') && $request->request->has('submit')) {
-            $recetteId = $request->request->get('recetteId');
-            $recette = $recetteRepository->find($recetteId);
-            // dd($recette);
 
-            $repa->setRecettes($recette);
+            foreach ($recettesOld as $recetteOld) {
+                $repa->removeRecette($recetteOld);
+            }
+
+            $recettesChoisies = $request->request->all('recetteChoisie');
+            
+            foreach ($recettesChoisies as $recetteChoisie) {
+                $recetteC = $recetteRepository->find($recetteChoisie);
+                $recettesC[] = $recetteC;
+            }
+            //dd($recettesC);
+            foreach ($recettesC as $recetteR) {
+
+                $repa->addRecette($recetteR);
+            }
+
             $entityManager->persist($repa);
             $entityManager->flush();
 
