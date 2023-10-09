@@ -39,7 +39,7 @@
 								{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
 							</p>
 							<p class="cardRepasTitre">
-							{% for recette in repa.recettes | sort((b, a)=> a.categorie <=> b.categorie)%}
+							{% for recette in repa.recettes |  sort((a, b)=> a.categorie <=> b.categorie)%}
 								
 						
 								&nbsp;{{ recette.titre}}&nbsp;

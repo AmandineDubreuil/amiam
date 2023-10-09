@@ -114,7 +114,7 @@
 				</a>
 			</div>
 			<ul>
-				{% for recette in recettes %}
+				{% for recette in recettes |  sort((a, b)=> a.categorie <=> b.categorie)%}
 					<div class="card shadow-1 hoverable-1 rounded-3 ">
 						<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}">
 							{% if recette.photo %}
