@@ -106,12 +106,13 @@ class RepasController extends AbstractController
         }
 
         $nbCouverts = 1;
-        $recetteRepa = $repa->getRecettes();
-        $ingredients = $recetteRepa->getIngredients();
+        $recettes = $repa->getRecettes();
+   
+       // $ingredients = $recetteRepa->getIngredients();
 
         return $this->render('repas/show.html.twig', [
             'repa' => $repa,
-            'ingredients' => $ingredients,
+            'recettes' => $recettes,
             'nbCouverts' => $nbCouverts,
 
         ]);

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette Amiam{% endblock %}
+
+{% block body %}
+
+
+	<div class="recette">
+
+  <div class="card shadow-1 hoverable-1 rounded-3">
+
+    <h4>{{recette.titre}}</h4>
+    <h5>{{ recette.categorie.categorie }}</h5>
+    {% if recette.photo %}
+      <div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+    {% else  %}
+      <div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+    {% endif  %}
+
+
+    <div class="tempsGroupe">
+      {% if recette.tpsPreparation %}
+        <div class="temps">
+          <p>Temps de préparation</p>
+          <div>{{ recette.tpsPreparation }}
+            min
+          </div>
+        </div>
+      {% endif %}
+      {% if recette.tpsRepos %}
+        <div class="temps">
+          <p>Temps de repos</p>
+          <div>{{ recette.tpsRepos }}
+            min</div>
+        </div>
+      {% endif %}
+      {% if recette.tpsCuisson %}
+        <div class="temps">
+          <p>Temps de cuisson</p>
+          <div>{{ recette.tpsCuisson }}
+            min</div>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <div>
+      <h5>Ingrédients</h5>
+      <p class="nbPersonnes">pour
+        {{ nbCouverts }}
+
+        amis
+        <i id="questionI" class="fa-regular fa-circle-question" onclick="showHide(question)"></i>
+      </p>
+      <div id="question" class="dnone">
+        <p class="gris">mis à jour en fonction du nombre d'amis présents et de la composition de ta famille.</p>
+        <p class="gris">1 adulte ou 1 adolescent = 1 part</p>
+        <p class="gris">1 enfant = 0.5 part</p>
+        <p class="gris">1 bébé = 0 part</p>
+      </div>
+      <table>
+        <tbody>
+          {% for ingredient in ingredients %}
+            <tr class="ingredients">
+              <td>{{ ingredient.aliment }}</td>
+              <td>{{ ((ingredient.quantite / recette.nbPersonnes) * nbCouverts )  | round(2, 'floor') }}
+                {{ ingredient.mesure }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h5>Étapes</h5>
+      <p>{{ recette.description | raw }}</p>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

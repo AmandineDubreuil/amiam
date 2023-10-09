@@ -38,8 +38,8 @@
 			<div
 				class="modifSupp">
 				{# <a class="btn iconeModifier" href="{{ path('app_repas_edit', {'id': repa.id}) }}">
-																													<i class="fa-solid fa-pen-to-square"></i>
-																												</a> #}
+																																									<i class="fa-solid fa-pen-to-square"></i>
+																																								</a> #}
 
 				{{ include('repas/_delete_form.html.twig') }}
 			</div>
@@ -87,12 +87,12 @@
 			<div class="couverts">
 				{% for membre in app.user.userFamilies %}
 					{% if membre.age > 11  %}
-										{% set nbCouverts = nbCouverts + 1 %}
-									{% elseif membre.age > 2 %}
-										{% set nbCouverts = nbCouverts + 0.5 %}
-									{% else %}
-										{% set nbCouverts = nbCouverts  %}
-									{% endif %}
+						{% set nbCouverts = nbCouverts + 1 %}
+					{% elseif membre.age > 2 %}
+						{% set nbCouverts = nbCouverts + 0.5 %}
+					{% else %}
+						{% set nbCouverts = nbCouverts  %}
+					{% endif %}
 				{% endfor %}
 
 			</div>
@@ -108,85 +108,61 @@
 		</div>
 		<div class="recette">
 			<div class="df">
-				<h3>Recette utilisée</h3>
+				<h3>Recettes utilisées</h3>
 				<a class="btn iconeModifier" href="{{path('app_repas_edit_recette', {'id': repa.id})}}">
 					<i class="fa-solid fa-pen-to-square"></i>
 				</a>
 			</div>
-			<div class="card shadow-1 hoverable-1 rounded-3">
+			<ul>
+				{% for recette in recettes %}
+					<div class="card shadow-1 hoverable-1 rounded-3 ">
+						<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}">
+							{% if recette.photo %}
+								<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+							{% else  %}
+								<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+							{% endif  %}
 
-				<h4>{{repa.recettes.titre}}</h4>
-				<h5>{{ repa.recettes.categorie.categorie }}</h5>
-				{% if repa.recettes.photo %}
-					<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ repa.recettes.photo }}" alt="{{ repa.recettes.titre }}"></div>
-				{% else  %}
-					<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ repa.recettes.titre }}"></div>
-				{% endif  %}
+							<div class="slugRecette">
+								<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+								<div>{{ recette.categorie.categorie }}
 
 
-				<div class="tempsGroupe">
-					{% if repa.recettes.tpsPreparation %}
-						<div class="temps">
-							<p>Temps de préparation</p>
-							<div>{{ repa.recettes.tpsPreparation }}
-								min
+								</div>
+								<div class="tpsRecette">
+									{% if recette.tpsPreparation %}
+										<div>
+											<div>Préparation</div>
+											<div>{{ recette.tpsPreparation }}
+												min</div>
+										</div>
+									{% endif %}
+									{% if recette.tpsRepos %}
+										<div>
+											<div>Repos</div>
+											<div>{{ recette.tpsRepos }}
+												min</div>
+										</div>
+									{% endif %}
+									{% if recette.tpsCuisson %}
+
+										<div>
+											<div>Cuisson</div>
+											<div>{{ recette.tpsCuisson }}
+												min</div>
+										</div>
+									{% endif %}
+
+								</div>
 							</div>
-						</div>
-					{% endif %}
-					{% if repa.recettes.tpsRepos %}
-						<div class="temps">
-							<p>Temps de repos</p>
-							<div>{{ repa.recettes.tpsRepos }}
-								min</div>
-						</div>
-					{% endif %}
-					{% if repa.recettes.tpsCuisson %}
-						<div class="temps">
-							<p>Temps de cuisson</p>
-							<div>{{ repa.recettes.tpsCuisson }}
-								min</div>
-						</div>
-					{% endif %}
-
-				</div>
-
-				<div>
-					<h5>Ingrédients</h5>
-					<p class="nbPersonnes">pour
-						{{ nbCouverts }}
-
-						amis
-						<i id="questionI" class="fa-regular fa-circle-question" onclick="showHide(question)"></i>
-					</p>
-					<div id="question" class="dnone">
-						<p class="gris">mis à jour en fonction du nombre d'amis présents et de la composition de ta famille.</p>
-						<p class="gris">1 adulte ou 1 adolescent = 1 part</p>
-						<p class="gris">1 enfant = 0.5 part</p>
-						<p class="gris">1 bébé = 0 part</p>
+						</a>
 					</div>
-					<table>
-						<tbody>
-							{% for ingredient in ingredients %}
-								<tr class="ingredients">
-									<td>{{ ingredient.aliment }}</td>
-									<td>{{ ((ingredient.quantite / repa.recettes.nbPersonnes) * nbCouverts )  | round(2, 'floor') }}
-										{{ ingredient.mesure }}</td>
-								</tr>
-							{% endfor %}
-						</tbody>
-					</table>
-				</div>
 
-				<div>
-					<h5>Étapes</h5>
-					<p>{{ repa.recettes.description | raw }}</p>
-
-				</div>
-			</div>
-
-		</div>
-	</section>
-{% endblock %}
-{% block javascripts %}
-	<script src="{{asset('./assets/js/showHide.js')}}"></script>
-{% endblock %}
+				{% endfor %}
+			</ul>
+		</section>
+	{% endblock %}
+	{% block javascripts %}
+		<script src="{{asset('./assets/js/showHide.js')}}"></script>
+	{% endblock %}

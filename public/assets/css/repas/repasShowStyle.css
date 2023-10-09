@@ -42,40 +42,46 @@
 
 
 /* recette */
-.repasShow .recette .card {
-    padding: 1rem;
+.recette {
+  position: relative;
+}
+.recette h3 span {
+  font-size: 1rem;
+  color: grey;
+}
+.recette .cardRecette {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;    
 }
 
-.repasShow .recette .imgRecette {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-  }
-  
-  .repasShow .recette .imgRecette img {
-    max-width: 400px;
-  }
-  
-  .tempsGroupe {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .repasShow .recette .saisons p,
-  .repasShow .recette .tempsGroupe p {
-    margin-top: 1rem;
-    margin-bottom: 0;
-    font-weight: bold;
-  }
-  
-  .repasShow .recette .cardRepasRecette {
-    padding: 1rem;
-    background-color: var(--color-three);
-  }
-  
-  .repasShow .recette .cardRepasRecette span {
-    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
-  }
-  
+.recette .imgRecette img {
+  width: 100%;
+}
+
+.recette .imgRecette {
+  width: 25%;
+}
+
+.recette .slugRecette {
+  padding: 1rem;
+  width: 70%;
+}
+.recette .checkboxRecette{
+  padding: 1rem;
+}
+
+
+.recette .tpsRecette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 20rem;
+  padding-bottom: 1rem;
+}
+
+.recette .tpsRecette div {
+  display: flex;
+  flex-direction: column;
+
+}
