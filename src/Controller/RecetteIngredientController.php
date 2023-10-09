@@ -12,8 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/recetteIngredient')]
+#[IsGranted('ROLE_USER')]
+
 class RecetteIngredientController extends AbstractController
 {
     #[Route('/', name: 'app_recette_ingredient_index', methods: ['GET'])]
@@ -57,6 +60,11 @@ class RecetteIngredientController extends AbstractController
     #[Route('/{id}', name: 'app_recette_ingredient_show', methods: ['GET'])]
     public function show(RecetteIngredient $recetteIngredient): Response
     {
+
+        if ($recetteIngredient->getRecette()->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('recette_ingredient/show.html.twig', [
             'recette_ingredient' => $recetteIngredient,
         ]);
@@ -65,6 +73,10 @@ class RecetteIngredientController extends AbstractController
     #[Route('/{id}/edit', name: 'app_recette_ingredient_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, RecetteIngredient $recetteIngredient, EntityManagerInterface $entityManager): Response
     {
+        if ($recetteIngredient->getRecette()->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $recette = $recetteIngredient->getRecette();
         $form = $this->createForm(RecetteIngredientType::class, $recetteIngredient);
         $form->handleRequest($request);
@@ -87,6 +99,9 @@ class RecetteIngredientController extends AbstractController
     #[Route('/{id}', name: 'app_recette_ingredient_delete', methods: ['POST'])]
     public function delete(Request $request, RecetteIngredient $recetteIngredient, EntityManagerInterface $entityManager): Response
     {
+        if ($recetteIngredient->getRecette()->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
         $recette = $recetteIngredient->getRecette();
 
         if ($this->isCsrfTokenValid('delete'.$recetteIngredient->getId(), $request->request->get('_token'))) {

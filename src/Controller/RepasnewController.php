@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class RepasnewController extends AbstractController
@@ -24,6 +25,7 @@ class RepasnewController extends AbstractController
     }
 
     #[Route('/repasnew', name: 'app_repasnew')]
+    #[IsGranted('ROLE_USER')]
     public function index(
         Request $request,
         AmiFamilleRepository $amiFamilleRepository,
@@ -66,7 +68,7 @@ class RepasnewController extends AbstractController
                 //récupérer leur famille
                 $famillesPresentes[] = $amiPresent->getFamille();
             }
-//dd($famillesPresentes);
+            //dd($famillesPresentes);
             return $this->redirectToRoute('app_repasnewrecette', [
                 'amisPresentsId' => $amisPresentsId,
                 'famillesPresentes' => $famillesPresentes,
@@ -75,7 +77,7 @@ class RepasnewController extends AbstractController
             ############  fin du submit en dessous
         }
 
-      
+
 
         return $this->render('repasnew/index.html.twig', [
             'controller_name' => 'RepasnewController',

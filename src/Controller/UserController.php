@@ -15,8 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/user')]
+#[IsGranted('ROLE_USER')]
+
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
@@ -30,6 +33,10 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+        if ($user != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -42,6 +49,11 @@ class UserController extends AbstractController
         EntityManagerInterface $entityManager,
         PictureService $pictureService
     ): Response {
+
+        if ($user != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -82,6 +94,11 @@ class UserController extends AbstractController
         SendMailService $sendMailService,
         JWTService $jWTService
     ): Response {
+
+        if ($user != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $form = $this->createForm(UserEmailType::class, $user);
         $form->handleRequest($request);
 
@@ -132,17 +149,20 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(
         Request $request,
-     User $user, 
-     AmiFamilleRepository $amiFamilleRepository,
-     EntityManagerInterface $entityManager
-     ): Response
-    {
+        User $user,
+        AmiFamilleRepository $amiFamilleRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        if ($user != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $userId = $user->getId();
         $repas = $user->getRepas();
         $recettes = $user->getRecettes();
         $amiFamilles = $amiFamilleRepository->findByUser($userId);
-        dd($amiFamilles);
-       $userFamilies = $user->getUserFamilies($userId);
+        // dd($amiFamilles);
+        $userFamilies = $user->getUserFamilies($userId);
 
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
 
@@ -154,7 +174,7 @@ class UserController extends AbstractController
             }
             foreach ($amiFamilles as $amiFamille) {
                 $entityManager->remove($amiFamille);
-             }
+            }
             foreach ($userFamilies as $userFamily) {
                 $entityManager->remove($userFamily);
             }

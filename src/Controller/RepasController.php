@@ -19,8 +19,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/repas')]
+#[IsGranted('ROLE_USER')]
+
 class RepasController extends AbstractController
 {
     private $security;
@@ -59,7 +62,6 @@ class RepasController extends AbstractController
         foreach ($recettesId as $recetteId) {
             $recette = $recetteRepository->find($recetteId);
             $recettes[] = $recette;
-             
         }
 
         $repa = new Repas();
@@ -70,9 +72,8 @@ class RepasController extends AbstractController
 
             $repa->setUser($user);
             foreach ($recettes as $recetteR) {
-               
+
                 $repa->addRecette($recetteR);
-               
             }
             foreach ($famillesId as $familleId) {
                 $famille = $amiFamilleRepository->find($familleId);
@@ -100,7 +101,9 @@ class RepasController extends AbstractController
     #[Route('/{id}', name: 'app_repas_show', methods: ['GET'])]
     public function show(Repas $repa): Response
     {
-        // $amisR = $repa->getAmis();
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
 
         $nbCouverts = 1;
         $recetteRepa = $repa->getRecettes();
@@ -117,6 +120,10 @@ class RepasController extends AbstractController
     #[Route('/{id}/edit', name: 'app_repas_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
+
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
 
         $form = $this->createForm(RepasType::class, $repa);
         $form->handleRequest($request);
@@ -136,6 +143,10 @@ class RepasController extends AbstractController
     #[Route('/{id}/editdate', name: 'app_repas_edit_date', methods: ['GET', 'POST'])]
     public function editDate(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $repasId = $repa->getId();
 
         $form = $this->createForm(RepasDateType::class, $repa);
@@ -158,6 +169,10 @@ class RepasController extends AbstractController
     #[Route('/{id}/editcomment', name: 'app_repas_edit_comment', methods: ['GET', 'POST'])]
     public function editComment(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $repasId = $repa->getId();
 
         $form = $this->createForm(RepasCommentType::class, $repa);
@@ -179,6 +194,12 @@ class RepasController extends AbstractController
         RecetteRepository $recetteRepository,
         AllergeneRepository $allergeneRepository,
     ): Response {
+
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+
         $user = $this->security->getUser();
 
         $repasId = $repa->getId();
@@ -373,6 +394,9 @@ class RepasController extends AbstractController
         Ami $ami,
     ): Response {
 
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
 
         $repasId = $repa->getId();
         $user = $this->security->getUser();
@@ -436,6 +460,11 @@ class RepasController extends AbstractController
     #[Route('/{id}', name: 'app_repas_delete', methods: ['POST'])]
     public function delete(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
+        if ($repa->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+
         if ($this->isCsrfTokenValid('delete' . $repa->getId(), $request->request->get('_token'))) {
             $entityManager->remove($repa);
             $entityManager->flush();

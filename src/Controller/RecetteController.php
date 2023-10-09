@@ -17,9 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 #[Route('/recette')]
+#[IsGranted('ROLE_USER')]
+
 class RecetteController extends AbstractController
 {
     private $security;
@@ -75,6 +78,10 @@ class RecetteController extends AbstractController
     #[Route('/{id}', name: 'app_recette_show', methods: ['GET'])]
     public function show(Recette $recette): Response
     {
+        if ($recette->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $ingredients = $recette->getIngredients();
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
@@ -89,6 +96,11 @@ class RecetteController extends AbstractController
         EntityManagerInterface $entityManager,
         PictureService $pictureService
     ): Response {
+
+        if ($recette->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $idRecette = $recette->getId();
         $ingredients = $recette->getIngredients();
         $form = $this->createForm(RecetteType::class, $recette);
@@ -137,6 +149,11 @@ class RecetteController extends AbstractController
         RepasRepository $repasRepository,
         EntityManagerInterface $entityManager,
     ): Response {
+
+        if ($recette->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $recetteId = $recette->getId();
         $recetteIngredients = $recetteIngredientRepository->findByRecette($recetteId);
         $recetteRepas = $repasRepository->findByRecette($recetteId);
@@ -144,13 +161,13 @@ class RecetteController extends AbstractController
 
             foreach ($recetteIngredients as $recetteIngredient) {
                 $entityManager->remove($recetteIngredient);
-              // $recetteIngredientRepository->removeIngredient($recetteIngredient);
-             //   dd($recetteIngredientRepository);
+                // $recetteIngredientRepository->removeIngredient($recetteIngredient);
+                //   dd($recetteIngredientRepository);
             }
             foreach ($recetteRepas as $repas) {
                 $entityManager->remove($repas);
-              // $recetteIngredientRepository->removeIngredient($recetteIngredient);
-             //   dd($recetteIngredientRepository);
+                // $recetteIngredientRepository->removeIngredient($recetteIngredient);
+                //   dd($recetteIngredientRepository);
             }
 
             $entityManager->remove($recette);

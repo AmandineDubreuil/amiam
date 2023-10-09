@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Ami;
 use App\Form\AmiType;
-use App\Entity\AmiFamille;
 use App\Service\PictureService;
 use App\Repository\AmiRepository;
 use App\Repository\AmiFamilleRepository;
@@ -13,10 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 #[Route('/ami')]
+#[IsGranted('ROLE_USER')]
 class AmiController extends AbstractController
 {
+
     #[Route('/', name: 'app_ami_index', methods: ['GET'])]
     public function index(AmiRepository $amiRepository): Response
     {
@@ -69,9 +72,14 @@ class AmiController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}', name: 'app_ami_show', methods: ['GET'])]
     public function show(Ami $ami): Response
     {
+        if ($ami->getFamille()->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $age = $ami->getAge();
 
 
@@ -88,6 +96,10 @@ class AmiController extends AbstractController
         EntityManagerInterface $entityManager,
         PictureService $pictureService,
     ): Response {
+        if ($ami->getFamille()->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $familleId = $ami->getFamille();
 
         $form = $this->createForm(AmiType::class, $ami);
@@ -128,6 +140,10 @@ class AmiController extends AbstractController
     #[Route('/{id}', name: 'app_ami_delete', methods: ['POST'])]
     public function delete(Request $request, Ami $ami, EntityManagerInterface $entityManager): Response
     {
+        if ($ami->getFamille()->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $familleId = $ami->getFamille();
 
         if ($this->isCsrfTokenValid('delete' . $ami->getId(), $request->request->get('_token'))) {

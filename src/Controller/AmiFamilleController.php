@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Ami;
 use App\Entity\AmiFamille;
 use App\Form\AmiFamilleType;
 use App\Repository\AmiFamilleRepository;
 use App\Repository\AmiRepository;
-use App\Repository\RepasRepository;
 use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -16,18 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/amifamille')]
+#[IsGranted('ROLE_USER')]
 class AmiFamilleController extends AbstractController
 {
     private $security;
-    private $params;
 
-
-    public function __construct(Security $security, ParameterBagInterface $params)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->params = $params;
     }
 
     #[Route('/', name: 'app_ami_famille_index', methods: ['GET'])]
@@ -82,7 +79,11 @@ class AmiFamilleController extends AbstractController
     #[Route('/{id}', name: 'app_ami_famille_show', methods: ['GET'])]
     public function show(AmiFamille $amiFamille): Response
     {
-        
+        if ($amiFamille->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
+
         return $this->render('ami_famille/show.html.twig', [
             'ami_famille' => $amiFamille,
         ]);
@@ -95,6 +96,11 @@ class AmiFamilleController extends AbstractController
         EntityManagerInterface $entityManager,
         PictureService $pictureService,
     ): Response {
+
+        if ($amiFamille->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+
         $form = $this->createForm(AmiFamilleType::class, $amiFamille);
         $form->handleRequest($request);
 
@@ -134,6 +140,10 @@ class AmiFamilleController extends AbstractController
         AmiRepository $amiRepository,
         EntityManagerInterface $entityManager,
     ): Response {
+
+        if ($amiFamille->getUser() != $this->getUser()) {
+            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
 
         $familleId = $amiFamille->getId();
         $amis = $amiRepository->findByFamille($familleId);

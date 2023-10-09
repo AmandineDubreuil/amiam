@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class RepasnewrecettesController extends AbstractController
@@ -24,6 +25,8 @@ class RepasnewrecettesController extends AbstractController
     }
 
     #[Route('/repasnewrecette', name: 'app_repasnewrecette')]
+    #[IsGranted('ROLE_USER')]
+
     public function index(
         Request $request,
         RecetteRepository $recetteRepository,
