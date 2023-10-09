@@ -2,9 +2,7 @@
     position: relative;
 }
 /*User granted */
-.home .granted h2{
-    font-size: 1.5rem;
-}
+
 .home .granted h2 span {
     font-size: 1rem;
     color: gray;
@@ -14,6 +12,9 @@
 
 /* User not granted */
 
+#accueil{
+    font-size: 2rem;
+}
 .home .notGranted .fa-quote-right, .home .fa-quote-left {
     color: var(--color-four);
 

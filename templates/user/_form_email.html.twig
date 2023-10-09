@@ -6,6 +6,10 @@
             label: 'Nouvel E-mail',
                    }) }}
 </div>
-
-<button class="btn btnOk">{{ button_label|default('Save') }}</button>
+<p class="gris">En cliquant sur le bouton Enregistrer, un e-mail de confirmation sera envoyé sur ta messagerie électronique. Merci de bien vouloir cliquer dessus afin de confirmer ta nouvelle adresse e-mail.</p>
+<div class="groupeBtn">
+	<button class="btn iconeOk">
+		<i class="fa-solid fa-check"></i>
+	</button>
+</div>
 {{ form_end(formEmail) }}

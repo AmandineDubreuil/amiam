@@ -20,7 +20,7 @@ class AmiController extends AbstractController
     #[Route('/', name: 'app_ami_index', methods: ['GET'])]
     public function index(AmiRepository $amiRepository): Response
     {
-        return $this->render('ami/index.html.twig', [
+        return $this->render('ami_famille/index.html.twig', [
             'amis' => $amiRepository->findAll(),
         ]);
     }

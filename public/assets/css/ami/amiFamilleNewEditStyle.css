@@ -28,11 +28,6 @@
     padding: 1rem;
 }
 
-.amiFamilleNewEdit p, .amiFamilleNewEdit .help-text {
-    color: grey;
-
-}
-
 .amiFamilleNewEdit .groupeFamille{
     margin-bottom: 1rem;
 }

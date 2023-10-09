@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<h1>{{ recette.titre }}</h1>
-		<h5>{{ recette.categorie.categorie }}</h5>
+		<h3>{{ recette.categorie.categorie }}</h3>
 		{% if recette.photo %}
 			<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 		{% else  %}
@@ -80,7 +80,7 @@
 		</div>
 
 		<div>
-			<h5>Ingrédients</h5>
+			<h2>Ingrédients</h2>
 			<p class="nbPersonnes">pour
 				{{ recette.nbPersonnes }}
 				personnes</p>
@@ -98,13 +98,13 @@
 		</div>
 
 		<div>
-			<h5>Étapes</h5>
+			<h2>Étapes</h2>
 			<p>{{ recette.description | raw }}</p>
 
 		</div>
 
 		<div class="repas">
-			<h5>Repas effectués</h5>
+			<h2>Repas effectués</h2>
 			<div class="cards">
 
 

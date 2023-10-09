@@ -24,6 +24,7 @@
 	<section class="home">
 		{% if is_granted('ROLE_USER') %}
 
+
 			<div class="granted">
 				<div class="groupeBtn">
 					<a class="btn btnOk" href="{{path('app_repasnew')}}">
@@ -31,7 +32,7 @@
 						Repas</a>
 				</div>
 				<div class="recettesIndex">
-					<h1>Mes recettes</h1>
+					<h1>Mes recettes ({{app.user.recettes|length}})</h1>
 
 					<a class="btn iconeAjout" href="{{path('app_recette_new')}}">
 						<i class="fa-solid fa-circle-plus"></i>
@@ -276,7 +277,7 @@
 			</div>
 		{% else %}
 			<div class="notGranted">
-				<h1>Amiam</h1>
+				<h1 id="accueil">Amiam</h1>
 				<div class="interrogation">
 
 

@@ -138,7 +138,7 @@ class SecurityController extends AbstractController
             compact('user', 'token')
         );
 
-        $this->addFlash('warning', 'Si l\'adresse e-mail communiquée est reconnue, un lien t\'as été envoyé par e-mail pour que tu puisse changer ton mot de passe. Attention, il n\'est valable que 20 minutes.');
+        $this->addFlash('warning', 'Si l\'adresse e-mail communiquée est reconnue, un lien t\'a été envoyé par e-mail pour que tu puisse changer ton mot de passe. Attention, il n\'est valable que 20 minutes.');
         return $userAuthenticator->authenticateUser(
             $user,
             $authenticator,

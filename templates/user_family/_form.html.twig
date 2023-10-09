@@ -1,15 +1,15 @@
 {{ form_start(form) }}
 <div class="form-field">
 	{{ form_row(form.prenom, {
-            label: 'Prénom',
+            label: 'Prénom ou surnom *',
                    }) }}
 </div>
 <div class="form-field">
 	{{ form_row(form.dateNaissance, {
-            label: 'Date de naissance',
+            label: 'Date de naissance *',
                    }) }}
 </div>
-
+<p class="gris">* Champs requis</p>
 <div class="groupeBtn">
 	<button class="btn iconeOk">
 		<i class="fa-solid fa-check"></i>

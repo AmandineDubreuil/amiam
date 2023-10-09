@@ -30,10 +30,24 @@
     padding: 1rem;
 }
 
-.membreFamille p {
-    color: grey;
-
-}
 .membreFamille .groupeFamille{
     margin-bottom: 1rem;
 }
+/* suppression membre famille */
+
+.membreDelete h1{
+    font-family: "Alegreya", Arial, Helvetica, sans-serif;
+    font-weight:  normal;
+    } 
+    
+    .membreDelete .delete{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .membreDelete .delete .groupeBtn button {
+        /* padding-left: 1rem;  */
+        margin: 1.25rem;
+    }

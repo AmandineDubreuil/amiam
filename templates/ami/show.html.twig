@@ -47,9 +47,9 @@
 		<div class="entete">
 
 			{% if ami.avatar %}
-				<div class="avatar "><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
+				<div class="avatar amiAvatar"><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
 			{% else  %}
-				<div class="avatar "><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
+				<div class="avatar amiAvatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="avatar"></div>
 			{% endif  %}
 			<div class="enteteNom">
 				<h1>&nbsp;{{ ami.prenom }}
@@ -122,7 +122,7 @@
 			</div>
 		</div>
 		<div class="repas">
-			<h5>Repas effectués</h5>
+			<h2>Repas effectués</h2>
 			<div class="cards">
 
 				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}

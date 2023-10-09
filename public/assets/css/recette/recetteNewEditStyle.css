@@ -47,6 +47,9 @@ justify-content: center;
 }
 
 /* recette edit / recette_form */
+.recetteNewEdit .ingredients .iconeModifier i, .recetteNewEdit .ingredients .iconeSupprimer i {
+    font-size: 1rem;
+}
 
 .recetteNewEdit .temps  {
     display: flex;

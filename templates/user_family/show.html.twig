@@ -20,34 +20,18 @@
 
 {% block body %}
 
-	<section class="membreFamille">
+	<section class="membreFamille membreDelete">
 		<a class="btn btnRetour" href="javascript:history.go(-1)">
 			<i class="fa-solid fa-arrow-left"></i>
 		</a>
-		<h1 class="h3 mb-3 font-weight-normal">Suppression d'une personne</h1>
-
-		<table class="groupeFamille">
-			<thead>
-				<tr>
-					<th>Prénom</th>
-					<th>Né(e) le</th>
-					<th></th>
-
-				</tr>
-			</thead>
-			<tbody>
-
-				<tr>
-					<td>{{ user_family.prenom }}</td>
-					<td>{{ user_family.dateNaissance ? user_family.dateNaissance|date('d-m-Y') : ''  }}</td>
-				</tr>
-
-
-			</tbody>
-		</table>
-	{{ include('user_family/_delete_form.html.twig') }}
-
+		<h1>Suppression de</h1>
+		<div class="delete">
+			<p class="h3 mb-3 font-weight-normal">{{ user_family.prenom }}</p>
+			<div class="groupeBtn">
+				{{ include('user_family/_delete_form.html.twig') }}
+			</div>
+		</div>
 	</section>
-	
+
 
 {% endblock %}

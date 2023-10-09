@@ -47,9 +47,9 @@
 				{{ ami_famille.nom }}</h1>
 
 			{% if ami_famille.avatar %}
-				<div class="imgAmiFamille"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami_famille.avatar }}" alt="{{ ami_famille.nom }}"></div>
+				<div class="avatar familleAvatar"><img src="{{asset('assets/uploads/photosAmisFamille/mini/')}}{{ ami_famille.avatar }}" alt="{{ ami_famille.nom }}"></div>
 			{% else  %}
-				<div class="imgAmiFamille"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami_famille.nom }}"></div>
+				<div class="avatar familleAvatar"><img src="{{asset('./assets/img/famille.jpg')}}" alt="{{ ami_famille.nom }}"></div>
 			{% endif  %}
 		</div>
 		<div class="amis">
@@ -62,13 +62,13 @@
 						<a href="{{ path('app_ami_show', {'id': ami.id}) }}">
 							<div class="card-header">
 								{% if ami.avatar %}
-									<div class="imgAmi"><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
+									<div class="avatar amiAvatar"><img src="{{asset('assets/uploads/photosAmis/mini/')}}{{ ami.avatar }}" alt="{{ ami.prenom }}"></div>
 								{% else  %}
-									<div class="imgAmi"><img src="{{asset('./assets/img/avatar.png')}}" alt="{{ ami.prenom }}"></div>
+									<div class="avatar amiAvatar"><img src="{{asset('./assets/img/avatar.png')}}" alt="{{ ami.prenom }}"></div>
 								{% endif  %}
 							</div>
 							<div class="card-content">
-								<h2>{{ ami.prenom }}</h2>
+								<div>{{ ami.prenom }}</div>
 
 							</div>
 						</a>
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 		<div class="repas">
-			<h5>Repas effectués</h5>
+			<h2>Repas effectués</h2>
 			<div class="cards">
 
 				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}

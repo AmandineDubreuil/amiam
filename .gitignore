@@ -21,5 +21,8 @@
 
 
 
-/.aaa test.php
-/.aaa test.html
+/.aaa_test.php
+/.aaa_test.html
+/templates/aaa_charte_graphique
+/public/assets/css/aaaStyle.css
+/src/Controller/AaaCharteGraphiqueController.php 
