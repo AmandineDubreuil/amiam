@@ -41,6 +41,8 @@ class Aliment
     private Collection $allergieAmis;
 
     #[ORM\ManyToOne(inversedBy: 'aliments')]
+    #[ORM\JoinColumn(name: "user_id", onDelete: "SET NULL")]
+
     private ?User $user = null;
 
     #[ORM\Column]

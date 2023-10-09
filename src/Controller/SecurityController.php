@@ -18,6 +18,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
+use function PHPUnit\Framework\isEmpty;
+
 class SecurityController extends AbstractController
 {
     private $security;
@@ -111,10 +113,13 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            
         $user = $userRepository->findOneByEmail($form->get('email')->getData());
-        
-        //dd($user);
-        
+     if (!$user){
+        $this->addFlash('warning', 'L\'adresse e-mail communiquée n\'est pas reconnue.');
+
+        return   $this->redirectToRoute('app_forgotten_password');
+     }
         // Génération du JWT de l'utilisateur
         // créer le header
         $header = [
@@ -139,11 +144,8 @@ class SecurityController extends AbstractController
         );
 
         $this->addFlash('warning', 'Si l\'adresse e-mail communiquée est reconnue, un lien t\'a été envoyé par e-mail pour que tu puisse changer ton mot de passe. Attention, il n\'est valable que 20 minutes.');
-        return $userAuthenticator->authenticateUser(
-            $user,
-            $authenticator,
-            $request
-        );
+
+        return   $this->redirectToRoute('app_home');
     }
         // // si $user est nul
         // $this->addFlash('danger', 'Un problème est survenu.');
@@ -189,7 +191,7 @@ class SecurityController extends AbstractController
                     $entityManager->flush();
 
                     $this->addFlash('success', 'Mot de passe changé avec succès !');
-                    return $this->redirectToRoute('app_home');
+                    return $this->redirectToRoute('app_login');
                 }
             }
         }
