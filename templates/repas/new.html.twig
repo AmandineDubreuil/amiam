@@ -42,8 +42,12 @@
 	</section>
 	<section class="recettes">
 	
-		<h2>Recette cuisinée</h2>
-		<p class="titre">{{recette.titre}}</p>
+		<h2>Recette(s) cuisinée(s)</h2>
+		<p class="titre">{% for recette in recettes %}
+				<li>
+						{{recette.titre}}
+				</li>
+			{% endfor %}</p>
 
 	</section>
 	<section class="repas">

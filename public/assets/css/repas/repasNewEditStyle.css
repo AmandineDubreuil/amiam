@@ -31,14 +31,14 @@ h1 {
     padding-left: 2rem;
 }
 
-.amis .btnOk {
+.amis .btnOk, .recettes .btnOk {
     width: fit-content;
     
     }
 
 /* recette */
-.recettes h3{
-    font-size: 1.5rem;
+.recettes {
+    position: relative;
 }
 .recettes h3 span {
     font-size: 1rem;
@@ -46,7 +46,7 @@ h1 {
 }
 .recettes .cardRecette {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;    
 }
 
@@ -60,13 +60,12 @@ h1 {
 
 .recettes .slugRecette {
     padding: 1rem;
-    width: 75%;
+    width: 70%;
+}
+.recettes .checkboxRecette{
+    padding: 1rem;
 }
 
-.recettes .titreRecette h3{
-    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
-}
 
 .recettes .tpsRecette {
     display: flex;
@@ -82,8 +81,10 @@ h1 {
 
 }
 
-.recettes .choisie {
-    background-color: var(--color-light);
+.recettes .submitChoisi {
+    position: fixed;
+    right: 1rem;
+    bottom: 5rem;
 }
 
 /* fichier repas/new */

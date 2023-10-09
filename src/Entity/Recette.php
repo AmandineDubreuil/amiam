@@ -64,6 +64,7 @@ class Recette
     #[ORM\ManyToMany(targetEntity: Repas::class, mappedBy: 'recettes')]
     private Collection $repas;
 
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -278,8 +279,8 @@ class Recette
             $this->repas->add($repa);
             $repa->addRecette($this);
         }
-        return $this;
 
+        return $this;
     }
 
     public function removeRepa(Repas $repa): static
@@ -287,5 +288,9 @@ class Recette
         if ($this->repas->removeElement($repa)) {
             $repa->removeRecette($this);
         }
+
+        return $this;
     }
+
+   
 }

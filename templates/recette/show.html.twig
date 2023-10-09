@@ -109,8 +109,8 @@
 
 
 				{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
-					{% for recette in repa.recettes %}
-						{% if recette.id is same as repa.recettes.id %}
+					{% for recetteR in repa.recettes %}
+						{% if recette.id is same as recetteR.id %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
 								<a class="cardRepas" href="{{ path('app_repas_show', {'id': repa.id}) }}">
 

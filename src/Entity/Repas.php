@@ -20,11 +20,6 @@ class Repas
     #[ORM\ManyToMany(targetEntity: AmiFamille::class, inversedBy: 'repas')]
     private Collection $amiFamilles;
 
-    #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'repas')]
-    private Collection $recettes;
-    //  #[ORM\JoinColumn(name:"recettes_id", onDelete:"CASCADE")]
-    //  private ?Recette $recettes = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
@@ -38,10 +33,14 @@ class Repas
     #[ORM\ManyToMany(targetEntity: Ami::class, inversedBy: 'repas')]
     private Collection $amis;
 
+    #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'repas')]
+    private Collection $recettes;
+
     public function __construct()
     {
         $this->amiFamilles = new ArrayCollection();
         $this->amis = new ArrayCollection();
+        $this->recettes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -72,27 +71,7 @@ class Repas
 
         return $this;
     }
-
-    public function getRecettes(): Collection
-    {
-        return $this->recettes;
-    }
-
-    public function addRecette(Recette $recette): static
-    {
-        if (!$this->recettes->contains($recette)) {
-            $this->recettes->add($recette);
-        }
-
-        return $this;
-    }
-    public function removeRecette(Recette $recette): static
-    {
-        $this->recettes->removeElement($recette);
-
-        return $this;
-    }
-
+    
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -149,6 +128,30 @@ class Repas
     public function removeAmi(Ami $ami): static
     {
         $this->amis->removeElement($ami);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recette>
+     */
+    public function getRecettes(): Collection
+    {
+        return $this->recettes;
+    }
+
+    public function addRecette(Recette $recette): static
+    {
+        if (!$this->recettes->contains($recette)) {
+            $this->recettes->add($recette);
+        }
+
+        return $this;
+    }
+
+    public function removeRecette(Recette $recette): static
+    {
+        $this->recettes->removeElement($recette);
 
         return $this;
     }

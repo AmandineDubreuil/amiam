@@ -55,8 +55,12 @@ class RepasController extends AbstractController
         }
 
         $famillesId = $_GET['famillesPresentes'];
-        $recetteId = $_GET['recetteId'];
-        $recette = $recetteRepository->find($recetteId);
+        $recettesId = $_GET['recettesChoisies'];
+        foreach ($recettesId as $recetteId) {
+            $recette = $recetteRepository->find($recetteId);
+            $recettes[] = $recette;
+             
+        }
 
         $repa = new Repas();
         $form = $this->createForm(RepasType::class, $repa);
@@ -65,7 +69,11 @@ class RepasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $repa->setUser($user);
-            $repa->setRecettes($recette);
+            foreach ($recettes as $recetteR) {
+               
+                $repa->addRecette($recetteR);
+               
+            }
             foreach ($famillesId as $familleId) {
                 $famille = $amiFamilleRepository->find($familleId);
                 $repa->addAmiFamille($famille);
@@ -84,7 +92,7 @@ class RepasController extends AbstractController
             'repa' => $repa,
             'form' => $form,
             'familles' => $famillesId,
-            'recette' => $recette,
+            'recettes' => $recettes,
             'amis' => $amis,
         ]);
     }
@@ -92,7 +100,7 @@ class RepasController extends AbstractController
     #[Route('/{id}', name: 'app_repas_show', methods: ['GET'])]
     public function show(Repas $repa): Response
     {
-       // $amisR = $repa->getAmis();
+        // $amisR = $repa->getAmis();
 
         $nbCouverts = 1;
         $recetteRepa = $repa->getRecettes();
@@ -102,7 +110,7 @@ class RepasController extends AbstractController
             'repa' => $repa,
             'ingredients' => $ingredients,
             'nbCouverts' => $nbCouverts,
-            
+
         ]);
     }
 
@@ -386,7 +394,7 @@ class RepasController extends AbstractController
             }
 
             foreach ($oldFamillesPresentes as $oldFamille) {
-             $repa->removeAmiFamille($oldFamille);
+                $repa->removeAmiFamille($oldFamille);
             }
 
 
