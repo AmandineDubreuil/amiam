@@ -9,6 +9,7 @@ use App\Service\SendMailService;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,8 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+
+    #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, Authenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $sendMailService, JWTService $jWTService): Response
     {
         $user = new User();
@@ -87,7 +89,7 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
-    #[Route('/verify/{token}', name: 'app_verify_user')]
+    #[Route('/verification/{token}', name: 'app_verify_user')]
     public function verifyUser($token, JWTService $jWTService, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         // vérifier si le token est valide, n'a pas expiré et n'a pas été modifié
@@ -112,9 +114,13 @@ class RegistrationController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
     // renvoi de la vérification
-    #[Route('/renvoiverif', name: 'app_resend_verif')]
-    public function resendVerif(JWTService $jWTService, SendMailService $sendMailService, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
-    {
+    #[Route('/renvoi-verification', name: 'app_resend_verif')]
+    public function resendVerif(
+        JWTService $jWTService,
+        SendMailService $sendMailService,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+    ): Response {
         $user = $this->getUser();
 
         // vérifie que l'utilisateur est connecté

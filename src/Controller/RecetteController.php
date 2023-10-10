@@ -79,7 +79,7 @@ class RecetteController extends AbstractController
     public function show(Recette $recette): Response
     {
         if ($recette->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $ingredients = $recette->getIngredients();
@@ -98,7 +98,7 @@ class RecetteController extends AbstractController
     ): Response {
 
         if ($recette->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $idRecette = $recette->getId();
@@ -151,7 +151,7 @@ class RecetteController extends AbstractController
     ): Response {
 
         if ($recette->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $recetteId = $recette->getId();

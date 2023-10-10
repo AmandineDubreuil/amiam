@@ -77,7 +77,7 @@ class AmiController extends AbstractController
     public function show(Ami $ami): Response
     {
         if ($ami->getFamille()->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $age = $ami->getAge();
@@ -97,7 +97,7 @@ class AmiController extends AbstractController
         PictureService $pictureService,
     ): Response {
         if ($ami->getFamille()->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $familleId = $ami->getFamille();
@@ -141,7 +141,7 @@ class AmiController extends AbstractController
     public function delete(Request $request, Ami $ami, EntityManagerInterface $entityManager): Response
     {
         if ($ami->getFamille()->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $familleId = $ami->getFamille();

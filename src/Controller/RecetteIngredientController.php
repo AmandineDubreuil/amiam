@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/recetteIngredient')]
+#[Route('/ingredient-pour-la-recette')]
 #[IsGranted('ROLE_USER')]
 
 class RecetteIngredientController extends AbstractController
@@ -62,7 +62,7 @@ class RecetteIngredientController extends AbstractController
     {
 
         if ($recetteIngredient->getRecette()->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recette_ingredient/show.html.twig', [
@@ -74,7 +74,7 @@ class RecetteIngredientController extends AbstractController
     public function edit(Request $request, RecetteIngredient $recetteIngredient, EntityManagerInterface $entityManager): Response
     {
         if ($recetteIngredient->getRecette()->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $recette = $recetteIngredient->getRecette();
@@ -100,7 +100,7 @@ class RecetteIngredientController extends AbstractController
     public function delete(Request $request, RecetteIngredient $recetteIngredient, EntityManagerInterface $entityManager): Response
     {
         if ($recetteIngredient->getRecette()->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
         $recette = $recetteIngredient->getRecette();
 

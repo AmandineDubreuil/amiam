@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/amifamille')]
+#[Route('/famille')]
 #[IsGranted('ROLE_USER')]
 class AmiFamilleController extends AbstractController
 {
@@ -80,7 +80,7 @@ class AmiFamilleController extends AbstractController
     public function show(AmiFamille $amiFamille): Response
     {
         if ($amiFamille->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
 
@@ -98,7 +98,7 @@ class AmiFamilleController extends AbstractController
     ): Response {
 
         if ($amiFamille->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $form = $this->createForm(AmiFamilleType::class, $amiFamille);
@@ -142,7 +142,7 @@ class AmiFamilleController extends AbstractController
     ): Response {
 
         if ($amiFamille->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $familleId = $amiFamille->getId();

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RepasRecetteController extends AbstractController
 {
-    #[Route('/repasrecette', name: 'app_repas_recette')]
+    #[Route('/detail-recette-du-repas', name: 'app_repas_recette')]
     public function index(
         RecetteRepository $recetteRepository,
         RepasRepository $repasRepository,

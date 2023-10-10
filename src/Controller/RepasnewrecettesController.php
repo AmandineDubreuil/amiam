@@ -24,7 +24,7 @@ class RepasnewrecettesController extends AbstractController
         $this->security = $security;
     }
 
-    #[Route('/repasnewrecette', name: 'app_repasnewrecette')]
+    #[Route('/repas-new-recettes', name: 'app_repasnewrecette')]
     #[IsGranted('ROLE_USER')]
 
     public function index(

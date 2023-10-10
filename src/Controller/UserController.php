@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/user')]
+#[Route('/compte')]
 #[IsGranted('ROLE_USER')]
 
 class UserController extends AbstractController
@@ -34,7 +34,7 @@ class UserController extends AbstractController
     public function show(User $user): Response
     {
         if ($user != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/show.html.twig', [
@@ -42,7 +42,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editAvatar', name: 'app_user_edit_avatar', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification-avatar', name: 'app_user_edit_avatar', methods: ['GET', 'POST'])]
     public function editAvatar(
         Request $request,
         User $user,
@@ -51,7 +51,7 @@ class UserController extends AbstractController
     ): Response {
 
         if ($user != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $form = $this->createForm(UserType::class, $user);
@@ -86,7 +86,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editEmail', name: 'app_user_edit_email', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification-email', name: 'app_user_edit_email', methods: ['GET', 'POST'])]
     public function editEmail(
         Request $request,
         User $user,
@@ -96,7 +96,7 @@ class UserController extends AbstractController
     ): Response {
 
         if ($user != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $form = $this->createForm(UserEmailType::class, $user);
@@ -146,44 +146,44 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(
-        Request $request,
-        User $user,
-        AmiFamilleRepository $amiFamilleRepository,
-        EntityManagerInterface $entityManager
-    ): Response {
-        if ($user != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
-        }
+    // #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    // public function delete(
+    //     Request $request,
+    //     User $user,
+    //     AmiFamilleRepository $amiFamilleRepository,
+    //     EntityManagerInterface $entityManager
+    // ): Response {
+    //     if ($user != $this->getUser()) {
+    //         return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        $userId = $user->getId();
-        $repas = $user->getRepas();
-        $recettes = $user->getRecettes();
-        $amiFamilles = $amiFamilleRepository->findByUser($userId);
-        // dd($amiFamilles);
-        $userFamilies = $user->getUserFamilies($userId);
+    //     $userId = $user->getId();
+    //     $repas = $user->getRepas();
+    //     $recettes = $user->getRecettes();
+    //     $amiFamilles = $amiFamilleRepository->findByUser($userId);
+    //     // dd($amiFamilles);
+    //     $userFamilies = $user->getUserFamilies($userId);
 
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+    //     if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
 
-            foreach ($repas as $repa) {
-                $entityManager->remove($repa);
-            }
-            foreach ($recettes as $recette) {
-                $entityManager->remove($recette);
-            }
-            foreach ($amiFamilles as $amiFamille) {
-                $entityManager->remove($amiFamille);
-            }
-            foreach ($userFamilies as $userFamily) {
-                $entityManager->remove($userFamily);
-            }
+    //         foreach ($repas as $repa) {
+    //             $entityManager->remove($repa);
+    //         }
+    //         foreach ($recettes as $recette) {
+    //             $entityManager->remove($recette);
+    //         }
+    //         foreach ($amiFamilles as $amiFamille) {
+    //             $entityManager->remove($amiFamille);
+    //         }
+    //         foreach ($userFamilies as $userFamily) {
+    //             $entityManager->remove($userFamily);
+    //         }
 
 
-            $entityManager->remove($user);
-            $entityManager->flush();
-        }
+    //         $entityManager->remove($user);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-    }
+    //     return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    // }
 }

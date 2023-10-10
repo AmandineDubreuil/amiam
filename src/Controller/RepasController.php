@@ -102,7 +102,7 @@ class RepasController extends AbstractController
     public function show(Repas $repa): Response
     {
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $nbCouverts = 1;
@@ -123,7 +123,7 @@ class RepasController extends AbstractController
     {
 
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $form = $this->createForm(RepasType::class, $repa);
@@ -141,11 +141,11 @@ class RepasController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editdate', name: 'app_repas_edit_date', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification-date', name: 'app_repas_edit_date', methods: ['GET', 'POST'])]
     public function editDate(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $repasId = $repa->getId();
@@ -167,11 +167,11 @@ class RepasController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editcomment', name: 'app_repas_edit_comment', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification-commentaire', name: 'app_repas_edit_comment', methods: ['GET', 'POST'])]
     public function editComment(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $repasId = $repa->getId();
@@ -186,8 +186,12 @@ class RepasController extends AbstractController
                 'id' => $repasId,
             ], Response::HTTP_SEE_OTHER);
         }
+        return $this->render('repas/edit_comment.html.twig', [
+            'repa' => $repa,
+            'form' => $form,
+        ]);
     }
-    #[Route('/{id}/editrecette', name: 'app_repas_edit_recette', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification-recettes', name: 'app_repas_edit_recette', methods: ['GET', 'POST'])]
     public function editRecette(
         Request $request,
         Repas $repa,
@@ -197,7 +201,7 @@ class RepasController extends AbstractController
     ): Response {
 
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
 
@@ -398,7 +402,7 @@ class RepasController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/editamis', name: 'app_repas_edit_amis', methods: ['GET', 'POST'])]
+    #[Route('/{id}/modification-amis', name: 'app_repas_edit_amis', methods: ['GET', 'POST'])]
     public function editAmis(
         Request $request,
         Repas $repa,
@@ -409,7 +413,7 @@ class RepasController extends AbstractController
     ): Response {
 
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         $repasId = $repa->getId();
@@ -475,7 +479,7 @@ class RepasController extends AbstractController
     public function delete(Request $request, Repas $repa, EntityManagerInterface $entityManager): Response
     {
         if ($repa->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
 

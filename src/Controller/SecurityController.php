@@ -53,7 +53,7 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    #[Route(path: '/modif-pass', name: 'app_modif_password')]
+    #[Route(path: '/modification-password', name: 'app_modif_password')]
     public function modificationPassword(
         Request $request,
         UserRepository $userRepository,
@@ -98,7 +98,7 @@ class SecurityController extends AbstractController
         );
     }
 
-    #[Route(path: '/oubli-pass', name: 'app_forgotten_password')]
+    #[Route(path: '/oubli-password', name: 'app_forgotten_password')]
     public function forgottenPassword(
         Request $request,
         UserRepository $userRepository,
@@ -158,7 +158,7 @@ class SecurityController extends AbstractController
 
 
 
-    #[Route(path: '/modif-pass/{token}', name: 'app_new_password')]
+    #[Route(path: '/modification-password/{token}', name: 'app_new_password')]
     public function newPassword(
         $token,
         JWTService $jWTService,

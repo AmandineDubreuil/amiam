@@ -63,3 +63,23 @@ margin: 0;
     width: fit-content;
     height: fit-content;
 }
+
+/* page 404*/
+.page404 .texte{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.page404 h1{
+    font-family: "Fredericka", Arial, Helvetica, sans-serif;
+    font-size: 7rem;
+    color: var(--color-two);
+}
+
+.page404 .groupeBtn{
+    justify-content: space-between;
+}
+
+.page404 .btn {
+    width: fit-content;
+}

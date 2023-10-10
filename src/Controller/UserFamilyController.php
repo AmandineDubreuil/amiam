@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/user_family')]
+#[Route('/ma-famille')]
 #[IsGranted('ROLE_USER')]
 
 class UserFamilyController extends AbstractController
@@ -61,7 +61,7 @@ class UserFamilyController extends AbstractController
     public function show(UserFamily $userFamily): Response
     {
         if ($userFamily->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user_family/show.html.twig', [
@@ -73,7 +73,7 @@ class UserFamilyController extends AbstractController
     public function edit(Request $request, UserFamily $userFamily, EntityManagerInterface $entityManager): Response
     {
         if ($userFamily->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
         $form = $this->createForm(UserFamilyType::class, $userFamily);
         $form->handleRequest($request);
@@ -94,7 +94,7 @@ class UserFamilyController extends AbstractController
     public function delete(Request $request, UserFamily $userFamily, EntityManagerInterface $entityManager): Response
     {
         if ($userFamily->getUser() != $this->getUser()) {
-            return  $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
         
         if ($this->isCsrfTokenValid('delete' . $userFamily->getId(), $request->request->get('_token'))) {
