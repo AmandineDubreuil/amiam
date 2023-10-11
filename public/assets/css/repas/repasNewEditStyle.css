@@ -37,55 +37,23 @@ h1 {
     }
 
 /* recette */
-.recettes {
-    position: relative;
-}
-.recettes h3 span {
+.recettesIndex h3 span {
     font-size: 1rem;
     color: grey;
 }
-.recettes .cardRecette {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;    
-}
 
-.recettes .imgRecette img {
-    width: 100%;
-}
-
-.recettes .imgRecette {
-    width: 25%;
-}
-
-.recettes .slugRecette {
-    padding: 1rem;
-    width: 70%;
-}
-.recettes .checkboxRecette{
-    padding: 1rem;
-}
-
-
-.recettes .tpsRecette {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 20rem;
+.recettesIndex .cardRecette .checkboxRecette{
+    align-self: center;
     padding-bottom: 1rem;
 }
-
-.recettes .tpsRecette div {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.recettes .submitChoisi {
+.recettesIndex .submitChoisi {
     position: fixed;
     right: 1rem;
-    bottom: 5rem;
+    bottom: 8rem;
+    width: fit-content;
 }
+
+
 
 /* fichier repas/new */
 

@@ -381,12 +381,12 @@ class RepasController extends AbstractController
                 $recetteC = $recetteRepository->find($recetteChoisie);
                 $recettesC[] = $recetteC;
             }
-            //dd($recettesC);
+           
             foreach ($recettesC as $recetteR) {
 
                 $repa->addRecette($recetteR);
             }
-
+ //dd($recettesOld);
             $entityManager->persist($repa);
             $entityManager->flush();
 
@@ -409,7 +409,6 @@ class RepasController extends AbstractController
         EntityManagerInterface $entityManager,
         AmiFamilleRepository $amiFamilleRepository,
         AmiRepository $amiRepository,
-        Ami $ami,
     ): Response {
 
         if ($repa->getUser() != $this->getUser()) {

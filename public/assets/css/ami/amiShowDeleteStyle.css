@@ -56,3 +56,16 @@ flex-wrap: wrap;
   color: black;
   font-style: italic;
 }
+
+
+
+/* repas effectués */
+
+.repas .card-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.repas .card-content .texte {
+  font-weight: bold;
+}

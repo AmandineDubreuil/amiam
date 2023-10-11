@@ -37,21 +37,20 @@
 						{% if is_granted('ROLE_MEMBER') %}
 
 							<a class="navbar-link" href="{{path('app_recette_index')}}">
-								<i class="fa-solid fa-book"></i>
+								<i class="fa-solid fa-book"></i><span class="masqueTel"> Mes recettes</span>
 							</a>
 
 							<a class="navbar-link" href="{{path('app_repas_index')}}">
-															<i class="fa-solid fa-utensils"></i>
+															<i class="fa-solid fa-utensils"></i><span class="masqueTel"> Mes repas</span>
 														</a>
 						<a class="navbar-link" href="{{path('app_ami_famille_index')}}">
-														<i class="fa-solid fa-people-group"></i>
+														<i class="fa-solid fa-people-group"></i><span class="masqueTel"> Mes amis</span>
 													</a>
-							{# <a class="navbar-link" href="{{path('app_ingredients_index')}}">Ingrédients</a> #}
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') %}
 
 							<a class="navbar-link" href="{{path('admin')}}">
-								<i class="fa-solid fa-file-shield"></i>
+								<i class="fa-solid fa-file-shield"></i><span class="masqueTel"> Admin</span>
 							</a>
 						{% endif %}
 
@@ -87,10 +86,10 @@
 {% endif %}
 
 {% block body %}{% endblock %}</main><footer class="footer">
-<div>
-	Copyright © 2023 - Amiam - <a href="{{ path('app_contact') }}" class="mentions" target="blank">Contact</a>
+<p>
+	Copyright © 2023 - Amiam  <a href="{{ path('app_contact') }}" class="mentions" target="blank"><i class="fa-solid fa-envelope"></i></a>
 
-</div>
+</p>
 <div>
 	<a href="{{ path('app_legal') }}" class="mentions" target="blank">Mentions légales</a>
 	/ <a href="{{ path('app_confidentialite') }}" class="mentions" target="blank">Politique de confidentialité</a> 

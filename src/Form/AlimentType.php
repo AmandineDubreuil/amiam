@@ -29,7 +29,7 @@ class AlimentType extends AbstractType
            // ->add('isVerified')
             ->add('allergene', EntityType::class, [
                 'class' => Allergene::class,
-                'label' => 'Allergène ',
+                'label' => 'Allergène :',
                 'choice_label' => 'allergene',
                 'multiple' => true,
                 'required' => false,
@@ -57,7 +57,7 @@ class AlimentType extends AbstractType
             ])
             ->add('sousGroupe', EntityType::class, [
                 'class' => SousGroupeAli::class,
-                'label' => 'Groupe Alimentaire : ',
+                'label' => 'Groupe Alimentaire * :',
                 'choice_label' => 'sousGroupe',
                 'multiple' => false,
                 'required' => true,

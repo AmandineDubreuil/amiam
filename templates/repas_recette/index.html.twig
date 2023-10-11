@@ -1,83 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recette Amiam{% endblock %}
+{% block title %}
+	{{recette.titre}}
+	Amiam
+{% endblock %}
+{% block stylesheets %}
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/recette/recetteShowStyle.css')}}">
+{% endblock %}
 {% block body %}
 
 
-	<div class="recette">
+	<section class="recettesShow">
 
-  <div class="card shadow-1 hoverable-1 rounded-3">
+		<div class="card shadow-1 rounded-3">
 
-    <h4>{{recette.titre}}</h4>
-    <h5>{{ recette.categorie.categorie }}</h5>
-    {% if recette.photo %}
-      <div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-    {% else  %}
-      <div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-    {% endif  %}
+			<h1>{{recette.titre}}</h1>
+			<h3>{{ recette.categorie.categorie }}</h3>
+			{% if recette.photo %}
+				<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+			{% else  %}
+				<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+			{% endif  %}
 
 
-    <div class="tempsGroupe">
-      {% if recette.tpsPreparation %}
-        <div class="temps">
-          <p>Temps de préparation</p>
-          <div>{{ recette.tpsPreparation }}
-            min
-          </div>
-        </div>
-      {% endif %}
-      {% if recette.tpsRepos %}
-        <div class="temps">
-          <p>Temps de repos</p>
-          <div>{{ recette.tpsRepos }}
-            min</div>
-        </div>
-      {% endif %}
-      {% if recette.tpsCuisson %}
-        <div class="temps">
-          <p>Temps de cuisson</p>
-          <div>{{ recette.tpsCuisson }}
-            min</div>
-        </div>
-      {% endif %}
+			<div class="tempsGroupe">
+				{% if recette.tpsPreparation %}
+					<div class="temps">
+						<p>Temps de préparation</p>
+						<div>{{ recette.tpsPreparation }}
+							min
+						</div>
+					</div>
+				{% endif %}
+				{% if recette.tpsRepos %}
+					<div class="temps">
+						<p>Temps de repos</p>
+						<div>{{ recette.tpsRepos }}
+							min</div>
+					</div>
+				{% endif %}
+				{% if recette.tpsCuisson %}
+					<div class="temps">
+						<p>Temps de cuisson</p>
+						<div>{{ recette.tpsCuisson }}
+							min</div>
+					</div>
+				{% endif %}
 
-    </div>
+			</div>
 
-    <div>
-      <h5>Ingrédients</h5>
-      <p class="nbPersonnes">pour
-        {{ nbCouverts }}
+			<div>
+				<h2>Ingrédients</h2>
+				<p class="nbPersonnes">pour
+					{{ nbCouverts }}
 
-        amis
-        <i id="questionI" class="fa-regular fa-circle-question" onclick="showHide(question)"></i>
-      </p>
-      <div id="question" class="dnone">
-        <p class="gris">mis à jour en fonction du nombre d'amis présents et de la composition de ta famille.</p>
-        <p class="gris">1 adulte ou 1 adolescent = 1 part</p>
-        <p class="gris">1 enfant = 0.5 part</p>
-        <p class="gris">1 bébé = 0 part</p>
-      </div>
-      <table>
-        <tbody>
-          {% for ingredient in ingredients %}
-            <tr class="ingredients">
-              <td>{{ ingredient.aliment }}</td>
-              <td>{{ ((ingredient.quantite / recette.nbPersonnes) * nbCouverts )  | round(2, 'floor') }}
-                {{ ingredient.mesure }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+					amis
+					<i id="questionI" class="fa-regular fa-circle-question" onclick="showHide(question)"></i>
+				</p>
+				<div id="question" class="dnone">
+					<p class="gris">mis à jour en fonction du nombre d'amis présents et de la composition de ta famille.</p>
+					<p class="gris">1 adulte ou 1 adolescent = 1 part</p>
+					<p class="gris">1 enfant = 0.5 part</p>
+					<p class="gris">1 bébé = 0 part</p>
+				</div>
+				<table>
+					<tbody>
+						{% for ingredient in ingredients %}
+							<tr class="ingredients">
+								<td>{{ ingredient.aliment }}</td>
+								<td>{{ ((ingredient.quantite / recette.nbPersonnes) * nbCouverts )  | round(2, 'floor') }}
+									{{ ingredient.mesure }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-    <div>
-      <h5>Étapes</h5>
-      <p>{{ recette.description | raw }}</p>
+			<div>
+				<h2>Étapes</h2>
+				<p>{{ recette.description | raw }}</p>
 
-    </div>
-  </div>
+			</div>
+		</div>
 
-</div>
+	</section>
 
 {% endblock %}
+	{% block javascripts %}
+		<script src="{{asset('./assets/js/showHide.js')}}"></script>
+	{% endblock %}

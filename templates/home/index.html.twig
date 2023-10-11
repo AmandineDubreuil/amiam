@@ -22,313 +22,86 @@
 
 
 	<section class="home">
-		{% if is_granted('ROLE_USER') %}
 
 
-			<div class="granted">
-				<div class="groupeBtn">
-					<a class="btn btnOk" href="{{path('app_repasnew')}}">
-						<i class="fa-solid fa-circle-plus"></i>
-						Repas</a>
+		<h1 id="accueil">Amiam</h1>
+		<h2>Ton compagnon culinaire personnel !</h2>
+		<p class="gras">Amiam simplifie la création de recettes, gère les préférences alimentaires de tes amis, et propose des repas adaptés. Suis ton historique culinaire !</p>
+		<div class="questionReponse">
+			<div class="interrogation">
+
+
+				<div class="premiere card shadow-1 rounded-4 ">
+					<p>
+						<i class="fa-solid fa-quote-left"></i>
+						Si j’invite Pierre, Paul et Jacques samedi soir à la maison, qu’est-ce que je pourrais bien leur faire à manger ?
+						<i class="fa-solid fa-quote-right"></i>
+					</p>
 				</div>
-				<div class="recettesIndex">
-					<h1>Mes recettes ({{app.user.recettes|length}})</h1>
-
-					<a class="btn iconeAjout" href="{{path('app_recette_new')}}">
-						<i class="fa-solid fa-circle-plus"></i>
-					</a>
-
-					<div class="cards">
-						<h2 id="aperitifH2" onclick="showHide(aperitif)" >Apéritif
-							<span>
-								<i class="fa-solid fa-sort-down"></i>
-							</span>
-						</h2>
-						<div id="aperitif" class="dnone">
-
-							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-								{% if recette.categorie.categorie is same as 'Apéritif' %}
-
-									<div class="card shadow-1 hoverable-1 rounded-3 ">
-										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
-											{% if recette.photo %}
-												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-											{% else  %}
-												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-											{% endif  %}
-
-											<div class="slugRecette">
-												<h3 class="titreRecette">{{ recette.titre }}</h3>
-
-												<div>{{ recette.categorie.categorie }}
 
 
-												</div>
-												<div class="tpsRecette">
-													{% if recette.tpsPreparation %}
-														<div>
-															<div>Préparation</div>
-															<div>{{ recette.tpsPreparation }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsRepos %}
-														<div>
-															<div>Repos</div>
-															<div>{{ recette.tpsRepos }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsCuisson %}
-
-														<div>
-															<div>Cuisson</div>
-															<div>{{ recette.tpsCuisson }}
-																min</div>
-														</div>
-													{% endif %}
-
-												</div>
-											</div>
-										</a>
-									</div>
-
-								{% endif %}
-
-							{% endfor %}
-
-						</div>
-
-						<h2 id="entreeH2" onclick="showHide(entree)" >Entrées
-							<span>
-								<i class="fa-solid fa-sort-down"></i>
-							</span>
-						</h2>
-						<div id="entree" class="dnone">
-							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-								{% if recette.categorie.categorie is same as 'Entrée' %}
-
-									<div class="card shadow-1 hoverable-1 rounded-3 ">
-										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
-											{% if recette.photo %}
-												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-											{% else  %}
-												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-											{% endif  %}
-
-											<div class="slugRecette">
-												<h3 class="titreRecette">{{ recette.titre }}</h3>
-
-												<div>{{ recette.categorie.categorie }}
-
-
-												</div>
-												<div class="tpsRecette">
-													{% if recette.tpsPreparation %}
-														<div>
-															<div>Préparation</div>
-															<div>{{ recette.tpsPreparation }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsRepos %}
-														<div>
-															<div>Repos</div>
-															<div>{{ recette.tpsRepos }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsCuisson %}
-
-														<div>
-															<div>Cuisson</div>
-															<div>{{ recette.tpsCuisson }}
-																min</div>
-														</div>
-													{% endif %}
-
-												</div>
-											</div>
-										</a>
-									</div>
-								{% endif %}
-
-							{% endfor %}
-
-						</div>
-
-						<h2 id="platH2" onclick="showHide(plat)" >Plats principaux
-							<span>
-								<i class="fa-solid fa-sort-down"></i>
-							</span>
-						</h2>
-
-						<div id="plat" class="dnone">
-							
-							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-								{% if recette.categorie.categorie is same as 'Plat principal' %}
-
-									<div class="card shadow-1 hoverable-1 rounded-3 ">
-										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
-											{% if recette.photo %}
-												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-											{% else  %}
-												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-											{% endif  %}
-
-											<div class="slugRecette">
-												<h3 class="titreRecette">{{ recette.titre }}</h3>
-
-												<div>{{ recette.categorie.categorie }}
-
-
-												</div>
-												<div class="tpsRecette">
-													{% if recette.tpsPreparation %}
-														<div>
-															<div>Préparation</div>
-															<div>{{ recette.tpsPreparation }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsRepos %}
-														<div>
-															<div>Repos</div>
-															<div>{{ recette.tpsRepos }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsCuisson %}
-
-														<div>
-															<div>Cuisson</div>
-															<div>{{ recette.tpsCuisson }}
-																min</div>
-														</div>
-													{% endif %}
-
-												</div>
-											</div>
-										</a>
-									</div>
-								{% endif %}
-
-							{% endfor %}
-
-						</div>
-
-						<h2 id="dessertH2" onclick="showHide(dessert)" >Desserts
-							<span>
-								<i class="fa-solid fa-sort-down"></i>
-							</span>
-						</h2>
-
-						<div id="dessert" class="dnone">
-							{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-								{% if recette.categorie.categorie is same as 'Dessert' %}
-
-									<div class="card shadow-1 hoverable-1 rounded-3 ">
-										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
-											{% if recette.photo %}
-												<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-											{% else  %}
-												<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-											{% endif  %}
-
-											<div class="slugRecette">
-												<h3 class="titreRecette">{{ recette.titre }}</h3>
-
-												<div>{{ recette.categorie.categorie }}
-
-
-												</div>
-												<div class="tpsRecette">
-													{% if recette.tpsPreparation %}
-														<div>
-															<div>Préparation</div>
-															<div>{{ recette.tpsPreparation }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsRepos %}
-														<div>
-															<div>Repos</div>
-															<div>{{ recette.tpsRepos }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsCuisson %}
-
-														<div>
-															<div>Cuisson</div>
-															<div>{{ recette.tpsCuisson }}
-																min</div>
-														</div>
-													{% endif %}
-												</div>
-											</div>
-										</a>
-									</div>
-								{% endif %}
-							{% endfor %}
-						</div>
-					</div>
+				<div class="image">
+					<img src="{{asset('./assets/img/femme-reflechit.jpg')}}" alt="femme reflechit freepik">
+				</div>
+				<div class="deuxieme card shadow-1 rounded-4">
+					<p>
+						<i class="fa-solid fa-quote-left"></i>
+						Je leur ferai bien du poisson avec du brocoli, mais je suis plus très sûre que Paul aime bien les brocolis, et je  crois que j’ai déjà fait ce plat à Pierre.
+						<i class="fa-solid fa-quote-right"></i>
+					</p>
 				</div>
 			</div>
+			<div class="reponse">
+				<div class="image">
+					<img src="{{asset('./assets/img/couple.jpg')}}" alt="couple freepik">
+				</div>
+				<div class="texte card shadow-1 rounded-4">
+					<p>
+						<i class="fa-solid fa-quote-left"></i>
+						Tu devrais essayer Amiam !
+					</p>
+					<p>
+
+						Grâce à ce site on peut enregistrer, modifier et supprimer nos recettes comme dans une application classique.</p>
+					<p>
+
+						On peut aussi créer des fiches amis sur lesquelles on note leurs allergies et ce qu’ils n’aiment pas.
+					</p>
+					<p>
+						Du coup, on peut créer des repas et choisir uniquement parmis les recettes qui conviennent aux amis qu'on a invités !
+						<i class="fa-solid fa-quote-right"></i>
+					</p>
+				</div>
+
+			</div>
+		</div>
+		<div class="presentation">
+
+			<p>Amiam est bien plus qu'un simple site web de recettes de cuisine. C'est un outil polyvalent conçu pour simplifier et améliorer ton expérience en cuisine en t'aidant à créer des repas délicieux, à garder une trace de tes amis et de leurs préférences alimentaires, et à explorer un monde infini de saveurs.</p>
+			<p>
+				<span class="gras">1. Création de recettes personnalisées :
+				</span>Avec Amiam, tu peux créer des recettes de cuisine personnalisées à partir de zéro selon tes préférences. Ajoute tes ingrédients préférés, ajuste les portions et personnalise les étapes de préparation.</p>
+			<p>
+				<span class="gras">2. Gestion de tes amis culinaires :
+				</span>Ne te soucie plus de qui est allergique à quoi ou qui préfère quel type de cuisine. Amiam te permet d'enregistrer tes amis avec leurs préférences alimentaires, allergies et régimes spéciaux. Plus jamais de mauvaises surprises lors des repas entre amis !</p>
+			<p>
+				<span class="gras">3. Création de repas harmonieux :
+				</span>Lorsque vient le moment de planifier un repas avec tes amis, Amiam est là pour toi. Il te suffit de spécifier les invités, et notre algorithme intelligent te proposera des recettes qui conviennent à tous et te préviendra des particularités culiniaires éventuelles de tes invités.</p>
+			<p>
+				<span class="gras">4. Historique des repas :
+				</span>Garde une trace de chaque repas que tu as créé avec Amiam. Tu pourras voir quelles recettes ont été un succès, quelles ont besoin d'améliorations, et combien de fois tu as régalé tes amis avec tes talents culinaires.</p>
+			<p>Que tu sois un chef chevronné ou un novice en cuisine, Amiam te permet de créer des repas mémorables tout en tenant compte des préférences et des besoins alimentaires de tes amis. Rejoins notre communauté de passionnés de cuisine dès aujourd'hui et explore le monde des saveurs avec facilité et convivialité. Laisse Amiam être ton compagnon culinaire, et prépare-toi à épater tes amis à chaque repas !</p>
+		</div>
+
+		{% if is_granted('ROLE_USER') %}
+			<div class="groupeBtn">
+				<a class="btn btnOk" href="{{path('app_repasnew')}}">
+					<i class="fa-solid fa-circle-plus"></i>
+					Repas</a>
+			</div>
 		{% else %}
-			<div class="notGranted">
-				<h1 id="accueil">Amiam</h1>
-				<div class="interrogation">
-
-
-					<div class="premiere card shadow-1 rounded-4 ">
-						<p>
-							<i class="fa-solid fa-quote-left"></i>
-							Si j’invite Pierre, Paul et Jacques samedi soir à la maison, qu’est-ce que je pourrais bien leur faire à manger ?
-							<i class="fa-solid fa-quote-right"></i>
-						</p>
-					</div>
-
-
-					<div class="image">
-						<img src="{{asset('./assets/img/femme-reflechit.jpg')}}" alt="femme reflechit freepik">
-					</div>
-					<div class="deuxieme card shadow-1 rounded-4">
-						<p>
-							<i class="fa-solid fa-quote-left"></i>
-							Je leur ferai bien du poisson avec du brocoli, mais je suis plus très sûre que Paul aime bien les brocolis, et je  crois que j’ai déjà fait ce plat à Pierre.
-							<i class="fa-solid fa-quote-right"></i>
-						</p>
-					</div>
-				</div>
-				<div class="reponse">
-					<div class="image">
-						<img src="{{asset('./assets/img/couple.jpg')}}" alt="couple freepik">
-					</div>
-					<div class="texte card shadow-1 rounded-4">
-						<p>
-							<i class="fa-solid fa-quote-left"></i>
-							Tu devrais essayer Amiam !
-						</p>
-						<p>
-
-							Grâce à ce site on peut enregistrer, modifier et supprimer nos recettes comme dans une application classique.</p>
-						<p>
-
-							On peut aussi créer des fiches amis sur lesquelles on note leurs allergies et ce qu’ils n’aiment pas.
-						</p>
-						<p>
-							Du coup, on peut créer des repas et choisir uniquement parmis les recettes qui conviennent aux amis qu'on a invités !
-							<i class="fa-solid fa-quote-right"></i>
-						</p>
-					</div>
-
-				</div>
-
-
-				<div class="groupeBtn">
-					<a class="btn btnOk" href="{{path('app_login')}}">Connexion</a>
-				</div>
+			<div class="groupeBtn">
+				<a class="btn btnOk" href="{{path('app_login')}}">Connexion</a>
 			</div>
 		{% endif %}
 

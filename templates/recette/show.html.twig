@@ -44,65 +44,68 @@
 				{{ include('recette/_delete_form.html.twig') }}
 			</div>
 		</div>
-		<h1>{{ recette.titre }}</h1>
-		<h3>{{ recette.categorie.categorie }}</h3>
-		{% if recette.photo %}
-			<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-		{% else  %}
-			<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-		{% endif  %}
+
+		<div class="card shadow-1 rounded-3">
+
+			<h1>{{ recette.titre }}</h1>
+			<h3>{{ recette.categorie.categorie }}</h3>
+			{% if recette.photo %}
+				<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+			{% else  %}
+				<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+			{% endif  %}
 
 
-		<div class="tempsGroupe">
-			{% if recette.tpsPreparation %}
-				<div class="temps">
-					<p>Temps de préparation</p>
-					<div>{{ recette.tpsPreparation }}
-						min
+			<div class="tempsGroupe">
+				{% if recette.tpsPreparation %}
+					<div class="temps">
+						<p>Temps de préparation</p>
+						<div>{{ recette.tpsPreparation }}
+							min
+						</div>
 					</div>
-				</div>
-			{% endif %}
-			{% if recette.tpsRepos %}
-				<div class="temps">
-					<p>Temps de repos</p>
-					<div>{{ recette.tpsRepos }}
-						min</div>
-				</div>
-			{% endif %}
-			{% if recette.tpsCuisson %}
-				<div class="temps">
-					<p>Temps de cuisson</p>
-					<div>{{ recette.tpsCuisson }}
-						min</div>
-				</div>
-			{% endif %}
+				{% endif %}
+				{% if recette.tpsRepos %}
+					<div class="temps">
+						<p>Temps de repos</p>
+						<div>{{ recette.tpsRepos }}
+							min</div>
+					</div>
+				{% endif %}
+				{% if recette.tpsCuisson %}
+					<div class="temps">
+						<p>Temps de cuisson</p>
+						<div>{{ recette.tpsCuisson }}
+							min</div>
+					</div>
+				{% endif %}
 
+			</div>
+
+			<div>
+				<h2>Ingrédients</h2>
+				<p class="nbPersonnes">pour
+					{{ recette.nbPersonnes }}
+					personnes</p>
+				<table>
+					<tbody>
+						{% for ingredient in ingredients %}
+							<tr class="ingredients">
+								<td>{{ ingredient.aliment }}</td>
+								<td>{{ ingredient.quantite }}
+									{{ ingredient.mesure }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div>
+				<h2>Étapes</h2>
+				<p>{{ recette.description | raw }}</p>
+
+			</div>
 		</div>
-
-		<div>
-			<h2>Ingrédients</h2>
-			<p class="nbPersonnes">pour
-				{{ recette.nbPersonnes }}
-				personnes</p>
-			<table>
-				<tbody>
-					{% for ingredient in ingredients %}
-						<tr class="ingredients">
-							<td>{{ ingredient.aliment }}</td>
-							<td>{{ ingredient.quantite }}
-								{{ ingredient.mesure }}</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-
-		<div>
-			<h2>Étapes</h2>
-			<p>{{ recette.description | raw }}</p>
-
-		</div>
-
 		<div class="repas">
 			<h2>Repas effectués</h2>
 			<div class="cards">
@@ -118,10 +121,10 @@
 										<p>
 											{{ repa.date ? repa.date|date('d-M-Y') : '' }}&nbsp;
 										</p>
-										<p>
+										<p class="texte">
 											{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
-												Famille
-												{{ famille.nom }}&nbsp;
+												&nbsp; Famille
+												{{ famille.nom }} &nbsp;
 											{% endfor %}
 										</p>
 									</div>

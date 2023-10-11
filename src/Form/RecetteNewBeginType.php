@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class RecetteNewBeginType extends AbstractType
 {
@@ -32,7 +33,7 @@ class RecetteNewBeginType extends AbstractType
                 ],
             ])
 
-            ->add('prive', CheckboxType::class, [
+            ->add('prive', HiddenType::class, [
                 'label' => 'Recette privée ',
                 'required' => false,
                 'data' => true,
@@ -42,7 +43,7 @@ class RecetteNewBeginType extends AbstractType
             ])
             ->add('categorie', EntityType::class, [
                 'class' => RecetteCategorie::class,
-                'label' => 'Catégorie de recettes ',
+                'label' => 'Catégorie de recettes *',
                 'choice_label' => 'categorie',
                 'required' => true,
                 'multiple' => false,

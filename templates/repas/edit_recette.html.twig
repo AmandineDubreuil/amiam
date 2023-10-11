@@ -19,6 +19,7 @@
 
 	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+		<link rel="stylesheet" href="{{asset('./assets/css/recette/recetteIndexStyle.css')}}">
 	<link rel="stylesheet" href="{{asset('./assets/css/repas/repasNewEditStyle.css')}}">
 
 {% endblock %}
@@ -34,7 +35,7 @@
 
 		</div>
 	</section>
-	<section class="recettes">
+	<section class="recettesIndex">
 
 		<h2>Recettes possibles
 		</h2>
@@ -45,7 +46,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h3>
-			<div id="aperitif" class="dnone">
+			<div id="aperitif" class="cardsRecette">
 				{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 					{% if recette.categorie.categorie is same as 'Apéritif' %}
 
@@ -107,7 +108,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h3>
-			<div id="entree" class="dnone">
+			<div id="entree" class="cardsRecette">
 				{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
 					{% if recette.categorie.categorie is same as 'Entrée' %}
@@ -170,7 +171,7 @@
 				<span>
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
-				<div id="plat" class="dnone">
+				<div id="plat" class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
 						{% if recette.categorie.categorie is same as 'Plat principal' %}
@@ -234,7 +235,7 @@
 						<i class="fa-solid fa-sort-down"></i>
 					</span>
 				</h3>
-				<div id="dessert" class="dnone">
+				<div id="dessert" class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
 						{% if recette.categorie.categorie is same as 'Dessert' %}

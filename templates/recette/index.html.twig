@@ -33,11 +33,12 @@
 		</a>
 
 		<div class="cards">
-			<h2 id="aperitifH2" onclick="showHide(aperitif)">Apéritif 				<span>
+			<h2 id="aperitifH2" onclick="showHide(aperitif)">Apéritif
+				<span>
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h2>
-			<div id="aperitif" class="dnone">
+			<div id="aperitif" class="cardsRecette">
 
 				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
 					{% if recette.categorie.categorie is same as 'Apéritif' %}
@@ -52,11 +53,6 @@
 
 								<div class="slugRecette">
 									<h3 class="titreRecette">{{ recette.titre }}</h3>
-
-									<div>{{ recette.categorie.categorie }}
-
-
-									</div>
 									<div class="tpsRecette">
 										{% if recette.tpsPreparation %}
 											<div>
@@ -97,7 +93,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h2>
-			<div id="entree" class="dnone">
+			<div id="entree" class="cardsRecette">
 				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
 					{% if recette.categorie.categorie is same as 'Entrée' %}
 
@@ -112,10 +108,6 @@
 								<div class="slugRecette">
 									<h3 class="titreRecette">{{ recette.titre }}</h3>
 
-									<div>{{ recette.categorie.categorie }}
-
-
-									</div>
 									<div class="tpsRecette">
 										{% if recette.tpsPreparation %}
 											<div>
@@ -156,7 +148,7 @@
 				</span>
 			</h2>
 
-			<div id="plat" class="dnone">
+			<div id="plat" class="cardsRecette">
 
 				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
 					{% if recette.categorie.categorie is same as 'Plat principal' %}
@@ -172,10 +164,6 @@
 								<div class="slugRecette">
 									<h3 class="titreRecette">{{ recette.titre }}</h3>
 
-									<div>{{ recette.categorie.categorie }}
-
-
-									</div>
 									<div class="tpsRecette">
 										{% if recette.tpsPreparation %}
 											<div>
@@ -216,7 +204,7 @@
 				</span>
 			</h2>
 
-			<div id="dessert" class="dnone">
+			<div id="dessert" class="cardsRecette">
 				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
 					{% if recette.categorie.categorie is same as 'Dessert' %}
 
@@ -231,10 +219,6 @@
 								<div class="slugRecette">
 									<h3 class="titreRecette">{{ recette.titre }}</h3>
 
-									<div>{{ recette.categorie.categorie }}
-
-
-									</div>
 									<div class="tpsRecette">
 										{% if recette.tpsPreparation %}
 											<div>

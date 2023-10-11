@@ -125,7 +125,7 @@ class AmiFamille
     {
         if (!$this->repas->contains($repa)) {
             $this->repas->add($repa);
-            $repa->addAmi($this);
+            $repa->addAmiFamille($this);
         }
 
         return $this;
@@ -134,7 +134,7 @@ class AmiFamille
     public function removeRepa(Repas $repa): static
     {
         if ($this->repas->removeElement($repa)) {
-            $repa->removeAmi($this);
+            $repa->removeAmiFamille($this);
         }
 
         return $this;

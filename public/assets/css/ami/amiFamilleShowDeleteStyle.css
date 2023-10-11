@@ -44,3 +44,14 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+/* repas effectués */
+
+.repas .card-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.repas .card-content .texte {
+  font-weight: bold;
+}

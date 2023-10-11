@@ -34,6 +34,7 @@ class Repas
     private Collection $amis;
 
     #[ORM\ManyToMany(targetEntity: Recette::class, inversedBy: 'repas')]
+    // #[ORM\JoinColumn(name: "recette_id", onDelete: "CASCADE")]
     private Collection $recettes;
 
     public function __construct()

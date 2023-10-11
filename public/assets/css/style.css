@@ -32,7 +32,8 @@
 
   --color-light: rgb(227, 255, 239);
 
-  --color-four: #ded052;
+  --color-four: #C1B125;
+  /* --color-four: #ded052; C1B125*/
 
   --color-five: #fff;
 
@@ -54,13 +55,18 @@ section {
 .dnone {
   display: none;
 }
+.masqueTel{
+  display: none;
+}
 .dblock {
   display: block;
 }
 .gris, .help-text {
   color: grey;
 }
-
+.gras {
+  font-weight: bold;
+}
 
 /* Messages flash */
 
@@ -167,7 +173,7 @@ h6 {
 .btnModifier,
 .btnSupprimer,
 .btnRetour {
-  border-radius: 10px;
+  border-radius: 20px;
   font-size: 1rem;
   font-weight: 100;
   padding: 0.5rem;
@@ -241,3 +247,18 @@ ul {
   margin: 0;
   line-height: 1rem;
 }
+
+
+  /* *********************** 
+   RESPONSIVE DESKTOP
+   ************************ */
+
+    
+   @media screen and (min-width: 576px) {
+
+.masqueTel{
+display: initial;
+}
+
+/*fin responsive*/
+   }

@@ -58,6 +58,7 @@ class RecetteController extends AbstractController
         //validation du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setUser($user);
+            $recette->setPrive(true);
             $recette->setCreatedAt(new \DateTimeImmutable);
             $recette->setModifiedAt(new \DateTimeImmutable);
 
@@ -155,19 +156,18 @@ class RecetteController extends AbstractController
         }
 
         $recetteId = $recette->getId();
-        $recetteIngredients = $recetteIngredientRepository->findByRecette($recetteId);
-        $recetteRepas = $repasRepository->findByRecette($recetteId);
+       $recetteIngredients = $recetteIngredientRepository->findByRecette($recetteId);
+        $repas = $recette->getRepas();
+   
+
         if ($this->isCsrfTokenValid('delete' . $recette->getId(), $request->request->get('_token'))) {
 
             foreach ($recetteIngredients as $recetteIngredient) {
                 $entityManager->remove($recetteIngredient);
-                // $recetteIngredientRepository->removeIngredient($recetteIngredient);
-                //   dd($recetteIngredientRepository);
             }
-            foreach ($recetteRepas as $repas) {
-                $entityManager->remove($repas);
-                // $recetteIngredientRepository->removeIngredient($recetteIngredient);
-                //   dd($recetteIngredientRepository);
+            foreach ($repas as $repa) {
+                $entityManager->remove($repa);
+           dd($repa);
             }
 
             $entityManager->remove($recette);

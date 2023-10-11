@@ -2,6 +2,9 @@
   margin: 1rem;
 }
 
+.recettesShow .card{
+  padding: 1rem;
+}
 .recettesShow .imgRecette {
   display: flex;
   justify-content: center;
@@ -11,6 +14,7 @@
 
 .recettesShow .imgRecette img {
   max-width: 400px;
+  border-radius: 10px;
 }
 
 .tempsGroupe {
@@ -33,4 +37,27 @@
 
 .recettesShow .cardRepasRecette span {
   font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
+}
+
+/* repas effectués */
+
+.repas .card-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.repas .card-content .texte {
+  font-weight: bold;
+}
+/* page repas_recette / index*/
+
+#question {
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: .5rem;
+}
+#question p {
+  padding: .2rem;
+  line-height: normal;
+  margin: 0;
 }
