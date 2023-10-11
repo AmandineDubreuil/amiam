@@ -156,9 +156,9 @@ class RecetteController extends AbstractController
         }
 
         $recetteId = $recette->getId();
-       $recetteIngredients = $recetteIngredientRepository->findByRecette($recetteId);
+        $recetteIngredients = $recetteIngredientRepository->findByRecette($recetteId);
         $repas = $recette->getRepas();
-   
+
 
         if ($this->isCsrfTokenValid('delete' . $recette->getId(), $request->request->get('_token'))) {
 
@@ -166,8 +166,14 @@ class RecetteController extends AbstractController
                 $entityManager->remove($recetteIngredient);
             }
             foreach ($repas as $repa) {
-                $entityManager->remove($repa);
-           dd($repa);
+
+                $repaRecettes = $repa->getRecettes();
+                foreach ($repaRecettes as $repaRecette) {
+                    if ($repaRecette === $recette) {
+                        $entityManager->remove($recette);
+                    }
+                }
+
             }
 
             $entityManager->remove($recette);
