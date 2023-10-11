@@ -1,67 +1,67 @@
 .recettesIndex .iconeAjout {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
-.recettesIndex .cardsRecette{
-    display: flex;
-    /* justify-content: space-around; */
-    flex-wrap: wrap;
-}
-
-.recettesIndex .cardsRecette img{
-    transition-property: all;
-    transition-duration: 0.5s;
-    vertical-align: bottom;
-    position: relative;
-    z-index: 1;
-}
-.recettesIndex .cardsRecette img:hover{
-    transform: scale(1.15);
-    filter: brightness(90%);
-  
+.recettesIndex .cardsRecette {
+  display: flex;
+  /* justify-content: space-around; */
+  flex-wrap: wrap;
 }
 
-.recettesIndex .card{
-    max-width: 15rem;
-    margin: .5rem;
+.recettesIndex .cardsRecette img {
+  transition-property: all;
+  transition-duration: 0.5s;
+  vertical-align: bottom;
+  position: relative;
+  z-index: 1;
+}
+.recettesIndex .cardsRecette img:hover {
+  transform: scale(1.15);
+  filter: brightness(90%);
+}
+
+.recettesIndex .card {
+  width: 9rem;
+  margin: 0.5rem;
 }
 .recettesIndex .cardRecette {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-       
-    
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .recettesIndex h2 span {
-    font-size: 1rem;
-    color: grey;
+  font-size: 1rem;
+  color: grey;
 }
 
 .recettesIndex .imgRecette {
-    display: flex;
-    overflow: hidden;
-    position: relative;
+  display: flex;
+  overflow: hidden;
+  position: relative;
 }
 
 .recettesIndex .slugRecette {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .recettesIndex .titreRecette {
-    font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
+  font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  margin-top: 0;
+  padding-top: 0;
+  line-height: normal;
 }
 
 .recettesIndex .tpsRecette {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 20rem;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 20rem;
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .recettesIndex .tpsRecette div {
-    display: flex;
-    flex-direction: column;
-
+  display: flex;
+  flex-direction: column;
 }

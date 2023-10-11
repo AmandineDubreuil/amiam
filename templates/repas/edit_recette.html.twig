@@ -35,7 +35,7 @@
 
 		</div>
 	</section>
-<section class="amis">
+	<section class="amis">
 		<h2>Amis invités</h2>
 		{% if amisPresents %}
 			<ul>
@@ -45,23 +45,23 @@
 						<ul class="allergiesRegimes">
 							{% if ami.regimes is not empty  %}
 								<li>
-									est
+									mange
 									{% for regime in ami.regimes %}
 										<span class="regime">{{regime}}</span>
 									{% endfor %}
 								</li>
 							{% endif %}
-										{% if ami.allergies is not empty  %}
+							{% if ami.allergies is not empty  %}
 								<li>
-									est allergique aux 
+									est allergique aux
 									{% for allergieG in ami.allergies %}
 										<span class="allergie">{{allergieG}}</span>
 									{% endfor %}
 								</li>
 							{% endif %}
-												{% if ami.allergiesAliment is not empty  %}
+							{% if ami.allergiesAliment is not empty  %}
 								<li>
-									est allergique à 
+									est allergique à
 									{% for allergieA in ami.allergiesAliment %}
 										<span class="allergie">{{allergieA}}</span>
 									{% endfor %}
@@ -113,35 +113,42 @@
 
 									<div class="slugRecette">
 
-										<div class="titreRecette">
+										<div>
 											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-												<h3>{{ recette.titre }}</h3>
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
 											</a>
 										</div>
 										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
 											<div class="tpsRecette">
-												<div>
-													<div>Préparation</div>
-													<div>{{ recette.tpsPreparation }}
-														min</div>
-												</div>
-												<div>
-													<div>Repos</div>
-													<div>{{ recette.tpsRepos }}
-														min</div>
-												</div>
-												<div>
-													<div>Cuisson</div>
-													<div>{{ recette.tpsCuisson }}
-														min</div>
-												</div>
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
+
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
 
 											</div>
 										</a>
 
 									</div>
 									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"{% if recette in recettesOld %} checked {% endif %}></div>
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
 								</div>
 							</div>
 
@@ -179,35 +186,42 @@
 
 									<div class="slugRecette">
 
-										<div class="titreRecette">
+										<div>
 											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-												<h3>{{ recette.titre }}</h3>
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
 											</a>
 										</div>
 										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
 											<div class="tpsRecette">
-												<div>
-													<div>Préparation</div>
-													<div>{{ recette.tpsPreparation }}
-														min</div>
-												</div>
-												<div>
-													<div>Repos</div>
-													<div>{{ recette.tpsRepos }}
-														min</div>
-												</div>
-												<div>
-													<div>Cuisson</div>
-													<div>{{ recette.tpsCuisson }}
-														min</div>
-												</div>
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
+
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
 
 											</div>
 										</a>
 
 									</div>
 									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"{% if recette in recettesOld %} checked {% endif %}></div>
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
 								</div>
 							</div>
 
@@ -245,35 +259,41 @@
 
 									<div class="slugRecette">
 
-										<div class="titreRecette">
+										<div>
 											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-												<h3>{{ recette.titre }}</h3>
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
 											</a>
 										</div>
 										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
 											<div class="tpsRecette">
-												<div>
-													<div>Préparation</div>
-													<div>{{ recette.tpsPreparation }}
-														min</div>
-												</div>
-												<div>
-													<div>Repos</div>
-													<div>{{ recette.tpsRepos }}
-														min</div>
-												</div>
-												<div>
-													<div>Cuisson</div>
-													<div>{{ recette.tpsCuisson }}
-														min</div>
-												</div>
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
 
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
 											</div>
 										</a>
 
 									</div>
 									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"{% if recette in recettesOld %} checked {% endif %}></div>
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
 								</div>
 							</div>
 
@@ -311,54 +331,62 @@
 
 									<div class="slugRecette">
 
-										<div class="titreRecette">
+										<div>
 											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
-												<h3>{{ recette.titre }}</h3>
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
 											</a>
 										</div>
 										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
 											<div class="tpsRecette">
 												<div>
-													<div>Préparation</div>
-													<div>{{ recette.tpsPreparation }}
-														min</div>
-												</div>
-												<div>
-													<div>Repos</div>
-													<div>{{ recette.tpsRepos }}
-														min</div>
-												</div>
-												<div>
-													<div>Cuisson</div>
-													<div>{{ recette.tpsCuisson }}
-														min</div>
-												</div>
+													{% if recette.tpsPreparation %}
+														<div>
+															<div>Préparation</div>
+															<div>{{ recette.tpsPreparation }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsRepos %}
+														<div>
+															<div>Repos</div>
+															<div>{{ recette.tpsRepos }}
+																min</div>
+														</div>
+													{% endif %}
+													{% if recette.tpsCuisson %}
 
-											</div>
-										</a>
+														<div>
+															<div>Cuisson</div>
+															<div>{{ recette.tpsCuisson }}
+																min</div>
+														</div>
+													{% endif %}
 
+												</div>
+											</a>
+
+										</div>
+										<div class="checkboxRecette">
+											<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
 									</div>
-									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"{% if recette in recettesOld %} checked {% endif %}></div>
 								</div>
-							</div>
 
-						{% endif %}
-					{% endfor %}
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
-			</div>
-			<div class="groupeBtn">
-				<input type="submit" value="Recettes choisies" name="submit" class="btn btnOk submitChoisi">
-			</div>
-			{# fin formulaire #}
+				<div class="groupeBtn">
+					<input type="submit" value="Recettes choisies" name="submit" class="btn btnOk submitChoisi">
+				</div>
+				{# fin formulaire #}
 
-		</form>
+			</form>
 
-	</section>
+		</section>
 
-{% endblock %}
-{% block javascripts %}
-	<script src="{{asset('assets/js/repasNew.js')}}"></script>
-	<script src="{{asset('assets/js/showHide.js')}}"></script>
+	{% endblock %}
+	{% block javascripts %}
+		<script src="{{asset('assets/js/repasNew.js')}}"></script>
+		<script src="{{asset('assets/js/showHide.js')}}"></script>
 
-{% endblock %}
+	{% endblock %}
