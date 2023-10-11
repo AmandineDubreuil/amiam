@@ -30,13 +30,12 @@
 		<form method="POST">
 			<ul>
 				{% for famille in familles | sort ((a, b)=> a.nom <=> b.nom) %}
-					<li class="famille-checkbox"><input onclick='handleClick(this);' type="checkbox" id="{{ famille.nom }}" class="main-checkbox" name="familleAmisPourRecettes[]" value="{{ famille.id }}" data-dependant="{% for ami in famille.amis %}{{ami.id}},{% endfor %}" {% if famille in oldFamillesPresentes %} checked {% endif %}
-					>
+					<li class="famille-checkbox"><input onclick='handleClick(this);' type="checkbox" id="{{ famille.nom }}" class="main-checkbox" name="familleAmisPourRecettes[]" value="{{ famille.id }}" data-dependant="{% for ami in famille.amis %}{{ami.id}},{% endfor %}" {% if famille in oldFamillesPresentes %} checked {% endif %}>
 						<label for="{{ famille.nom }}">Famille
 							{{ famille.nom }}</label>
 						<ul class="ami-checkbox">
 							{% for ami in famille.amis %}
-								<li><input type="checkbox" id="{{ ami.prenom }}" name="amisPourRecettes[]" class="famille{{ famille.nom }}" value="{{ ami.id }}"  {% if ami in oldAmisPresents %} checked {% endif %}>
+								<li><input type="checkbox" id="{{ ami.prenom }}" name="amisPourRecettes[]" class="famille{{ famille.nom }}" value="{{ ami.id }}" {% if ami in oldAmisPresents %} checked {% endif %}>
 									<label for="{{ ami.prenom }}">{{ ami.prenom }}</label>
 								</li>
 							{% endfor %}

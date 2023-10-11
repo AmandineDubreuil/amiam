@@ -398,6 +398,7 @@ class RepasController extends AbstractController
         return $this->render('repas/edit_recette.html.twig', [
             'repa' => $repa,
             'recettesOk' => $recettesOk,
+            'recettesOld' =>$recettesOld,
 
         ]);
     }
