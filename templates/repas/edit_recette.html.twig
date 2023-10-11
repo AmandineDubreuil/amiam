@@ -35,6 +35,49 @@
 
 		</div>
 	</section>
+<section class="amis">
+		<h2>Amis invités</h2>
+		{% if amisPresents %}
+			<ul>
+				{% for ami in amisPresents %}
+					<li>
+						<span>{{ami.prenom}}</span>
+						<ul class="allergiesRegimes">
+							{% if ami.regimes is not empty  %}
+								<li>
+									est
+									{% for regime in ami.regimes %}
+										<span class="regime">{{regime}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+										{% if ami.allergies is not empty  %}
+								<li>
+									est allergique aux 
+									{% for allergieG in ami.allergies %}
+										<span class="allergie">{{allergieG}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+												{% if ami.allergiesAliment is not empty  %}
+								<li>
+									est allergique à 
+									{% for allergieA in ami.allergiesAliment %}
+										<span class="allergie">{{allergieA}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+						</ul>
+
+
+					</li>
+				{% endfor %}
+			</ul>
+
+		{% endif %}
+
+	</section>
+
 	<section class="recettesIndex">
 
 		<h2>Recettes possibles

@@ -229,7 +229,7 @@ class RepasController extends AbstractController
             foreach ($allergiesGroupe as $allergieGroupe) {
                 $allergiesGroupePresents[] = $allergieGroupe;
 
-                $this->addFlash('danger', $ami->getPrenom() . ' est allergique à :' . $allergieGroupe);
+            //    $this->addFlash('danger', $ami->getPrenom() . ' est allergique à :' . $allergieGroupe);
             }
 
             // récupérer leurs allergies aliment pour filtre des recettes
@@ -237,7 +237,7 @@ class RepasController extends AbstractController
             foreach ($allergiesAliment as $al) {
                 $allergiesAlimentPresentes[] = $al;
 
-                $this->addFlash('danger', $ami->getPrenom() . ' est allergique à : ' . $al);
+             //   $this->addFlash('danger', $ami->getPrenom() . ' est allergique à : ' . $al);
             }
             //récupérer leurs régimes
             $regimes = $ami->getRegimes();
@@ -251,7 +251,7 @@ class RepasController extends AbstractController
                 if ($regime->getRegime() === 'Sans porc') {
                     $regimeSsPorc += 1;
                 }
-                $this->addFlash('warning', $ami->getPrenom() . ' a un régime ' . $regime);
+          //      $this->addFlash('warning', $ami->getPrenom() . ' a un régime ' . $regime);
             }
 
 
@@ -259,7 +259,7 @@ class RepasController extends AbstractController
             $degouts = $ami->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
-                $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $degout);
+           //     $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $degout);
             }
 
 
@@ -399,6 +399,7 @@ class RepasController extends AbstractController
             'repa' => $repa,
             'recettesOk' => $recettesOk,
             'recettesOld' =>$recettesOld,
+            'amisPresents' => $amis,
 
         ]);
     }

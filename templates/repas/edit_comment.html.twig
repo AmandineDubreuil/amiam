@@ -25,6 +25,9 @@
 
 {% block body %}
 	<section>
+		<div>
+			<a class="btn btnRetour" href="javascript:history.go(-1)">Retour</a>
+		</div>
 		<h1>Modification du commentaire</h1>
 
 		{{ include('repas/_comment_form.html.twig', {'button_label': 'Update'}) }}

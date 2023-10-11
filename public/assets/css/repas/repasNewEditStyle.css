@@ -36,6 +36,20 @@ h1 {
     
     }
 
+    .amis .allergiesRegimes{
+        padding-left: 2rem;
+        font-style: italic;
+    }
+.amis .allergiesRegimes .regime {
+   color: #ec8906;
+   font-weight: bold;
+
+}
+.amis .allergiesRegimes .allergie {
+    color: #df2c29;
+    font-weight: bold;
+ 
+ }
 /* recette */
 .recettesIndex h3 span {
     font-size: 1rem;

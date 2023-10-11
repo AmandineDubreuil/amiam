@@ -70,29 +70,34 @@ class RepasnewrecettesController extends AbstractController
                 if ($regime->getRegime() === 'Sans porc') {
                     $regimeSsPorc += 1;
                 }
-                $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
+         //       $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
             }
+       
 
             // récupérer leurs allergies groupe pour filtre des recettes
             $allergiesGroupe = $amiPresent->getAllergies();
             foreach ($allergiesGroupe as $allergieGroupe) {
                 $allergiesGroupePresents[] = $allergieGroupe;
-                $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à :' . $allergieGroupe);
+          //      $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à :' . $allergieGroupe);
             }
 
             // récupérer leurs allergies aliment pour filtre des recettes
             $allergiesAliment = $amiPresent->getAllergiesAliment();
             foreach ($allergiesAliment as $al) {
                 $allergiesAlimentPresentes[] = $al;
-                $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
+           //     $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
             }
 
             //  récupérer leurs dégouts pour filtre des recettes
             $degouts = $amiPresent->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
-                $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
+          //      $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
             }
+
+
+
+
             ############  fin de la boucle amiPresent
         }
 
@@ -228,9 +233,10 @@ class RepasnewrecettesController extends AbstractController
             'famillesPresentes' => $famillesPresentes,
             'amisId' => $amisPresentsId,
             'amisPresents' => $amisPresents,
-            'regimes' => $regimes,
+          //  'regimes' => $regimes,
             'allergiesGroupe' => $allergiesGroupe,
             'allergiesAliment' => $allergiesAliment,
+            'degouts' => $degouts,
             'recettes' => $recettes,
             'recettesOk' => $recettesOk,
         //    'recettesChoisies' => $recettesChoisies,
