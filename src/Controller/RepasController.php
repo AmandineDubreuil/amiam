@@ -229,7 +229,7 @@ class RepasController extends AbstractController
             foreach ($allergiesGroupe as $allergieGroupe) {
                 $allergiesGroupePresents[] = $allergieGroupe;
 
-            //    $this->addFlash('danger', $ami->getPrenom() . ' est allergique à :' . $allergieGroupe);
+                //    $this->addFlash('danger', $ami->getPrenom() . ' est allergique à :' . $allergieGroupe);
             }
 
             // récupérer leurs allergies aliment pour filtre des recettes
@@ -237,7 +237,7 @@ class RepasController extends AbstractController
             foreach ($allergiesAliment as $al) {
                 $allergiesAlimentPresentes[] = $al;
 
-             //   $this->addFlash('danger', $ami->getPrenom() . ' est allergique à : ' . $al);
+                //   $this->addFlash('danger', $ami->getPrenom() . ' est allergique à : ' . $al);
             }
             //récupérer leurs régimes
             $regimes = $ami->getRegimes();
@@ -251,7 +251,7 @@ class RepasController extends AbstractController
                 if ($regime->getRegime() === 'Sans porc') {
                     $regimeSsPorc += 1;
                 }
-          //      $this->addFlash('warning', $ami->getPrenom() . ' a un régime ' . $regime);
+                //      $this->addFlash('warning', $ami->getPrenom() . ' a un régime ' . $regime);
             }
 
 
@@ -259,7 +259,7 @@ class RepasController extends AbstractController
             $degouts = $ami->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
-           //     $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $degout);
+                //     $this->addFlash('warning-jaune', $ami->getPrenom() . ' n\'aime pas : ' . $degout);
             }
 
 
@@ -376,17 +376,30 @@ class RepasController extends AbstractController
             }
 
             $recettesChoisies = $request->request->all('recetteChoisie');
-            
+
+            //echap si pas de recette choisie
+            if (empty($recettesChoisies)) {
+                $this->addFlash('danger', 'Merci de choisir au moins une recette');
+                return $this->render('repas/edit_recette.html.twig', [
+                    'repa' => $repa,
+                    'recettesOk' => $recettesOk,
+                    'recettesOld' => $recettesOld,
+                    'amisPresents' => $amis,
+
+                ]);
+            }
+
+
             foreach ($recettesChoisies as $recetteChoisie) {
                 $recetteC = $recetteRepository->find($recetteChoisie);
                 $recettesC[] = $recetteC;
             }
-           
+
             foreach ($recettesC as $recetteR) {
 
                 $repa->addRecette($recetteR);
             }
- //dd($recettesOld);
+            //dd($recettesOld);
             $entityManager->persist($repa);
             $entityManager->flush();
 
@@ -398,7 +411,7 @@ class RepasController extends AbstractController
         return $this->render('repas/edit_recette.html.twig', [
             'repa' => $repa,
             'recettesOk' => $recettesOk,
-            'recettesOld' =>$recettesOld,
+            'recettesOld' => $recettesOld,
             'amisPresents' => $amis,
 
         ]);

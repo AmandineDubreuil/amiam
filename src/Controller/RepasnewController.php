@@ -60,6 +60,21 @@ class RepasnewController extends AbstractController
 
             // Récupérez les amis sélectionnés
             $amisPresentsId = $request->request->all('amisPourRecettes');
+
+            //echap si pas d'amis sélectionné
+            if (empty($amisPresentsId)) {
+                $this->addFlash('danger', 'Merci de choisir au moins un ami');
+                return $this->render('repasnew/index.html.twig', [
+                    'controller_name' => 'RepasnewController',
+                    'familles' => $familles,
+                    'famillesPresentes' => $famillesPresentes,
+                    'amis' => $amis,
+                    'amisId' => $amisPresentsId,
+                    'amisPresents' => $amisPresents,
+                ]);
+            }
+
+            //récupérer les amis dans un tableau        
             foreach ($amisPresentsId as $amiPresentId) {
                 $amiPresent = $amiRepository->find($amiPresentId);
                 $amisPresents[] = $amiPresent;

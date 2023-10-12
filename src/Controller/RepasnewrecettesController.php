@@ -50,9 +50,9 @@ class RepasnewrecettesController extends AbstractController
         $regimeSsPorc = 0;
         $recettePorc = 0;
         $recetteAEviter = 0;
-
-
-
+        $alimentArray = [];
+        $allergeneArray = [];
+        $recettesChoisies = [];
 
         ########## DEBUT PARTIE RECUP INFOS AMIS #########
         foreach ($amisPresents as $amiPresent) {
@@ -70,29 +70,29 @@ class RepasnewrecettesController extends AbstractController
                 if ($regime->getRegime() === 'Sans porc') {
                     $regimeSsPorc += 1;
                 }
-         //       $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
+                //       $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
             }
-       
+
 
             // récupérer leurs allergies groupe pour filtre des recettes
             $allergiesGroupe = $amiPresent->getAllergies();
             foreach ($allergiesGroupe as $allergieGroupe) {
                 $allergiesGroupePresents[] = $allergieGroupe;
-          //      $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à :' . $allergieGroupe);
+                //      $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à :' . $allergieGroupe);
             }
 
             // récupérer leurs allergies aliment pour filtre des recettes
             $allergiesAliment = $amiPresent->getAllergiesAliment();
             foreach ($allergiesAliment as $al) {
                 $allergiesAlimentPresentes[] = $al;
-           //     $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
+                //     $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
             }
 
             //  récupérer leurs dégouts pour filtre des recettes
             $degouts = $amiPresent->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
-          //      $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
+                //      $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
             }
 
 
@@ -216,6 +216,21 @@ class RepasnewrecettesController extends AbstractController
 
             $recettesChoisies = $request->request->all('recetteChoisie');
 
+            if (empty($recettesChoisies)) {
+                $this->addFlash('danger','Merci de choisir au moins une recette');
+                return $this->render('repasnew/indexnewrecettes.html.twig', [
+                    'controller_name' => 'RepasnewrecettesController',
+                    'famillesPresentes' => $famillesPresentes,
+                    'amisId' => $amisPresentsId,
+                    'amisPresents' => $amisPresents,
+                    'allergiesGroupe' => $allergiesGroupe,
+                    'allergiesAliment' => $allergiesAliment,
+                    'degouts' => $degouts,
+                    'recettes' => $recettes,
+                    'recettesOk' => $recettesOk,
+                ]);
+            }
+
             return $this->redirectToRoute('app_repas_new', [
                 'amisId' => $amisPresentsId,
                 'famillesPresentes' => $famillesPresentes,
@@ -233,13 +248,13 @@ class RepasnewrecettesController extends AbstractController
             'famillesPresentes' => $famillesPresentes,
             'amisId' => $amisPresentsId,
             'amisPresents' => $amisPresents,
-          //  'regimes' => $regimes,
+            //  'regimes' => $regimes,
             'allergiesGroupe' => $allergiesGroupe,
             'allergiesAliment' => $allergiesAliment,
             'degouts' => $degouts,
             'recettes' => $recettes,
             'recettesOk' => $recettesOk,
-        //    'recettesChoisies' => $recettesChoisies,
+            //    'recettesChoisies' => $recettesChoisies,
         ]);
     }
 }
