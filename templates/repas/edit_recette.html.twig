@@ -43,14 +43,7 @@
 					<li>
 						<span>{{ami.prenom}}</span>
 						<ul class="allergiesRegimes">
-							{% if ami.regimes is not empty  %}
-								<li>
-									mange
-									{% for regime in ami.regimes %}
-										<span class="regime">{{regime}}</span>
-									{% endfor %}
-								</li>
-							{% endif %}
+
 							{% if ami.allergies is not empty  %}
 								<li>
 									est allergique aux
@@ -64,6 +57,22 @@
 									est allergique à
 									{% for allergieA in ami.allergiesAliment %}
 										<span class="allergie">{{allergieA}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+							{% if ami.regimes is not empty  %}
+								<li>
+									mange
+									{% for regime in ami.regimes %}
+										<span class="regime">{{regime}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+							{% if ami.degout is not empty  %}
+								<li>
+									n'aime pas
+									{% for degout in ami.degout %}
+										<span class="regime">{{degout}}</span>
 									{% endfor %}
 								</li>
 							{% endif %}

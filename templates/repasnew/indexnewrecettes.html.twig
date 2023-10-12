@@ -42,14 +42,7 @@
 					<li>
 						<span>{{ami.prenom}}</span>
 						<ul class="allergiesRegimes">
-							{% if ami.regimes is not empty  %}
-								<li>
-									mange
-									{% for regime in ami.regimes %}
-										<span class="regime">{{regime}}</span>
-									{% endfor %}
-								</li>
-							{% endif %}
+						
 							{% if ami.allergies is not empty  %}
 								<li>
 									est allergique aux
@@ -63,6 +56,22 @@
 									est allergique à
 									{% for allergieA in ami.allergiesAliment %}
 										<span class="allergie">{{allergieA}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+								{% if ami.regimes is not empty  %}
+								<li>
+									mange
+									{% for regime in ami.regimes %}
+										<span class="regime">{{regime}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+									{% if ami.degout is not empty  %}
+								<li>
+									n'aime pas
+									{% for degout in ami.degout %}
+										<span class="regime">{{degout}}</span>
 									{% endfor %}
 								</li>
 							{% endif %}
@@ -89,7 +98,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h3>
-			<div id="aperitif">
+		<div id="aperitif">
 				<div class="cardsRecette">
 
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
@@ -119,43 +128,42 @@
 										</div>
 										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
 											<div class="tpsRecette">
-												<div>
-													{% if recette.tpsPreparation %}
-														<div>
-															<div>Préparation</div>
-															<div>{{ recette.tpsPreparation }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsRepos %}
-														<div>
-															<div>Repos</div>
-															<div>{{ recette.tpsRepos }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsCuisson %}
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
 
-														<div>
-															<div>Cuisson</div>
-															<div>{{ recette.tpsCuisson }}
-																min</div>
-														</div>
-													{% endif %}
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
 
-												</div>
-											</a>
+											</div>
+										</a>
 
-										</div>
-										<div class="checkboxRecette">
-											<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
 									</div>
+									<div class="checkboxRecette">
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"</div>
 								</div>
+							</div>
 
-							{% endif %}
-						{% endfor %}
-					</div>
+						{% endif %}
+					{% endfor %}
 				</div>
+			</div>
 				{# entrées  #}
 				<h3 id="entreeH2" onclick="showHide(entree)">Entrées
 					<span>
