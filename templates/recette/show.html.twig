@@ -27,24 +27,22 @@
 
 {% block body %}
 
-	<section class="recettesShow">
 
-
-		<div class="groupeBtn groupeBtnModifSupp">
-			<div>
-				<a class="btn btnRetour" href="{{path('app_recette_index')}}">
-					<i class="fa-solid fa-arrow-left"></i>
-				</a>
-			</div>
-			<div class="modifSupp">
-				<a class="btn iconeModifier" href="{{ path('app_recette_edit', {'id': recette.id}) }}">
-					<i class="fa-solid fa-pen-to-square"></i>
-				</a>
-
-				{{ include('recette/_delete_form.html.twig') }}
-			</div>
+	<section class="groupeBtn groupeBtnModifSupp">
+		<div>
+			<a class="btn btnRetour" href="{{path('app_recette_index')}}">
+				<i class="fa-solid fa-arrow-left"></i>
+			</a>
 		</div>
+		<div class="modifSupp">
+			<a class="btn iconeModifier" href="{{ path('app_recette_edit', {'id': recette.id}) }}">
+				<i class="fa-solid fa-pen-to-square"></i>
+			</a>
 
+			{{ include('recette/_delete_form.html.twig') }}
+		</div>
+	</section>
+	<section class="recettesShow">
 		<div class="card shadow-1 rounded-3">
 
 			<h1>{{ recette.titre }}</h1>
@@ -124,7 +122,8 @@
 										<p class="texte">
 											{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
 												&nbsp; Famille
-												{{ famille.nom }} &nbsp;
+												{{ famille.nom }}
+												&nbsp;
 											{% endfor %}
 										</p>
 									</div>

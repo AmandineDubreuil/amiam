@@ -24,34 +24,39 @@
 
 {% block body %}
 	<section>
+		<a class="btn btnRetour" href="{{ path('app_home')}}">
+			<i class="fa-solid fa-arrow-left"></i>
+		</a>
 
 		<form method="POST">
-{% if is_granted('ROLE_USER') %}
-<div class="form-field">
-<p>Pseudo : {{app.user.pseudo}}</p>
-<p>E-mail : {{app.user.email}}</p>
-</div>
-{% else %}
-    <div class="form-field">
-				<label for="pseudo">Pseudo * :</label>
-				<input type="text" name="pseudo" id="pseudo" class="form-control rounded-1" required="required">
-			</div>
+			{% if is_granted('ROLE_USER') %}
+				<div class="form-field">
+					<p>Pseudo :
+						{{app.user.pseudo}}</p>
+					<p>E-mail :
+						{{app.user.email}}</p>
+				</div>
+			{% else %}
+				<div class="form-field">
+					<label for="pseudo">Pseudo * :</label>
+					<input type="text" name="pseudo" id="pseudo" class="form-control rounded-1" required="required">
+				</div>
+				<div class="form-field">
+					<label for="pseudo">E-mail * :</label>
+					<input type="email" name="email" id="email" class="form-control rounded-1" required="required">
+				</div>
+
+			{% endif %}
+
+
 			<div class="form-field">
-				<label for="pseudo">E-mail * :</label>
-				<input type="email" name="email" id="email"  class="form-control rounded-1" required="required">
-			</div>
-
-{% endif %} 
-
-			
-			<div  class="form-field">
 				<label for="objet">Objet * :</label>
-				<input type="text" name="objet" id="objet"  class="form-control rounded-1" required="required">
+				<input type="text" name="objet" id="objet" class="form-control rounded-1" required="required">
 			</div>
 			<div class="form-field">
 				<label for="commentaire">Commentaire * :</label>
 
-				<textarea name="commentaire" id="commentaire" cols="30" rows="10"  class="form-control rounded-1" required="required"></textarea>
+				<textarea name="commentaire" id="commentaire" cols="30" rows="10" class="form-control rounded-1" required="required"></textarea>
 			</div>
 			<div class="groupeBtn">
 				<input type="submit" value="Envoyer" name="submit" class="btn btnOk">

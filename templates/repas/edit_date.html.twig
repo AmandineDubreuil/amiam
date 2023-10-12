@@ -25,6 +25,8 @@
 
 {% block body %}
 	<section>
+	<a class="btn btnRetour" href="javascript:history.go(-1)"><i class="fa-solid fa-arrow-left"></i></a>
+
 		<h1>Nouvelle date du repas</h1>
 
 		{{ include('repas/_date_form.html.twig', {'button_label': 'Update'}) }}

@@ -21,6 +21,8 @@
 {% block body %}
 
 	<section class="user">
+	<a class="btn btnRetour" href="{{ path('app_home')}}"><i class="fa-solid fa-arrow-left"></i></a>
+
 		<div class="entete">
 			<a href="{{ path('app_user_edit_avatar', {'id': app.user.id})}}">
 				{% if app.user.avatar %}

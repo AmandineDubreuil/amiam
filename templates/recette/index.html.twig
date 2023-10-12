@@ -25,6 +25,9 @@
 {% block body %}
 
 	<section class="recettesIndex">
+		<a class="btn btnRetour" href="{{ path('app_home')}}">
+			<i class="fa-solid fa-arrow-left"></i>
+		</a>
 
 		<h1>Mes recettes ({{app.user.recettes|length}})</h1>
 
