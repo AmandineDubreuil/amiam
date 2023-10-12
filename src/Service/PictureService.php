@@ -88,9 +88,9 @@ class PictureService
         }
 
         // on stock l'image recadrée
-
-        //echap des images webp
-        if (exif_imagetype($picture) === 18) {
+//dd(exif_imagetype($picture));
+        //echap des images webp et png
+        if (exif_imagetype($picture) === 18 || exif_imagetype($picture) === 3) {
             imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
         } else {
             //définition orientation et rotate des images
