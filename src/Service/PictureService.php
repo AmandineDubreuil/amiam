@@ -88,9 +88,12 @@ class PictureService
         }
 
         // on stock l'image recadrée
+
+        //echap des images webp
         if (exif_imagetype($picture) === 18) {
             imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
         } else {
+            //définition orientation et rotate des images
             if (isset(exif_read_data($picture)['Orientation'])) {
                 if (exif_read_data($picture)['Orientation'] === 8) {
 
@@ -108,6 +111,7 @@ class PictureService
                     imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
                 }
             } else {
+                // echap des images n'ayant pas d'orientation
                 imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
             }
         }
