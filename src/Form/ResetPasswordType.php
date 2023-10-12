@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class ResetPasswordType extends AbstractType
 {
@@ -24,6 +25,8 @@ class ResetPasswordType extends AbstractType
                 new NotBlank([
                     'message' => 'Merci d\'entrer un mot de passe.',
                 ]),
+                new Regex(
+                    '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/'),
                 new Length([
                     'min' => 8,
                     'minMessage' => 'Ton mot de passe doit contenir au moins {{ limit }} caractères',
