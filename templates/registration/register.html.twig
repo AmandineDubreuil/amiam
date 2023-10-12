@@ -27,7 +27,9 @@
 
 
 	<section class="register">
-	<a class="btn btnRetour" href="{{ path('app_login')}}"><i class="fa-solid fa-arrow-left"></i></a>
+		<a class="btn btnRetour" href="{{ path('app_login')}}">
+			<i class="fa-solid fa-arrow-left"></i>
+		</a>
 
 		<h1>Inscription</h1>
 
@@ -54,13 +56,19 @@
                    }) }}
 		</div>
 
-		{{ form_row(registrationForm.agreeTerms) }}
-<p class="gris">* Champs requis</p>
+		<div class="accepteCGU">
+			{% set termsOfUseFormGroup %}
+			{{ form_row(registrationForm.agreeTerms) }}
+			{% endset %}
+			{{ termsOfUseFormGroup|replace({'#DOCUMENTATION#':'<a class="has-text-underline" href="'~absolute_url(path('app_cgu'))~'" target="blank">C.G.U. du site amiam.fr</a>'})|raw }}
+		</div>
+		{# {{ form_row(registrationForm.agreeTerms) }} #}
+		<p class="gris">* Champs requis</p>
 		<div class="groupeBtn">
 			<button type="submit" class="btn btnOk">Inscription</button>
 		</div>
 		{{ form_end(registrationForm) }}
 
-		</section>
+	</section>
 
 {% endblock %}
