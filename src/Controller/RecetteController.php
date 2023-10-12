@@ -147,7 +147,7 @@ class RecetteController extends AbstractController
         Request $request,
         Recette $recette,
         RecetteIngredientRepository $recetteIngredientRepository,
-        RepasRepository $repasRepository,
+        PictureService $pictureService,
         EntityManagerInterface $entityManager,
     ): Response {
 
@@ -160,11 +160,22 @@ class RecetteController extends AbstractController
         $repas = $recette->getRepas();
 
 
+
         if ($this->isCsrfTokenValid('delete' . $recette->getId(), $request->request->get('_token'))) {
 
+            //suppression de l'image associée à la recette
+            $oldImage = $recette->getPhoto();
+            if ($oldImage) {
+                $folder = 'photosRecettes';
+                $pictureService->delete($oldImage, $folder);
+            }
+
+            //suppression des ingrédients associés à la recette
             foreach ($recetteIngredients as $recetteIngredient) {
                 $entityManager->remove($recetteIngredient);
             }
+
+            // suppression de la recette dans les repas associés
             foreach ($repas as $repa) {
 
                 $repaRecettes = $repa->getRecettes();
@@ -173,7 +184,6 @@ class RecetteController extends AbstractController
                         $entityManager->remove($recette);
                     }
                 }
-
             }
 
             $entityManager->remove($recette);

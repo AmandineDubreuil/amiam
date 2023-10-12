@@ -138,7 +138,12 @@ class AmiController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_ami_delete', methods: ['POST'])]
-    public function delete(Request $request, Ami $ami, EntityManagerInterface $entityManager): Response
+    public function delete(
+        Request $request, 
+        Ami $ami, 
+        PictureService $pictureService,
+        EntityManagerInterface $entityManager
+        ): Response
     {
         if ($ami->getFamille()->getUser() != $this->getUser()) {
             return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
@@ -147,6 +152,15 @@ class AmiController extends AbstractController
         $familleId = $ami->getFamille();
 
         if ($this->isCsrfTokenValid('delete' . $ami->getId(), $request->request->get('_token'))) {
+
+      //suppression de l'image associée à la recette
+      $oldImage = $ami->getAvatar();
+      if ($oldImage) {
+          $folder = 'photosAmis';
+          $pictureService->delete($oldImage, $folder);
+      }
+
+
             $entityManager->remove($ami);
             $entityManager->flush();
         }

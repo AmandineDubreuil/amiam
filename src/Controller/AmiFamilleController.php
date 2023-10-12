@@ -138,6 +138,7 @@ class AmiFamilleController extends AbstractController
         Request $request,
         AmiFamille $amiFamille,
         AmiRepository $amiRepository,
+        PictureService $pictureService,
         EntityManagerInterface $entityManager,
     ): Response {
 
@@ -150,9 +151,19 @@ class AmiFamilleController extends AbstractController
         $repas = $amiFamille->getRepas();
         if ($this->isCsrfTokenValid('delete' . $amiFamille->getId(), $request->request->get('_token'))) {
 
+         //suppression de l'image associée à la recette
+         $oldImage = $amiFamille->getAvatar();
+         if ($oldImage) {
+             $folder = 'photosAmisFamille';
+             $pictureService->delete($oldImage, $folder);
+         }
+
+            // suppression des amis associés
             foreach ($amis as $ami) {
                 $entityManager->remove($ami);
             }
+
+            // suppression de la famille dans les repas associés
             foreach ($repas as $repa) {
                 $entityManager->remove($repa);
             }

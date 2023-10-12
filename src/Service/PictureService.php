@@ -130,12 +130,12 @@ class PictureService
     }
 
     public function delete(
-        string $fichier,
+       ?string $fichier = '',
         ?string $folder = '',
 
     ) {
 
-        if ($fichier !== 'default.webp') {
+        if ($fichier) {
             $success = false;
             $path = $this->params->get('images_directory') . $folder;
 
