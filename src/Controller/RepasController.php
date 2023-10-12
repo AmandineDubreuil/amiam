@@ -220,7 +220,8 @@ class RepasController extends AbstractController
         $recettePorc = 0;
         $recetteAEviter = 0;
         $recettesOk = [];
-
+        $alimentArray = [];
+        $allergeneArray = [];
         foreach ($amis as $ami) {
 
 
@@ -456,6 +457,18 @@ class RepasController extends AbstractController
 
             // Récupérez les amis sélectionnés
             $amisPresentsId = $request->request->all('amisPourRecettes');
+
+            //echap si pas d'amis sélectionné
+            if (empty($amisPresentsId)) {
+                $this->addFlash('danger', 'Merci de choisir au moins un ami');
+                return $this->render('repas/edit_amis.html.twig', [
+                    'repa' => $repa,
+                    'familles' => $familles,
+                    'oldFamillesPresentes' => $oldFamillesPresentes,
+                    'oldAmisPresents' => $oldAmisPresents
+
+                ]);
+            }
 
             // Parcourir les amis sélectionnés 
             $amisPresents = $amiRepository->findBy(['id' => $amisPresentsId]);
