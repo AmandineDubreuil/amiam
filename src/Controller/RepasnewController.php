@@ -58,13 +58,25 @@ class RepasnewController extends AbstractController
         if ($request->isMethod('POST') && $request->request->has('submit')) {
             ########## DATE DU REPAS #########
             $dateRepas = $request->request->get('dateRepas');
-
+            //echap si pas de date sélectionnés 
+            if (empty($dateRepas)) {
+                $this->addFlash('danger', 'Merci de choisir une date pour le repas');
+                return $this->render('repasnew/index.html.twig', [
+                    'controller_name' => 'RepasnewController',
+                    'familles' => $familles,
+                    'famillesPresentes' => $famillesPresentes,
+                    'amis' => $amis,
+                    'amisId' => $amisPresentsId,
+                    'amisPresents' => $amisPresents,
+                ]);
+            }
             ########## DEBUT PARTIE AMIS #########
 
             // Récupérez les amis sélectionnés
             $amisPresentsId = $request->request->all('amisPourRecettes');
 
-            //echap si pas d'amis sélectionné
+
+            //echap si pas d'amis sélectionné 
             if (empty($amisPresentsId)) {
                 $this->addFlash('danger', 'Merci de choisir au moins un ami');
                 return $this->render('repasnew/index.html.twig', [
@@ -76,7 +88,6 @@ class RepasnewController extends AbstractController
                     'amisPresents' => $amisPresents,
                 ]);
             }
-
             //récupérer les amis dans un tableau        
             foreach ($amisPresentsId as $amiPresentId) {
                 $amiPresent = $amiRepository->find($amiPresentId);
