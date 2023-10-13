@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\RepasDateType;
 use App\Repository\AmiRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\AllergeneRepository;
@@ -10,9 +11,9 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class RepasnewController extends AbstractController
@@ -55,6 +56,8 @@ class RepasnewController extends AbstractController
         $recettesChoisies = [];
 
         if ($request->isMethod('POST') && $request->request->has('submit')) {
+            ########## DATE DU REPAS #########
+            $dateRepas = $request->request->get('dateRepas');
 
             ########## DEBUT PARTIE AMIS #########
 
@@ -87,6 +90,7 @@ class RepasnewController extends AbstractController
             return $this->redirectToRoute('app_repasnewrecette', [
                 'amisPresentsId' => $amisPresentsId,
                 'famillesPresentes' => $famillesPresentes,
+                'dateRepas' => $dateRepas,
             ], Response::HTTP_SEE_OTHER);
 
             ############  fin du submit en dessous

@@ -14,13 +14,13 @@ class RepasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date', DateType::class, array(
-                'widget' => 'single_text', 
-                'format' => 'yyyy-MM-dd', 
-                'attr' => [
-                    'class' => 'form-control rounded-1',
-                ],
-            ))
+            // ->add('date', DateType::class, array(
+            //     'widget' => 'single_text', 
+            //     'format' => 'yyyy-MM-dd', 
+            //     'attr' => [
+            //         'class' => 'form-control rounded-1',
+            //     ],
+            // ))
             ->add('commentaire', TextType::class, [
                 'required' => false,
                 'attr' => [

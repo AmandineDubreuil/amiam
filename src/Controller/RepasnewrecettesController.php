@@ -43,6 +43,7 @@ class RepasnewrecettesController extends AbstractController
             $amiPresent = $amiRepository->find($amiPresentId);
             $amisPresents[] = $amiPresent;
         }
+        $dateRepas = $_GET['dateRepas'];
         $regimes = "";
         $allergiesGroupe = "";
         $allergiesAliment = "";
@@ -217,7 +218,7 @@ class RepasnewrecettesController extends AbstractController
             $recettesChoisies = $request->request->all('recetteChoisie');
 
             if (empty($recettesChoisies)) {
-                $this->addFlash('danger','Merci de choisir au moins une recette');
+                $this->addFlash('danger', 'Merci de choisir au moins une recette');
                 return $this->render('repasnew/indexnewrecettes.html.twig', [
                     'controller_name' => 'RepasnewrecettesController',
                     'famillesPresentes' => $famillesPresentes,
@@ -228,6 +229,8 @@ class RepasnewrecettesController extends AbstractController
                     'degouts' => $degouts,
                     'recettes' => $recettes,
                     'recettesOk' => $recettesOk,
+                    'dateRepas' => $dateRepas,
+
                 ]);
             }
 
@@ -235,6 +238,8 @@ class RepasnewrecettesController extends AbstractController
                 'amisId' => $amisPresentsId,
                 'famillesPresentes' => $famillesPresentes,
                 'recettesChoisies' => $recettesChoisies,
+                'dateRepas' => $dateRepas,
+
             ], Response::HTTP_SEE_OTHER);
 
 
@@ -254,6 +259,8 @@ class RepasnewrecettesController extends AbstractController
             'degouts' => $degouts,
             'recettes' => $recettes,
             'recettesOk' => $recettesOk,
+            'dateRepas' => $dateRepas,
+
             //    'recettesChoisies' => $recettesChoisies,
         ]);
     }

@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Ami;
-use App\Entity\Recette;
 use App\Entity\Repas;
+use App\Entity\Recette;
 use App\Form\RepasType;
 use App\Form\RepasDateType;
 use App\Form\RepasCommentType;
@@ -18,8 +19,8 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/repas')]
 #[IsGranted('ROLE_USER')]
@@ -63,6 +64,8 @@ class RepasController extends AbstractController
             $recette = $recetteRepository->find($recetteId);
             $recettes[] = $recette;
         }
+        $dateRepasString = $_GET['dateRepas'];
+        $dateRepas = DateTime::createFromFormat('Y-m-d', $dateRepasString);
 
         $repa = new Repas();
         $form = $this->createForm(RepasType::class, $repa);
@@ -71,6 +74,7 @@ class RepasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $repa->setUser($user);
+            $repa->setDate($dateRepas);
             foreach ($recettes as $recetteR) {
 
                 $repa->addRecette($recetteR);
@@ -95,6 +99,7 @@ class RepasController extends AbstractController
             'familles' => $famillesId,
             'recettes' => $recettes,
             'amis' => $amis,
+            'dateRepas' => $dateRepasString,
         ]);
     }
 
