@@ -27,7 +27,7 @@ class RepasRecetteController extends AbstractController
 
         $repasId = $_GET['repas'];
         $repa = $repasRepository->find($repasId);
-        $nbCouverts = 1;
+        $nbCouverts = $_GET['nbCouverts'];
 
         return $this->render('repas_recette/index.html.twig', [
             'controller_name' => 'RepasRecetteController',

@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
 	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
 	<link rel="stylesheet" href="{{asset('./assets/css/recette/recetteShowStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/repas/repasRecetteStyle.css')}}">
 {% endblock %}
 {% block body %}
 
@@ -62,29 +63,67 @@
 
 			<div>
 				<h2>Ingrédients</h2>
-				<p class="nbPersonnes">pour
-					{{ nbCouverts }}
+				<div class="df">
+					<div id="tableauMultichoix">
+						<ul class="enteteTableauMultichoix">
+							<li id="ajuste" class="selected">
+								<a href="#tabs-1">pour
+									{{ nbCouverts }}
 
-					amis
-					<i id="questionI" class="fa-regular fa-circle-question" onclick="showHide(question)"></i>
-				</p>
-				<div id="question" class="dnone">
-					<p class="gris">mis à jour en fonction du nombre d'amis présents et de la composition de ta famille.</p>
-					<p class="gris">1 adulte ou 1 adolescent = 1 part</p>
-					<p class="gris">1 enfant = 0.5 part</p>
-					<p class="gris">1 bébé = 0 part</p>
+									amis
+
+								</a>
+								<i id="questionI" class="fa-regular fa-circle-question" onclick="showHide(question)"></i>
+							</li>
+							<li id="recette" class="">
+								<a href="#tabs-2">pour
+									{{ recette.nbPersonnes }}
+
+									personnes <span  class="asterix">selon la recette</span></a>
+							</li>
+						</ul>
+
+						<div class="bodyTableauMultichoix">
+
+							<ul>
+								<li>Ingrédient</li>
+								<li>Quantité</li>
+
+							</ul>
+
+							<div id="tabs-1">
+
+								{% for ingredient in ingredients %}
+									<div class="ingredients">
+										<p>{{ ingredient.aliment }}</p>
+										<p>{{ ((ingredient.quantite / recette.nbPersonnes) * nbCouverts )  | round(2, 'floor') }}
+											{{ ingredient.mesure }}</p>
+									</div>
+								{% endfor %}
+							</div>
+							<div id="tabs-2">
+								{% for ingredient in ingredients %}
+									<div class="ingredients">
+										<p>{{ ingredient.aliment }}</p>
+										<p>{{ ((ingredient.quantite)  | round(2, 'floor')) }}
+											{{ ingredient.mesure }}</p>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+
+					</div>
+
+					<div id="question" class="dnone">
+						<p class="gris">mis à jour en fonction du nombre d'amis présents et de la composition de ta famille.</p>
+						<p class="gris">1 adulte ou 1 adolescent = 1 part</p>
+						<p class="gris">1 enfant = 0.5 part</p>
+						<p class="gris">1 bébé = 0 part</p>
+					</div>
+
 				</div>
-				<table>
-					<tbody>
-						{% for ingredient in ingredients %}
-							<tr class="ingredients">
-								<td>{{ ingredient.aliment }}</td>
-								<td>{{ ((ingredient.quantite / recette.nbPersonnes) * nbCouverts )  | round(2, 'floor') }}
-									{{ ingredient.mesure }}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+				{# fin #}
+
 			</div>
 
 			<div>
@@ -97,6 +136,7 @@
 	</section>
 
 {% endblock %}
-	{% block javascripts %}
-		<script src="{{asset('./assets/js/showHide.js')}}"></script>
-	{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('./assets/js/showHide.js')}}"></script>
+	<script src="{{asset('./assets/js/tableauMultiChoix.js')}}"></script>
+{% endblock %}

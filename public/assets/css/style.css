@@ -67,6 +67,10 @@ section {
 .gras {
   font-weight: bold;
 }
+.df {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 /* Messages flash */
 

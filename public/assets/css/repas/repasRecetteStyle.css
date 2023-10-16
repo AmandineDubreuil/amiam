@@ -1,0 +1,86 @@
+
+/* tableaux multichoix ingredients*/
+.df {
+    flex-wrap: wrap-reverse;
+}
+
+#question {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: .5rem;
+    max-width: 30rem;
+    min-width: 15rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+  }
+  #question p {
+    padding: .2rem;
+    line-height: normal;
+    margin: 0;
+  }
+
+  #recette .asterix {
+    display: block;
+    font-size: .7rem;
+    color: gray;
+  }
+
+#tableauMultiChoix {
+  max-width: 30rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.enteteTableauMultichoix {
+  width: 18rem;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.enteteTableauMultichoix li {
+  border: 1px grey solid;
+  border-radius: 10px 10px 0 0;
+  padding: 1rem;
+  width: 9rem;
+  text-align: center;
+}
+.enteteTableauMultichoix li:hover {
+  cursor: pointer;
+  font-weight: bold;
+  background-color: var(--color-light);
+}
+.enteteTableauMultichoix .selected {
+  background-color: var(--color-three);
+}
+.bodyTableauMultichoix {
+  width: 18rem;
+  border: 1px grey solid;
+  border-radius: 0 0 10px 10px;
+  border-top: none;
+}
+.bodyTableauMultichoix ul {
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  padding: 1rem;
+}
+.bodyTableauMultichoix li {
+    width: 9rem;
+}
+.bodyTableauMultichoix .ingredients {
+  display: flex;
+  justify-content: flex-start;
+}
+.bodyTableauMultichoix .ingredients p {
+  padding: 0.2rem 1rem 0 ;
+  margin: 0;
+  line-height: normal;
+  width: 9rem;
+}
+#tabs-1, #tabs-2 {
+padding-bottom: 1rem;
+
+}
+#tabs-2 {
+  display: none;
+}

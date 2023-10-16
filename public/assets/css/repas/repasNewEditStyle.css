@@ -60,7 +60,24 @@ h1 {
     font-size: 1rem;
     color: grey;
 }
-
+.recettesIndex .cards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.recettesIndex .cards .categorieRecettes {
+    margin-right: 1rem;
+    min-width: 10rem;
+ 
+}
+.recettesIndex .cards .categorieRecettes .cardRecette{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.recettesIndex .cards .categorieRecettes .card {
+    height: 17rem;
+}
 .recettesIndex .cardRecette .checkboxRecette{
     align-self: center;
     padding-bottom: 1rem;

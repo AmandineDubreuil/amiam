@@ -42,46 +42,21 @@
 
 
 /* recette */
-.recette {
-  position: relative;
-}
-.recette h3 span {
-  font-size: 1rem;
-  color: grey;
-}
-.recette .cardRecette {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;    
-}
 
-.recette .imgRecette img {
-  width: 100%;
-}
-
-.recette .imgRecette {
-  width: 25%;
-}
-
-.recette .slugRecette {
-  padding: 1rem;
-  width: 70%;
-}
-.recette .checkboxRecette{
-  padding: 1rem;
-}
-
-
-.recette .tpsRecette {
+.recettesIndex .cards{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 20rem;
-  padding-bottom: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.recettesIndex .cards .categorieRecettes {
+  margin-right: 1rem;
+  min-width: 10rem;
+
 }
 
-.recette .tpsRecette div {
+.recettesIndex .cards .categorieRecettes .cardRecette{
   display: flex;
-  flex-direction: column;
-
+  flex-wrap: nowrap;
 }
+

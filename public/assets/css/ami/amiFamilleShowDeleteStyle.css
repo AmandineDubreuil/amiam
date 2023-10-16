@@ -6,34 +6,32 @@
 }
 
 .amiFamilleShowDelete .familleAvatar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-
-  }
-  
-  /* Amis */
-  .amiFamilleShowDelete .amis .cards {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
 }
 
-.amiFamilleShowDelete .amis .card {
+/* Amis */
+.amis .cards {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.amis .card {
   width: fit-content;
-  min-width: 100px  ;
-  margin: 1rem .5rem;
+  min-width: 100px;
+  margin: 1rem 0.5rem;
 }
-.amiFamilleShowDelete .amis .card-header{
+.amis .card-header {
   display: flex;
   justify-content: center;
   padding-bottom: 0;
-
 }
 
-.amiFamilleShowDelete .amis .card-content{
+.amis .card-content {
   padding-top: 0;
   display: flex;
   justify-content: center;
