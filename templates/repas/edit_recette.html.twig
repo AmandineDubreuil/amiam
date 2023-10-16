@@ -93,7 +93,7 @@
 		</h2>
 		<form
 			method="POST">
-			{# Apéritif #}
+			{# apéritif #}
 			<h3 id="aperitifH2" onclick="showHide(aperitif)">Apéritif
 				<span>
 					<i class="fa-solid fa-sort-down"></i>
@@ -157,10 +157,10 @@
 
 									</div>
 									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}">
+									</div>
 								</div>
 							</div>
-
 						{% endif %}
 					{% endfor %}
 				</div>
@@ -224,13 +224,12 @@
 															min</div>
 													</div>
 												{% endif %}
-
 											</div>
 										</a>
 
 									</div>
 									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
 								</div>
 							</div>
 
@@ -297,12 +296,160 @@
 															min</div>
 													</div>
 												{% endif %}
+
 											</div>
 										</a>
 
 									</div>
 									<div class="checkboxRecette">
-										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
+								</div>
+							</div>
+
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			{# Accompagnements  #}
+			<h3 id="accompagnementH2" onclick="showHide(accompagnement)">Accompagnements
+				<span>
+					<i class="fa-solid fa-sort-down"></i>
+				</span>
+			</h3>
+
+			<div id="accompagnement">
+				<div class="cardsRecette">
+					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
+
+						{% if recette.categorie.categorie is same as 'Accompagnement' %}
+
+
+							<div class="card shadow-1 hoverable-1 rounded-3 ">
+								<div class="cardRecette aChoisir">
+
+									{% if recette.photo %}
+										<div class="imgRecette">
+											<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
+										</div>
+									{% else  %}
+										<div class="imgRecette">
+											<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
+										</div>
+									{% endif  %}
+
+
+									<div class="slugRecette">
+
+										<div>
+											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+											</a>
+										</div>
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											<div class="tpsRecette">
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
+
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
+
+											</div>
+										</a>
+
+									</div>
+									<div class="checkboxRecette">
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
+								</div>
+							</div>
+
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			{# Sauce  #}
+			<h3 id="sauceH2" onclick="showHide(sauce)">Sauces
+				<span>
+					<i class="fa-solid fa-sort-down"></i>
+				</span>
+			</h3>
+
+			<div id="sauce">
+				<div class="cardsRecette">
+					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
+
+						{% if recette.categorie.categorie is same as 'Sauce' %}
+
+
+							<div class="card shadow-1 hoverable-1 rounded-3 ">
+								<div class="cardRecette aChoisir">
+
+									{% if recette.photo %}
+										<div class="imgRecette">
+											<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
+										</div>
+									{% else  %}
+										<div class="imgRecette">
+											<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
+										</div>
+									{% endif  %}
+
+
+									<div class="slugRecette">
+
+										<div>
+											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+											</a>
+										</div>
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											<div class="tpsRecette">
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
+
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
+
+											</div>
+										</a>
+
+									</div>
+									<div class="checkboxRecette">
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
 								</div>
 							</div>
 
@@ -347,55 +494,132 @@
 										</div>
 										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
 											<div class="tpsRecette">
-												<div>
-													{% if recette.tpsPreparation %}
-														<div>
-															<div>Préparation</div>
-															<div>{{ recette.tpsPreparation }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsRepos %}
-														<div>
-															<div>Repos</div>
-															<div>{{ recette.tpsRepos }}
-																min</div>
-														</div>
-													{% endif %}
-													{% if recette.tpsCuisson %}
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
 
-														<div>
-															<div>Cuisson</div>
-															<div>{{ recette.tpsCuisson }}
-																min</div>
-														</div>
-													{% endif %}
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
 
-												</div>
-											</a>
+											</div>
+										</a>
 
-										</div>
-										<div class="checkboxRecette">
-											<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}" {% if recette in recettesOld %} checked {% endif %}></div>
 									</div>
+									<div class="checkboxRecette">
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
 								</div>
+							</div>
 
-							{% endif %}
-						{% endfor %}
-					</div>
+						{% endif %}
+					{% endfor %}
 				</div>
-				<div class="groupeBtn">
-					<input type="submit" value="Recettes choisies" name="submit" class="btn btnOk submitChoisi">
+			</div>
+
+
+			{# Petit-Déjeuner & Goûter  #}
+			<h3 id="petitDejH2" onclick="showHide(petitDej)">Petit-Déjeuner & Goûter
+				<span>
+					<i class="fa-solid fa-sort-down"></i>
+				</span>
+			</h3>
+
+			<div id="petitDej">
+				<div class="cardsRecette">
+					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
+
+						{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' %}
+
+
+							<div class="card shadow-1 hoverable-1 rounded-3 ">
+								<div class="cardRecette aChoisir">
+
+									{% if recette.photo %}
+										<div class="imgRecette">
+											<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></a>
+										</div>
+									{% else  %}
+										<div class="imgRecette">
+											<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></a>
+										</div>
+									{% endif  %}
+
+
+									<div class="slugRecette">
+
+										<div>
+											<a href="{{ path('app_recette_show', {'id': recette.id}) }}">
+												<h3 class="titreRecette">{{ recette.titre }}</h3>
+											</a>
+										</div>
+										<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
+											<div class="tpsRecette">
+												{% if recette.tpsPreparation %}
+													<div>
+														<div>Préparation</div>
+														<div>{{ recette.tpsPreparation }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsRepos %}
+													<div>
+														<div>Repos</div>
+														<div>{{ recette.tpsRepos }}
+															min</div>
+													</div>
+												{% endif %}
+												{% if recette.tpsCuisson %}
+
+													<div>
+														<div>Cuisson</div>
+														<div>{{ recette.tpsCuisson }}
+															min</div>
+													</div>
+												{% endif %}
+
+											</div>
+										</a>
+
+									</div>
+									<div class="checkboxRecette">
+										<input type="checkbox" id="{{ recette.id }}" name="recetteChoisie[]" value="{{ recette.id }}"></div>
+								</div>
+							</div>
+
+						{% endif %}
+					{% endfor %}
 				</div>
-				{# fin formulaire #}
+			</div>
 
-			</form>
+			{# boutons #}
+			<div class="groupeBtn">
+				<input type="submit" value="Recettes choisies" name="submit" class="btn btnOk submitChoisi">
+			</div>
+			{# fin formulaire #}
 
-		</section>
+		</form>
 
-	{% endblock %}
-	{% block javascripts %}
-		<script src="{{asset('assets/js/repasNew.js')}}"></script>
-		<script src="{{asset('assets/js/showHide.js')}}"></script>
 
-	{% endblock %}
+	</section>
+
+{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('assets/js/repasNew.js')}}"></script>
+	<script src="{{asset('assets/js/showHide.js')}}"></script>
+
+{% endblock %}

@@ -9,6 +9,13 @@ const entree = document.querySelector("#entree");
 const platH2 = document.querySelector("#platH2");
 const plat = document.querySelector("#plat");
 
+const accompagnementH2 = document.querySelector("#accompagnementH2");
+const accompagnement = document.querySelector("#accompagnement");
+
+const sauceH2 = document.querySelector("#sauceH2");
+const sauce = document.querySelector("#sauce");
+
+
 const dessertH2 = document.querySelector("#dessertH2");
 const dessert = document.querySelector("#dessert");
 //
