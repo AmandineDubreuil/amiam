@@ -56,7 +56,9 @@
 
 		<div class="amis">
 			<div class="df">
-				<h3>Amis présents</h3>
+				<h2>
+					<i class="fa-solid fa-people-group"></i>
+					Amis présents</h2>
 				<a class="btn iconeModifier" href="{{path('app_repas_edit_amis', {'id': repa.id})}}">
 					<i class="fa-solid fa-pen-to-square"></i>
 				</a>
@@ -140,14 +142,12 @@
 						{% set nbCouverts = nbCouverts  %}
 					{% endif %}
 				{% endfor %}
-				<pre>
-	{{ dump(nbCouverts) }}
-</pre>
+
 			</div>
 		</div>
 		<div class="comment">
 			<div class="df">
-				<h3>Commentaire</h3>
+				<h2>Commentaire</h2>
 				<a class="btn iconeModifier" href="{{path('app_repas_edit_comment', {'id': repa.id})}}">
 					<i class="fa-solid fa-pen-to-square"></i>
 				</a>
@@ -156,219 +156,406 @@
 		</div>
 		<div class="recettesIndex">
 			<div class="df">
-				<h3>Recette(s) cuisinée(s)</h3>
+				<h2>
+					<i class="fa-solid fa-book"></i>
+					Recette(s) cuisinée(s)</h2>
 				<a class="btn iconeModifier" href="{{path('app_repas_edit_recette', {'id': repa.id})}}">
 					<i class="fa-solid fa-pen-to-square"></i>
 				</a>
 			</div>
-			<div class="cards">
-				<div
-					class="categorieRecettes">
-					{# Apéritif  #}
-					<h2 id="aperitifH2">Apéritif
-					</h2>
-					<div id="aperitif" class="cardsRecette">
-						{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
-							{% if recette.categorie.categorie is same as 'Apéritif' %}
-								<div class="card shadow-1 hoverable-1 rounded-3 ">
-									<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
-										{% if recette.photo %}
-											<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-										{% else  %}
-											<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-										{% endif  %}
+			<div
+				class="cards">
+				{# Apéritif  #}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Apéritif' %}
 
-										<div class="slugRecette">
-											<h3 class="titreRecette">{{ recette.titre }}</h3>
-											<div class="tpsRecette">
-												{% if recette.tpsPreparation %}
-													<div>
-														<div>Préparation</div>
-														<div>{{ recette.tpsPreparation }}
-															min</div>
-													</div>
-												{% endif %}
-												{% if recette.tpsRepos %}
-													<div>
-														<div>Repos</div>
-														<div>{{ recette.tpsRepos }}
-															min</div>
-													</div>
-												{% endif %}
-												{% if recette.tpsCuisson %}
+						<div class="categorieRecettes">
 
-													<div>
-														<div>Cuisson</div>
-														<div>{{ recette.tpsCuisson }}
-															min</div>
-													</div>
-												{% endif %}
+							<h3 id="aperitifH2">Apéritif
+							</h3>
+							<div id="aperitif" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Apéritif' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
 
-											</div>
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
+													</div>
+												</div>
+											</a>
 										</div>
-									</a>
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<div
-					class="categorieRecettes">
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
 
-					{# Entrée #}
-					<h2 id="entreeH2">Entrée
-					</h2>
-					<div id="entree" class="cardsRecette">
-						{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
-							{% if recette.categorie.categorie is same as 'Entrée' %}
-								<div class="card shadow-1 hoverable-1 rounded-3 ">
-									<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
-										{% if recette.photo %}
-											<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-										{% else  %}
-											<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-										{% endif  %}
+				{# Entrée #}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Entrée' %}
 
-										<div class="slugRecette">
-											<h3 class="titreRecette">{{ recette.titre }}</h3>
+						<div class="categorieRecettes">
 
 
-											<div class="tpsRecette">
-												{% if recette.tpsPreparation %}
-													<div>
-														<div>Préparation</div>
-														<div>{{ recette.tpsPreparation }}
-															min</div>
+							<h3 id="entreeH2">Entrée
+							</h3>
+							<div id="entree" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Entrée' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
+
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
 													</div>
-												{% endif %}
-												{% if recette.tpsRepos %}
-													<div>
-														<div>Repos</div>
-														<div>{{ recette.tpsRepos }}
-															min</div>
-													</div>
-												{% endif %}
-												{% if recette.tpsCuisson %}
-
-													<div>
-														<div>Cuisson</div>
-														<div>{{ recette.tpsCuisson }}
-															min</div>
-													</div>
-												{% endif %}
-
-											</div>
+												</div>
+											</a>
 										</div>
-									</a>
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<div
-					class="categorieRecettes">
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
 
-					{# Plat #}
-					<h2 id="platH2">Plat principal
+				{# Plat #}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Plat principal' %}
 
-					</h2>
-					<div id="plat" class="cardsRecette">
-						{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
-							{% if recette.categorie.categorie is same as 'Plat principal' %}
-								<div class="card shadow-1 hoverable-1 rounded-3 ">
-									<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
-										{% if recette.photo %}
-											<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-										{% else  %}
-											<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-										{% endif  %}
+						<div class="categorieRecettes">
 
-										<div class="slugRecette">
-											<h3 class="titreRecette">{{ recette.titre }}</h3>
+							<h3 id="platH2">Plat principal
+							</h3>
+							<div id="plat" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Plat principal' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
 
-											<div class="tpsRecette">
-												{% if recette.tpsPreparation %}
-													<div>
-														<div>Préparation</div>
-														<div>{{ recette.tpsPreparation }}
-															min</div>
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
 													</div>
-												{% endif %}
-												{% if recette.tpsRepos %}
-													<div>
-														<div>Repos</div>
-														<div>{{ recette.tpsRepos }}
-															min</div>
-													</div>
-												{% endif %}
-												{% if recette.tpsCuisson %}
-
-													<div>
-														<div>Cuisson</div>
-														<div>{{ recette.tpsCuisson }}
-															min</div>
-													</div>
-												{% endif %}
-
-											</div>
+												</div>
+											</a>
 										</div>
-									</a>
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-				<div
-					class="categorieRecettes">
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
 
-					{# Dessert #}
-					<h2 id="dessertH2">Dessert
-					</h2>
-					<div id="dessert" class="cardsRecette">
-						{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
-							{% if recette.categorie.categorie is same as 'Dessert' %}
-								<div class="card shadow-1 hoverable-1 rounded-3 ">
-									<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
-										{% if recette.photo %}
-											<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
-										{% else  %}
-											<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
-										{% endif  %}
+				{# Accompagnement #}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Accompagnement' %}
 
-										<div class="slugRecette">
-											<h3 class="titreRecette">{{ recette.titre }}</h3>
-											<div class="tpsRecette">
-												{% if recette.tpsPreparation %}
-													<div>
-														<div>Préparation</div>
-														<div>{{ recette.tpsPreparation }}
-															min</div>
+						<div class="categorieRecettes">
+							<h3 id="accompagnementH2">Dessert
+							</h3>
+							<div id="accompagnement" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Accompagnement' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
+
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
 													</div>
-												{% endif %}
-												{% if recette.tpsRepos %}
-													<div>
-														<div>Repos</div>
-														<div>{{ recette.tpsRepos }}
-															min</div>
-													</div>
-												{% endif %}
-												{% if recette.tpsCuisson %}
-
-													<div>
-														<div>Cuisson</div>
-														<div>{{ recette.tpsCuisson }}
-															min</div>
-													</div>
-												{% endif %}
-
-											</div>
+												</div>
+											</a>
 										</div>
-									</a>
-								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+
+				{# Sauce #}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Sauce' %}
+
+						<div class="categorieRecettes">
+							<h3 id="sauceH2">Sauce
+							</h3>
+							<div id="sauce" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Sauce' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
+
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
+													</div>
+												</div>
+											</a>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+
+				{# Dessert #}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Dessert' %}
+
+						<div class="categorieRecettes">
+							<h3 id="dessertH2">Dessert
+							</h3>
+							<div id="dessert" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Dessert' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
+
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
+													</div>
+												</div>
+											</a>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+
+				{# Petit dej & gouter#}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+					{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' %}
+
+						<div class="categorieRecettes">
+							<h3 id="petitDejH2">Petit-Déjeuner & Goûter
+							</h3>
+							<div id="petitDej" class="cardsRecette">
+								{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
+									{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' %}
+										<div class="card shadow-1 hoverable-1 rounded-3 ">
+											<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id, 'nbCouverts': nbCouverts}) }}" target="_blank">
+												{% if recette.photo %}
+													<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+												{% else  %}
+													<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+												{% endif  %}
+
+												<div class="slugRecette">
+													<h3 class="titreRecette">{{ recette.titre }}</h3>
+													<div class="tpsRecette">
+														{% if recette.tpsPreparation %}
+															<div>
+																<div>Préparation</div>
+																<div>{{ recette.tpsPreparation }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsRepos %}
+															<div>
+																<div>Repos</div>
+																<div>{{ recette.tpsRepos }}
+																	min</div>
+															</div>
+														{% endif %}
+														{% if recette.tpsCuisson %}
+
+															<div>
+																<div>Cuisson</div>
+																<div>{{ recette.tpsCuisson }}
+																	min</div>
+															</div>
+														{% endif %}
+
+													</div>
+												</div>
+											</a>
+										</div>
+									{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
 			</div>
 		</section>
 	{% endblock %}

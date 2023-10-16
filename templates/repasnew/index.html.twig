@@ -43,7 +43,7 @@
 		<form method="POST">
 			<div class="form-field">
 				<input type="date" name="dateRepas" id="dateRepas" class="form-control rounded-1"></div>
-			<h2>Amis invités</h2>
+			<h2><i class="fa-solid fa-people-group"></i> Amis invités</h2>
 
 			<ul>
 				{% for famille in familles | sort ((a, b)=> a.nom <=> b.nom) %}
@@ -70,7 +70,7 @@
 
 	<section class="recettesIndex">
 
-		<h2>Carnet de recettes</h2>
+		<h2><i class="fa-solid fa-book"></i> Carnet de recettes</h2>
 
 		<ul>
 			<h3 id="aperitifH2" onclick="showHide(aperitif)">Apéritif
