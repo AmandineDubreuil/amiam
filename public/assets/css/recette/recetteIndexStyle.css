@@ -42,7 +42,7 @@
 
 .recettesIndex .slugRecette {
   padding: 1rem;
-  padding-bottom: 0;
+  /* padding-bottom: 0; */
 }
 
 .recettesIndex .titreRecette {

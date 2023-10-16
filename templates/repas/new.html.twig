@@ -112,7 +112,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Apéritif' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
@@ -165,7 +165,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Entrée' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
@@ -218,7 +218,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Plat principal' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
@@ -269,7 +269,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Accompagnement' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
@@ -318,7 +318,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Sauce' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
@@ -369,7 +369,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Dessert' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
@@ -418,7 +418,7 @@
 					{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)%}
 						{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' %}
 							<div class="card shadow-1 hoverable-1 rounded-3 ">
-								<a class="cardRecette" href="{{ path('app_repas_recette', {'id': recette.id, 'repas': repa.id}) }}" target="_blank">
+								<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}" >
 									{% if recette.photo %}
 										<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
 									{% else  %}
