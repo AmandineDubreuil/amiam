@@ -364,13 +364,13 @@
 			</div>
 
 			{# Petit Déj et goutier #}
-			<h2 id="petiDejH2" onclick="showHide(petiDej)">Petit-Déjeuner & Goûter
+			<h2 id="petitDejH2" onclick="showHide(petitDej)">Petit-Déjeuner & Goûter
 				<span>
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h2>
 
-			<div id="petiDej" class="cardsRecette">
+			<div id="petitDej" class="cardsRecette">
 				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
 					{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' %}
 
