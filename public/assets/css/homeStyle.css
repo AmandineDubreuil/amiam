@@ -2,46 +2,107 @@
   position: relative;
 }
 
-/* User not granted */
+.entete {
+  background-image: url("../../assets/img/preparationRepas.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80vh;
+  width: 100vw;
+  color: var(--color-five);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.entete .accroche {
+  max-width: 40%;
+  padding: 0 5rem 0 1rem;
+  height: 80vh;
+  background-color: #00000079;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 #accueil {
   font-size: 2rem;
+  margin: 0;
+  color: var(--color-five);
 }
-.home .fa-quote-right,
-.home .fa-quote-left {
+
+/*section question reponse*/
+.questionReponse {
+  margin-top: 2rem;
+}
+
+.questionReponse .fa-quote-right,
+.questionReponse .fa-quote-left {
   color: var(--color-four);
 }
 
-.home .interrogation {
+.questionReponse .interrogation {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
 }
 
-.home .interrogation .premiere,
-.home .interrogation .deuxieme {
+.questionReponse .interrogation .premiere,
+.questionReponse .interrogation .deuxieme {
   max-width: 40%;
   padding: 1rem;
 }
-.home .reponse {
+.questionReponse .reponse {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
 }
-.home .reponse .texte {
+.questionReponse .reponse .texte {
   width: 60%;
   padding: 1rem;
 }
-.home .reponse .image {
+.questionReponse .reponse .image {
   width: 38%;
 }
-.home .texte p {
+.questionReponse .texte p {
   padding: 0.3rem 0;
   margin: 0;
 }
 
+/* presentation */
+.presentation {
+  margin: 0;
+  padding: 0;
+}
+.presentation .resume {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  background-color: var(--color-four);
+
+}
+.presentation .resume .img {
+    width: 30%;
+    min-width: 15rem;
+    padding: 1.5rem;
+}
+
+.presentation .resume .img img {
+  border-radius: 10px;
+}
+
+.presentation .resume p {
+  width: 65%;
+  padding: .5rem;
+}
+
+.presentation .avant {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
 /*boutons */
 .home .groupeBtn {
   justify-content: center;
