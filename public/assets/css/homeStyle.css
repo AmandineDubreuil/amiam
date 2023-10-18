@@ -1,5 +1,7 @@
-.home {
-  position: relative;
+/*général */
+
+.img img {
+  border-radius: 10px;
 }
 
 .entete {
@@ -75,35 +77,46 @@
   margin: 0;
   padding: 0;
 }
-.presentation .resume {
+.presentation .resume, .presentation .point {
   display: flex;
-  flex-direction: row-reverse;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  background-color: var(--color-four);
+}
+
+.presentation .background {
+    background-color: var(--color-fourlight);
 
 }
 .presentation .resume .img {
-    width: 30%;
-    min-width: 15rem;
-    padding: 1.5rem;
+  width: 30%;
+  min-width: 15rem;
+  padding: 1.5rem;
 }
 
-.presentation .resume .img img {
-  border-radius: 10px;
-}
-
-.presentation .resume p {
+.presentation .resume p, .presentation .point .texte {
   width: 65%;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .presentation .avant {
   font-weight: bold;
   font-size: 1.3rem;
 }
+
+
+.presentation .point .img{
+  width: 30%;
+  min-width: 15rem;
+  padding: 1.5rem;
+
+}
 /*boutons */
+
+.home {
+  position: relative;
+}
+
 .home .groupeBtn {
   justify-content: center;
   position: fixed;

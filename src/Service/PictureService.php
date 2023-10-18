@@ -88,25 +88,34 @@ class PictureService
         }
 
         // on stock l'image recadrée
-//dd(exif_imagetype($picture));
+        //  dd(@exif_read_data($picture));
         //echap des images webp et png
+
+        // getimagesize($picture, $info);
+        // dd($info);
+
+
+
         if (exif_imagetype($picture) === 18 || exif_imagetype($picture) === 3) {
             imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
         } else {
             //définition orientation et rotate des images
-            if (isset(exif_read_data($picture)['Orientation'])) {
-                if (exif_read_data($picture)['Orientation'] === 8) {
+            if (@exif_read_data($picture)['Orientation']) {
+                if (@exif_read_data($picture)['Orientation'] === 8) {
 
                     $degrees = 90;
                     $rotate = imagerotate($resizedPicture, $degrees, 0);
                     //AFFICHAGE
                     imagewebp($rotate, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
-                } else if (exif_read_data($picture)['Orientation'] === 6) {
+                } else if (@exif_read_data($picture)['Orientation'] === 6) {
 
                     $degrees = 270;
                     $rotate = imagerotate($resizedPicture, $degrees, 0);
                     //AFFICHAGE
                     imagewebp($rotate, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
+                } else if (@exif_read_data($picture)['Orientation'] === 1) {
+
+                    imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
                 } else {
                     imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $fichier);
                 }
@@ -130,7 +139,7 @@ class PictureService
     }
 
     public function delete(
-       ?string $fichier = '',
+        ?string $fichier = '',
         ?string $folder = '',
 
     ) {
