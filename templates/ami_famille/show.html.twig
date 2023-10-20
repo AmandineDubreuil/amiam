@@ -41,6 +41,12 @@
 
 				{{ include('ami_famille/_delete_form.html.twig') }}
 			</div>
+
+			<a class="btn btnOk" href="{{ path('app_repasnew') }}">
+				<i class="fa-solid fa-circle-plus"></i>
+				Repas
+			</a>
+
 		</div>
 		<div class="entete">
 			<h1>Famille
@@ -92,7 +98,8 @@
 										</p>
 										{% for recette in repa.recettes | sort((a, b)=> a.categorie <=> b.categorie) %}
 											<p class="texte">
-												&nbsp; {{ recette.titre }}&nbsp;
+												&nbsp;
+												{{ recette.titre }}&nbsp;
 											</p>
 										{% endfor %}
 									</div>

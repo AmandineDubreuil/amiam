@@ -26,7 +26,15 @@
 {% block body %}
 
 	<section class="amiFamilleIndex">
-	<a class="btn btnRetour" href="{{ path('app_home')}}"><i class="fa-solid fa-arrow-left"></i></a>
+		<div class="groupeBtn groupeBtnModifSupp">
+			<a class="btn btnRetour" href="{{ path('app_home')}}">
+				<i class="fa-solid fa-arrow-left"></i>
+			</a>
+			<a class="btn btnOk" href="{{ path('app_repasnew') }}">
+				<i class="fa-solid fa-circle-plus"></i>
+				Repas
+			</a>
+		</div>
 
 		<h1>Mes Amis</h1>
 

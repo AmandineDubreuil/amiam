@@ -1,8 +1,9 @@
 /*général */
 
-.img img {
-  border-radius: 10px;
-  border: 1px solid rgba(128, 128, 128, 0.5);
+.img img, .img1 img, .img2 img, .img3 img {
+ 
+  -webkit-box-shadow: -4px -4px 15px -4px rgba(0, 0, 0, 0.45);
+  box-shadow: -4px -4px 15px -4px rgba(0, 0, 0, 0.45);
 }
 
 .entete {
@@ -18,7 +19,7 @@
   align-items: center;
 }
 .entete .accroche {
-  max-width: 40%;
+  max-width: 70%;
   padding: 0 5rem 0 1rem;
   height: 80vh;
   background-color: #00000079;
@@ -67,6 +68,7 @@
 }
 .questionReponse .reponse .image {
   width: 38%;
+  max-width: 22rem;
 }
 .questionReponse .texte p {
   padding: 0.3rem 0;
@@ -95,6 +97,7 @@
   width: 30%;
   min-width: 15rem;
   padding: 1.5rem;
+  
 }
 
 .presentation .resume p,
@@ -118,9 +121,9 @@
 }
 
 .presentation .point .img1 {
- width: 100%;
+  width: 100%;
   z-index: 1;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .presentation .point .img2 {
@@ -129,8 +132,8 @@
   left: 20%;
   top: 20%;
   z-index: 2;
-  overflow: hidden;
-  }
+  /* overflow: hidden; */
+}
 
 .presentation .point .img3 {
   width: 100%;
@@ -138,7 +141,7 @@
   left: 40%;
   top: 34%;
   z-index: 3;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 /*boutons */
 
@@ -181,4 +184,12 @@
 
 .page404 .btn {
   width: fit-content;
+}
+
+@media screen and (min-width: 576px) {
+
+  .entete .accroche {
+    max-width: 40%;
+  }
+
 }

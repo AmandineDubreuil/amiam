@@ -29,8 +29,8 @@
 
 		<h1>Mes repas</h1>
 
-		<a class="btn iconeAjout" href="{{ path('app_repasnew') }}">
-			<i class="fa-solid fa-circle-plus"></i>
+		<a class="btn btnOk" href="{{ path('app_repasnew') }}">
+			<i class="fa-solid fa-circle-plus"></i> Repas
 		</a>
 		<div class="cards">
 			{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}

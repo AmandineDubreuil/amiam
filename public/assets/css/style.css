@@ -32,8 +32,8 @@
 
   --color-light: rgb(227, 255, 239);
 
-  --color-four: #C1B125;
-  --color-fourlight: #c1b125ab;
+  --color-four: #e1ad01;
+  --color-fourlight: #e1ad01ab;
   /* --color-four: #ded052; C1B125*/
 
   --color-five: #fff;
@@ -190,7 +190,8 @@ h6 {
   font-size: 1rem;
   font-weight: 100;
   padding: 0.5rem;
-  width: 5rem;
+  width: fit-content;
+  min-width: 5rem;
   height: 2rem;
 }
 
