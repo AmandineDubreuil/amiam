@@ -17,9 +17,7 @@ h1 {
 
 /* amis */
 
-/* .amis h2, .recette h2 {
-    font-size: 1.5rem;
-} */
+
 .amis h2 {
   margin-top: 0;
 }
@@ -35,10 +33,7 @@ h1 {
   padding-left: 2rem;
 }
 
-.amis .btnOk,
-.recettes .btnOk {
-  width: fit-content;
-}
+
 
 .amis .allergiesRegimes {
   padding-left: 2rem;
@@ -52,7 +47,12 @@ h1 {
   color: #df2c29;
   font-weight: bold;
 }
+
+
 /* recette */
+.recettesIndex .gris {
+  font-style: italic;
+}
 .recettesIndex h3 span {
   font-size: 1rem;
   color: grey;
@@ -86,7 +86,7 @@ h1 {
   position: fixed;
   right: 1rem;
   bottom: 8rem;
-  width: fit-content;
+  z-index: 10;
 }
 
 /* fichier repas/new */
