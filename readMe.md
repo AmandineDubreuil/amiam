@@ -27,7 +27,7 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 - dans config/package/messenger commenter   # Symfony\Component\Mailer\Messenger\SendEmailMessage: async
 - dans parameters de config/services.yaml mettre : app.jwtsecret: '%env(JWT_SECRET)%'
 - dans env.local mettre le secret JWT
-- dans env.local modifier le mailer : MAILER_DSN=smtp://localhost:1025
+- dans env.local modifier le mailer : MAILER_DSN=smtp://localhost:1025 en phase de développement
 
 ### Modification mdp et mdp oublié user
 - Services JWTService.php et SendMailService.php

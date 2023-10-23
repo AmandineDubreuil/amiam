@@ -19,9 +19,9 @@
   align-items: center;
 }
 .entete .accroche {
-  max-width: 70%;
+  width: 100%;
   padding: 0 5rem 0 1rem;
-  height: 80vh;
+  height: 40vh;
   background-color: #00000079;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,9 @@
 .questionReponse {
   margin-top: 2rem;
 }
-
+.questionReponse .card {
+  min-width: 10rem;
+}
 .questionReponse .fa-quote-right,
 .questionReponse .fa-quote-left {
   color: var(--color-four);
@@ -52,23 +54,20 @@
 }
 
 .questionReponse .interrogation .premiere,
-.questionReponse .interrogation .deuxieme {
-  max-width: 40%;
+.questionReponse .interrogation .deuxieme, .questionReponse .reponse .texte {
+  min-width: 10rem;
   padding: 1rem;
 }
 .questionReponse .reponse {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
 }
-.questionReponse .reponse .texte {
-  width: 60%;
-  padding: 1rem;
-}
+
 .questionReponse .reponse .image {
-  width: 38%;
-  max-width: 22rem;
+  /* width: 38%; */
+  max-width: 15rem;
 }
 .questionReponse .texte p {
   padding: 0.3rem 0;
@@ -190,6 +189,21 @@
 
   .entete .accroche {
     max-width: 40%;
+    height: 80vh;
   }
 
+  .questionReponse .interrogation .premiere,
+.questionReponse .interrogation .deuxieme {
+  max-width: 40%;
+}
+.questionReponse .reponse {
+  justify-content: space-between;
+}
+.questionReponse .reponse .texte {
+  width: 60%;
+}
+.questionReponse .reponse .image {
+  width: 38%;
+  max-width: 22rem;
+}
 }

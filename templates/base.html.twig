@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Amiam
 			{% endblock %}
@@ -26,7 +27,7 @@
 
 	</head>
 
-	<body class="layout">
+	<body class="menuAmiam">
 		<header>
 			<div class="navbar-fixed">
 				<nav class="navbar shadow-1">
@@ -37,40 +38,49 @@
 						{% if is_granted('ROLE_MEMBER') %}
 
 							<a class="navbar-link" href="{{path('app_recette_index')}}">
-								<i class="fa-solid fa-book"></i><span class="masqueTel"> Mes recettes</span>
+								<i class="fa-solid fa-book"></i>
+								<span class="masqueTel">
+									Mes recettes</span>
 							</a>
 
 							<a class="navbar-link" href="{{path('app_repas_index')}}">
-															<i class="fa-solid fa-utensils"></i><span class="masqueTel"> Mes repas</span>
-														</a>
-						<a class="navbar-link" href="{{path('app_ami_famille_index')}}">
-														<i class="fa-solid fa-people-group"></i><span class="masqueTel"> Mes amis</span>
-													</a>
+								<i class="fa-solid fa-utensils"></i>
+								<span class="masqueTel">
+									Mes repas</span>
+							</a>
+							<a class="navbar-link" href="{{path('app_ami_famille_index')}}">
+								<i class="fa-solid fa-people-group"></i>
+								<span class="masqueTel">
+									Mes amis</span>
+							</a>
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') %}
 
 							<a class="navbar-link" href="{{path('admin')}}">
-								<i class="fa-solid fa-file-shield"></i><span class="masqueTel"> Admin</span>
+								<i class="fa-solid fa-file-shield"></i>
+								<span class="masqueTel">
+									Admin</span>
 							</a>
 						{% endif %}
 
 						{% if is_granted('ROLE_USER') %}
 
 							<a class="navbar-link pseudo" href="{{path('app_user_index')}}">
-								{{app.user.pseudo}}</i>&nbsp;
-						</a>
+								{{app.user.pseudo}}&nbsp;
+							</a>
 
-						<a class="navbar-link" href="{{path('app_logout')}}">
-							<i class="fa-solid fa-arrow-right-from-bracket"></i>
-						</a>
-					{% else %}
-						<a class="navbar-link" href="{{path('app_login')}}">
-							<i class="fa-solid fa-arrow-right-to-bracket"></i>
-						</a>
-					{% endif %}
-				</div>
-			</nav>
-		</div>
+							<a class="navbar-link" href="{{path('app_logout')}}">
+								<i class="fa-solid fa-arrow-right-from-bracket"></i>
+							</a>
+						{% else %}
+							<a class="navbar-link" href="{{path('app_login')}}">
+								<i class="fa-solid fa-arrow-right-to-bracket"></i>
+							</a>
+						{% endif %}
+					</div>
+				</nav>
+			</div>
+		</body>
 	</body>
 </html></header><main>
 {% include "_partials/_flash.html.twig" %}
@@ -79,7 +89,7 @@
 	<div class="alert-warning" role="alert">
 		<div class="alert-message">
 			<strong>Ton compte n'est pas encore activé</strong>.
-																																														Renvoyer le
+																																																						Renvoyer le
 			<a href="{{ path('app_resend_verif') }}">lien d'activation</a>
 		</div>
 	</div>
@@ -87,12 +97,16 @@
 
 {% block body %}{% endblock %}</main><footer class="footer">
 <p>
-	Copyright © 2023 - Amiam  <a href="{{ path('app_contact') }}" class="mentions" target="blank"><i class="fa-solid fa-envelope"></i></a>
+	Copyright © 2023 - Amiam
+	<a href="{{ path('app_contact') }}" class="mentions" target="blank">
+		<i class="fa-solid fa-envelope"></i>
+	</a>
 
 </p>
 <div>
 	<a href="{{ path('app_legal') }}" class="mentions" target="blank">Mentions légales</a>
-	/ <a href="{{ path('app_confidentialite') }}" class="mentions" target="blank">Politique de confidentialité</a> 
+	/
+	<a href="{{ path('app_confidentialite') }}" class="mentions" target="blank">Politique de confidentialité</a>
 	{# <a href="{{ path('app_cgu') }}" class="mentions" target="blank">C.G.U.</a> #}
 
 </div>
@@ -101,8 +115,7 @@
 	{% if is_granted('ROLE_ADMIN') %}
 		<a class="footerAdmin" href="#">Admin</a>
 	{% endif %}
-</div></footer>
-{% block javascripts %}
+</div></footer>{% block javascripts %}
 <!-- Axentix JS minified version -->
 <script src="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.js"></script>
 <!--JQuery select2 -->

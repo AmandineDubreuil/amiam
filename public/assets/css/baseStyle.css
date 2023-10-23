@@ -29,9 +29,13 @@
         /* font-size: 1.5rem; */
         
     }
-    
-    .navbar .pseudo {
-        font-size: .7rem;
+    .navbar-link .masqueTel {
+        display: none;
+      }
+      
+
+    .menuAmiam .navbar .pseudo {
+        font-size: 1.2rem;
     }
     .navbar .pseudo i{
         font-size: 1.1rem;
@@ -51,3 +55,18 @@
     }
 
   
+/* *********************** 
+   RESPONSIVE DESKTOP
+   ************************ */
+
+@media screen and (min-width: 576px) {
+    .navbar-link .masqueTel {
+      display: initial;
+    }
+
+    .menuAmiam .navbar .pseudo {
+        font-size: .7rem;
+    }
+    
+    /*fin responsive*/
+  }
