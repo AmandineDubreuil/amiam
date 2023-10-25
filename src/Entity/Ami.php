@@ -46,6 +46,9 @@ class Ami
     #[ORM\ManyToMany(targetEntity: Repas::class, mappedBy: 'amis')]
     private Collection $repas;
 
+    #[ORM\ManyToMany(targetEntity: SousGroupeAli::class, inversedBy: 'amis')]
+    private Collection $degoutGroupeAli;
+
     public function __construct()
     {
         $this->regimes = new ArrayCollection();
@@ -53,6 +56,7 @@ class Ami
         $this->degout = new ArrayCollection();
         $this->allergiesAliment = new ArrayCollection();
         $this->repas = new ArrayCollection();
+        $this->degoutGroupeAli = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -234,6 +238,30 @@ class Ami
         if ($this->repas->removeElement($repa)) {
             $repa->removeAmi($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SousGroupeAli>
+     */
+    public function getDegoutGroupeAli(): Collection
+    {
+        return $this->degoutGroupeAli;
+    }
+
+    public function addDegoutGroupeAli(SousGroupeAli $degoutGroupeAli): static
+    {
+        if (!$this->degoutGroupeAli->contains($degoutGroupeAli)) {
+            $this->degoutGroupeAli->add($degoutGroupeAli);
+        }
+
+        return $this;
+    }
+
+    public function removeDegoutGroupeAli(SousGroupeAli $degoutGroupeAli): static
+    {
+        $this->degoutGroupeAli->removeElement($degoutGroupeAli);
 
         return $this;
     }

@@ -7,11 +7,11 @@
   font-size: 1rem;
   font-weight: 100;
 }
-.amiNewEdit .allergies {
+.amiNewEdit .allergies, .amiNewEdit .degouts {
   display: flex;
   flex-wrap: wrap;
 }
-.amiNewEdit .allergies div {
+.amiNewEdit .allergies div, .amiNewEdit .degouts div {
   padding-left: 1rem;
   padding-right: 1rem;
   width: fit-content;

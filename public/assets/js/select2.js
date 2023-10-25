@@ -29,7 +29,7 @@ $(function () {
   $(".selectRegime").select2({});
 });
 
-// utilisation de select2 dans AlimentType pour le select du sous-groupe d'aliment
+// utilisation de select2 dans AlimentType et AmiType pour le select du sous-groupe d'aliment
 
 $(function () {
   $(".selectSousGroupe").select2({});

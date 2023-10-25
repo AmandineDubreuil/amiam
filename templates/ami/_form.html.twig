@@ -28,14 +28,21 @@
 	<div class="form-field">
 		{{ form_row(form.allergiesAliment) }}
 	</div>
-		<p>Tu ne trouves pas l'ingrédient souhaité ? Tu peux le créer <a href="{{ path('app_aliment_new', {'ami': amiId, 'recette':'0'}) }}">ici</a>.</p>
+	<p>Tu ne trouves pas l'ingrédient souhaité ? Tu peux le créer
+		<a href="{{ path('app_aliment_new', {'ami': amiId, 'recette':'0'}) }}">ici</a>.</p>
 
 </div>
-<div class="form-field gras">
-	{{ form_row(form.degout) }}
+<h3>N'aime pas</h3>
+<div class="degouts">
+	<div class="form-field">
+		{{ form_row(form.degoutGroupeAli) }}
+	</div>
+	<div class="form-field">
+		{{ form_row(form.degout) }}
+	</div>
+	<p>Tu ne trouves pas l'ingrédient souhaité ? Tu peux le créer
+		<a href="{{ path('app_aliment_new', {'ami': amiId, 'recette':'0'}) }}">ici</a>.</p>
 </div>
-		<p>Tu ne trouves pas l'ingrédient souhaité ? Tu peux le créer <a href="{{ path('app_aliment_new', {'ami': amiId, 'recette':'0'}) }}">ici</a>.</p>
-
 <p class="gris">* Champs requis</p>
 <div class="groupeBtn">
 	<button class="btn iconeOk">

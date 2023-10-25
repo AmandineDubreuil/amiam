@@ -24,9 +24,13 @@ class SousGroupeAli
     #[ORM\OneToMany(mappedBy: 'sousGroupe', targetEntity: Aliment::class)]
     private Collection $aliments;
 
+    #[ORM\ManyToMany(targetEntity: Ami::class, mappedBy: 'degoutGroupeAli')]
+    private Collection $amis;
+
     public function __construct()
     {
         $this->aliments = new ArrayCollection();
+        $this->amis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,6 +91,33 @@ class SousGroupeAli
             if ($aliment->getSousGroupe() === $this) {
                 $aliment->setSousGroupe(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getAmis(): Collection
+    {
+        return $this->amis;
+    }
+
+    public function addAmi(Ami $ami): static
+    {
+        if (!$this->amis->contains($ami)) {
+            $this->amis->add($ami);
+            $ami->addDegoutGroupeAli($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAmi(Ami $ami): static
+    {
+        if ($this->amis->removeElement($ami)) {
+            $ami->removeDegoutGroupeAli($this);
         }
 
         return $this;

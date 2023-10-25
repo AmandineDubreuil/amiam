@@ -6,6 +6,7 @@ use App\Entity\Ami;
 use App\Entity\Regime;
 use App\Entity\Aliment;
 use App\Entity\Allergene;
+use App\Entity\SousGroupeAli;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -79,7 +80,7 @@ class AmiType extends AbstractType
             ])
             ->add('degout', EntityType::class, [
                 'class' => Aliment::class,
-                'label' => 'N\'aime pas ',
+                'label' => 'N\'aime pas un aliment ',
                 'choice_label' => 'aliment',
                 'multiple' => true,
                 'required' => false,
@@ -91,6 +92,21 @@ class AmiType extends AbstractType
                     'class' => 'selectIngredient ',
                 ],
             ])
+            ->add('degoutGroupeAli', EntityType::class, [
+                'class' => SousGroupeAli::class,
+                'label' => 'N\'aime pas un groupe d\'aliments  ',
+                'choice_label' => 'sousGroupe',
+                'multiple' => true,
+                'required' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('a')
+                        ->orderBy('a.sousGroupe', 'ASC');
+                },
+                'attr' => [
+                    'class' => 'selectSousGroupe ',
+                ],
+            ])
+
             ->add('avatar', FileType::class, [
                 'label' => 'avatar (fichier image) ',
                 'mapped' => false,
