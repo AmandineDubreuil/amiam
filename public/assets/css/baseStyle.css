@@ -48,6 +48,7 @@
         justify-content: center;
         background-color: var(--color-one);
         color: var(--color-three); 
+        
     }
     .footer .mentions{
         font-size: .8rem;

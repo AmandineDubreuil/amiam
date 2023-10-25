@@ -45,6 +45,10 @@
   font-family: "Alegreya", Arial, Helvetica, sans-serif;
 }
 
+main {
+  min-height: 81vh;
+}
+
 img {
   width: 100%;
 }
