@@ -41,22 +41,40 @@ class AlimentController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $recetteId = $_GET['recette'];
+        $amiId = $_GET['ami'];
         $user = $this->security->getUser();
         $aliment = new Aliment();
         $form = $this->createForm(AlimentType::class, $aliment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($recetteId == 0 && $form->isSubmitted() && $form->isValid()) {
 
             $aliment->setUser($user);
-
             $aliment->setCreatedAt(new \DateTimeImmutable);
             $aliment->setIsVerified(false);
 
+            $entityManager->persist($aliment);
+            $entityManager->flush();
+            // if ($amiId === 0) {
+            //     dd('ami');
+            //     return $this->redirectToRoute('app_recette_edit', [
+            //         'id' => $recetteId,
+            //     ], Response::HTTP_SEE_OTHER);
+            // }
+
+            return $this->redirectToRoute('app_ami_edit', [
+                'id' => $amiId,
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($amiId == 0 && $form->isSubmitted() && $form->isValid()) {
+
+            $aliment->setUser($user);
+            $aliment->setCreatedAt(new \DateTimeImmutable);
+            $aliment->setIsVerified(false);
 
             $entityManager->persist($aliment);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_recette_edit', [
                 'id' => $recetteId,
             ], Response::HTTP_SEE_OTHER);

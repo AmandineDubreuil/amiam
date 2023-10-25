@@ -3,9 +3,9 @@
 
         font-family: "AlegreyaBlack", Arial, Helvetica, sans-serif;
         letter-spacing: 1px;
-        font-size: 2.5rem;
+        font-size: 2rem;
         color: var(--color-four);
-        padding: 1rem;
+        /* margin: 1rem; */
     }
 
     #logo span{
@@ -16,6 +16,8 @@
     .navbar{
         background-color: var(--color-five);
         color: var(--color-two); 
+        height: fit-content;
+        
     }
     .navbar-menu {
         display: flex;
@@ -26,7 +28,7 @@
     .navbar-link {
         font-family: "Alegreya", Arial, Helvetica, sans-serif;
         letter-spacing: .5px;
-        /* font-size: 1.5rem; */
+        font-size: 1rem;
         
     }
     .navbar-link .masqueTel {
@@ -35,10 +37,7 @@
       
 
     .menuAmiam .navbar .pseudo {
-        font-size: 1.2rem;
-    }
-    .navbar .pseudo i{
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     
     /* base / footer */
@@ -60,6 +59,11 @@
    ************************ */
 
 @media screen and (min-width: 576px) {
+    #logo {
+
+        font-size: 2.5rem;
+    }
+
     .navbar-link .masqueTel {
       display: initial;
     }

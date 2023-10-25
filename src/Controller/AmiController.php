@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ami;
 use App\Form\AmiType;
+use App\Form\AmiNewType;
 use App\Service\PictureService;
 use App\Repository\AmiRepository;
 use App\Repository\AmiFamilleRepository;
@@ -11,8 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 #[Route('/ami')]
@@ -40,7 +41,7 @@ class AmiController extends AbstractController
         $famille = $amiFamilleRepository->find($familleId);
 
         $ami = new Ami();
-        $form = $this->createForm(AmiType::class, $ami);
+        $form = $this->createForm(AmiNewType::class, $ami);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -101,10 +102,11 @@ class AmiController extends AbstractController
         }
 
         $familleId = $ami->getFamille();
-
+        $amiId = $ami->getId();
         $form = $this->createForm(AmiType::class, $ami);
         $form->handleRequest($request);
 
+        // dd($ami);
         if ($form->isSubmitted() && $form->isValid()) {
 
             // on récupère l'image
@@ -133,18 +135,18 @@ class AmiController extends AbstractController
 
         return $this->render('ami/edit.html.twig', [
             'ami' => $ami,
+            'amiId' => $amiId,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_ami_delete', methods: ['POST'])]
     public function delete(
-        Request $request, 
-        Ami $ami, 
+        Request $request,
+        Ami $ami,
         PictureService $pictureService,
         EntityManagerInterface $entityManager
-        ): Response
-    {
+    ): Response {
         if ($ami->getFamille()->getUser() != $this->getUser()) {
             return  $this->redirectToRoute('app_page404', [], Response::HTTP_SEE_OTHER);
         }
@@ -153,12 +155,12 @@ class AmiController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete' . $ami->getId(), $request->request->get('_token'))) {
 
-      //suppression de l'image associée à la recette
-      $oldImage = $ami->getAvatar();
-      if ($oldImage) {
-          $folder = 'photosAmis';
-          $pictureService->delete($oldImage, $folder);
-      }
+            //suppression de l'image associée à la recette
+            $oldImage = $ami->getAvatar();
+            if ($oldImage) {
+                $folder = 'photosAmis';
+                $pictureService->delete($oldImage, $folder);
+            }
 
 
             $entityManager->remove($ami);
