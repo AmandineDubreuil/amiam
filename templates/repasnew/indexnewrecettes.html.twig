@@ -80,6 +80,15 @@
 									{% endfor %}
 								</li>
 							{% endif %}
+							{% if ami.degoutGroupeAli is not empty  %}
+								<li>
+									n'aime pas
+									{% for degoutGroupe in ami.degoutGroupeAli %}
+										<span class="regime">{{degoutGroupe}}</span>
+									{% endfor %}
+								</li>
+							{% endif %}
+
 						</ul>
 
 

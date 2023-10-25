@@ -43,11 +43,11 @@
   line-height: normal;
 }
 
-.amiShowDelete .informations .allergies{
+.amiShowDelete .informations .allergies, .amiShowDelete .informations .degouts{
   display: flex;
 flex-wrap: wrap;
 }
-.amiShowDelete .informations .allergies div{
+.amiShowDelete .informations .allergies div, .amiShowDelete .informations .degouts div{
   padding-left: 1rem;
   padding-right: 1rem;
 }

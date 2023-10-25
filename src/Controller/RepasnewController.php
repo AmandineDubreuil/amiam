@@ -43,17 +43,6 @@ class RepasnewController extends AbstractController
         $amis = $amiRepository->findBy(['famille' => $familles]);
         $amisPresents = [];
         $amisPresentsId = "";
-        $regimes = "";
-        $allergiesGroupe = "";
-        $allergiesAliment = "";
-        $degouts = "";
-        $regimeSsPorc = 0;
-        $recettePorc = 0;
-        $recetteAEviter = 0;
-
-        // partie récap recettes choisies
-
-        $recettesChoisies = [];
 
         if ($request->isMethod('POST') && $request->request->has('submit')) {
             ########## DATE DU REPAS #########

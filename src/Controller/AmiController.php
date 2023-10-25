@@ -87,7 +87,7 @@ class AmiController extends AbstractController
         return $this->render('ami/show.html.twig', [
             'ami' => $ami,
             'age' => $age,
-        ]);
+            ]);
     }
 
     #[Route('/{id}/edit', name: 'app_ami_edit', methods: ['GET', 'POST'])]

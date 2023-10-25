@@ -118,14 +118,28 @@
 					</div>
 				</div>
 			</div>
-			<div>
-				<h3>N'aime pas</h3>
-				<ul>
-					{% for degout in ami.degout %}
-						<li>.
-							{{degout.aliment}}</li>
-					{% endfor %}
-				</ul>
+
+			<h3>N'aime pas</h3>
+			<div class="degouts">
+				<div>
+					<h4>un groupe d'aliments</h4>
+					<ul>
+						{% for degoutGroupe in ami.degoutGroupeAli %}
+							<li>.
+								{{degoutGroupe.SousGroupe}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div>
+					<h4>un aliment</h4>
+					<ul>
+						{% for degout in ami.degout %}
+							<li>.
+								{{degout.aliment}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+
 			</div>
 		</div>
 		<div class="repas">
@@ -162,6 +176,6 @@
 
 
 	{# <a href="{{ path('app_ami_edit', {'id': ami.id}) }}">edit</a>
-						
-							{{ include('ami/_delete_form.html.twig') }} #}
+								
+									{{ include('ami/_delete_form.html.twig') }} #}
 {% endblock %}

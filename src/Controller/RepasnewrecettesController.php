@@ -48,6 +48,7 @@ class RepasnewrecettesController extends AbstractController
         $allergiesGroupe = "";
         $allergiesAliment = "";
         $degouts = "";
+        $degoutsGroupeAli = "";
         $regimeSsPorc = 0;
         $recettePorc = 0;
         $recetteAEviter = 0;
@@ -71,7 +72,6 @@ class RepasnewrecettesController extends AbstractController
                 if ($regime->getRegime() === 'Sans porc') {
                     $regimeSsPorc += 1;
                 }
-                //       $this->addFlash('warning', $amiPresent->getPrenom() . ' a un régime ' . $regime);
             }
 
 
@@ -79,24 +79,25 @@ class RepasnewrecettesController extends AbstractController
             $allergiesGroupe = $amiPresent->getAllergies();
             foreach ($allergiesGroupe as $allergieGroupe) {
                 $allergiesGroupePresents[] = $allergieGroupe;
-                //      $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à :' . $allergieGroupe);
             }
 
             // récupérer leurs allergies aliment pour filtre des recettes
             $allergiesAliment = $amiPresent->getAllergiesAliment();
             foreach ($allergiesAliment as $al) {
                 $allergiesAlimentPresentes[] = $al;
-                //     $this->addFlash('danger', $amiPresent->getPrenom() . ' est allergique à : ' . $al);
             }
 
             //  récupérer leurs dégouts pour filtre des recettes
             $degouts = $amiPresent->getDegout();
             foreach ($degouts as $degout) {
                 $degoutsPresents[] = $degout;
-                //      $this->addFlash('warning-jaune', $amiPresent->getPrenom() . ' n\'aime pas : ' . $degout);
             }
 
-
+            //  récupérer leurs dégouts groupe pour filtre des recettes
+            $degoutsGroupeAli = $amiPresent->getDegoutGroupeAli();
+            foreach ($degoutsGroupeAli as $degoutGroupeAli) {
+                $degoutsGroupePresents[] = $degoutGroupeAli;
+            }
 
 
             ############  fin de la boucle amiPresent
@@ -108,6 +109,9 @@ class RepasnewrecettesController extends AbstractController
         }
         if (empty($degoutsPresents)) {
             $degoutsPresents = [];
+        }
+        if (empty($degoutsGroupePresents)) {
+            $degoutsGroupePresents = [];
         }
         if (empty($allergiesGroupePresents)) {
             $allergiesGroupePresents = [];
@@ -136,14 +140,14 @@ class RepasnewrecettesController extends AbstractController
                 $allergeneString = implode(',', $allergene1stArray);
                 $allergeneArray[] = $allergeneRepository->find($allergeneString);
 
-                //récupération aliment à base de porc
+                //récupération sousgroupe aliment et aliment à base de porc
                 // $recettePorc = 0;
                 $sousGroupeAliment = $aliment->getSousGroupe();
                 $sousGroupeString = $sousGroupeAliment->getSousGroupe();
-
                 if ($sousGroupeString === 'Porc') {
                     $recettePorc += 1;
                 }
+                $sousGroupeAlimentArray[] = $sousGroupeAliment;
             }
 
 
@@ -157,24 +161,35 @@ class RepasnewrecettesController extends AbstractController
 
             $recettesAvecDegoutConstruct = array_intersect($alimentArray, $degoutsPresents);
 
+
+            ######## pour Degouts Groupe #########
+            // comparer les ingrédients de la recette aux dégoutsGroupe présents
+
+            $recettesAvecDegoutGroupeConstruct = array_intersect($sousGroupeAlimentArray, $degoutsGroupePresents);
+
             ######## pour AllergiesGroupe #########
             // comparer les allergenes de la recette aux allergiesGroupe présents
             $recettesAvecAllergeneConstruct = array_intersect($allergeneArray, $allergiesGroupePresents);
 
             foreach ($ingredients as $ingredient) {
                 $aliment = $ingredient->getAliment();
+                $sousGroupeAliment = $aliment->getSousGroupe();
 
                 ######## pour AllergiesAliment #########
                 if (!empty($recettesAvecAllergieAlimentConstruct) && in_array($aliment, $recettesAvecAllergieAlimentConstruct)) {
                     // ajouter la recette au tableau $recettesConformes
-                    // $recettesAvecAllergieAliment[] = $recette;
                     $recetteAEviter += 1;
                 }
 
                 ######## pour Degouts #########
                 if (!empty($recettesAvecDegoutConstruct) && in_array($aliment, $recettesAvecDegoutConstruct)) {
                     // ajouter la recette au tableau $recettesConformes
-                    //   $recettesAvecDegout[] = $recette;
+                    $recetteAEviter += 1;
+                }
+
+                ######## pour Degouts groupe #########
+                if (!empty($recettesAvecDegoutGroupeConstruct) && in_array($sousGroupeAliment, $recettesAvecDegoutGroupeConstruct)) {
+                    // ajouter la recette au tableau $recettesConformes
                     $recetteAEviter += 1;
                 }
 
@@ -186,7 +201,6 @@ class RepasnewrecettesController extends AbstractController
 
                 if (!empty($recettesAvecAllergeneConstruct) && in_array($allergeneEntity, $recettesAvecAllergeneConstruct)) {
                     // ajouter la recette au tableau $recettesConformes
-                    //  $recettesAvecAllergene[] = $recette;
                     $recetteAEviter += 1;
                 }
             }
