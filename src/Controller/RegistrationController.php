@@ -110,7 +110,7 @@ class RegistrationController extends AbstractController
             }
         }
         // ici un problème dans le token
-        $this->addFlash('danger', 'Le Token est invalide ou a expiré.');
+      //  $this->addFlash('danger', 'Le Token est invalide ou a expiré.');
         return $this->redirectToRoute('app_login');
     }
     // renvoi de la vérification
