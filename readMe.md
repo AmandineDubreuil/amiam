@@ -19,6 +19,7 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 ## Bundles
 
 - EasyAdminBundle 4
+- nucleos /dompdf-bundle
 
 ## User
 
@@ -36,7 +37,9 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 - utilisation d'un service PictureService.php
 - dans parameters de config/services.yaml mettre : images_directory: '%kernel.project_dir%/public/assets/uploads/'
 
-## Description d'une recette avec CKEditor5
+## Recettes
+
+### Description d'une recette avec CKEditor5
 
 - télécharger le dossier sur https://ckeditor.com/ckeditor-5/download/?null-addons= 
 - l'installer dans public/assets/ckeditor5
@@ -46,6 +49,11 @@ Tokens générés via JWT pour la vérification de l'adresse e-mail et la modifi
 - dans recette/edit.html.twig, créer le formulaire, mettre une div avec "editor" en id
 - dans recette/edit.html.twig, créer un block js avec lien vers ckeditor.js du dossier ckeditor5 et du dossier js
 - pour que la mise en forme apparaisse, mettre {{ recette.description | raw  }} dans recette show 
+
+### Génération de la recette au format pdf
+
+- utilisation du bundle nucleos/dompdf-bundle
+
 
 ## License
 

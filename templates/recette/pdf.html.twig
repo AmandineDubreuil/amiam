@@ -1,0 +1,251 @@
+{% block title %}
+	{{ recette.titre }}
+	- Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="{{asset('./assets/img/favicon.ico')}}">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+	<style>
+		@font-face {
+			font-family: "Alegreya";
+			src: "{{ absolute_url(asset('font/alegreyaSans/AlegreyaSans-Regular.ttf')) }}";
+		}
+
+		:root {
+			--color-one: #032e15;
+
+			--color-two: #2d7a4d;
+
+			--color-three: #8cd1a7;
+
+			--color-light: rgb(227, 255, 239);
+
+			--color-four: #e1ad01;
+			--color-fourlight: #e1ad01ab;
+			/* --color-four: #ded052; C1B125*/
+
+			--color-five: #fff;
+
+			--color-six: #000;
+		}
+
+		* {
+			font-family: "Helvetica";
+		}
+		main {
+			min-height: 81vh;
+		}
+
+		img {
+			width: 100%;
+		}
+
+		section {
+			padding: 1rem;
+			width: 100vw;
+		}
+
+		.gris,
+		.help-text {
+			color: grey;
+		}
+		.gras {
+			font-weight: bold;
+		}
+
+
+		/* Titres */
+
+		h1 {
+
+			font-size: 3rem;
+			color: var(--color-two);
+			text-align: center;
+
+		}
+		h2 {
+			font-size: 1.3rem;
+			color: var(--color-three);
+
+		}
+		h3 {
+			font-size: 1rem;
+			margin-top: 0;
+		}
+		h4 {
+			font-size: 1rem;
+		}
+		h5 {
+			font-size: 1rem;
+		}
+		h6 {
+			font-size: 1rem;
+		}
+
+		ul {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			line-height: 1rem;
+		}
+
+		table {
+			width: 100%;
+			border-collapse : collapse;
+		}
+
+		/* entete  */
+		.entete {
+			border: none;
+		}
+
+		.entete,
+		.entete tr {
+			width: 100vw;
+		}
+		.entete td {
+			width: 49%;
+		}
+
+		#logo {
+			color: var(--color-four);
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 3rem;
+
+		}
+
+		.entete td:nth-last-child(1) {
+			text-align: end;
+		}
+		.entete p {
+			margin: 0;
+			font-weight: bold;
+			font-size: 1.3rem;
+			color: var(--color-four);
+		}
+
+		.accroche {
+			text-align: center;
+			font-size: 0.9rem;
+			margin-bottom: 0;
+		}
+		/* fin entete */
+
+		/* recette */
+
+		.recettesShow {
+			margin: 1rem;
+		}
+
+		.recettesShow .card {
+			padding: 1rem;
+		}
+.tempsTable {
+	border : 1px solid grey;
+	border-radius: 3px;
+}
+.tempsTable th {
+	background-color : var(--color-three);
+}
+		.temps {
+			text-align: center;
+		}
+		.ingredientsTable {
+			width: auto !important;
+		}
+	
+	</style>
+{% endblock %}
+{% block body %}
+
+
+	<section class="recettesShow">
+		<table class="entete">
+			<tr>
+				<td>
+					<a href="https://amiam.fr/" id="logo">
+						Amiam.fr
+					</a>
+				</td>
+				<td>
+					<p>
+						Organise tes repas entre amis !
+					</p>
+				</td>
+			</tr>
+		</table>
+
+		<p class="accroche">Amiam t'aide à créer des repas et choisir uniquement parmis les recettes qui conviennent à tes invités.</p>
+		<div class="card shadow-1 rounded-3">
+
+			<table>
+				<thead>
+					<tr>
+						<td>
+							<h1>{{ recette.titre }}</h1>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h3>{{ recette.categorie.categorie }}</h3>
+						</td>
+					</tr>
+				</thead>
+			</table>
+			<table class="tempsTable">
+				<tbody>
+					<tr>
+						<th class="temps">Temps de préparation</th>
+						<th class="temps">Temps de repos</th>
+						<th class="temps">Temps de cuisson</th>
+					</tr>
+					<tr>
+						<td class="temps">{{ recette.tpsPreparation }}
+							min</td>
+						<td class="temps">{{ recette.tpsRepos }}
+							min</td>
+						<td class="temps">{{ recette.tpsCuisson }}
+							min</td>
+					</tr>
+				</tbody>
+			</table>
+
+
+			<div>
+				<h2>Ingrédients</h2>
+				<p class="nbPersonnes">pour
+					{{ recette.nbPersonnes }}
+					personnes</p>
+				<table class="ingredientsTable">
+					<tbody>
+						{% for ingredient in ingredients %}
+							<tr class="ingredients">
+								<td>{{ ingredient.aliment }}</td>
+								<td>&nbsp; &nbsp;{{ ingredient.quantite }}
+									{{ ingredient.mesure }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div>
+				<h2>Étapes</h2>
+				<p>{{ recette.description | raw }}</p>
+
+			</div>
+		</div>
+	</section>
+{% endblock %}

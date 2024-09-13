@@ -25,12 +25,15 @@
 
 {% block body %}
 	<section class="repasIndex">
-	<a class="btn btnRetour" href="{{ path('app_home')}}"><i class="fa-solid fa-arrow-left"></i></a>
+		<a class="btn btnRetour" href="{{ path('app_home')}}">
+			<i class="fa-solid fa-arrow-left"></i>
+		</a>
 
 		<h1>Mes repas</h1>
 
 		<a class="btn btnOk" href="{{ path('app_repasnew') }}">
-			<i class="fa-solid fa-circle-plus"></i> Repas
+			<i class="fa-solid fa-circle-plus"></i>
+			Repas
 		</a>
 		<div class="cards">
 			{% for repa in app.user.repas  | sort((b, a)=> a.date <=> b.date)%}
@@ -41,11 +44,36 @@
 								{{ repa.date ? repa.date|date('d-m-Y') : '' }}&nbsp;
 							</p>
 							<p class="cardRepasTitre">
-							{% for recette in repa.recettes |  sort((a, b)=> a.categorie <=> b.categorie)%}
-								
-						
-								&nbsp;{{ recette.titre}}&nbsp;
-									{% endfor %}
+								{% for recette in repa.recettes |  sort((a, b)=> a.categorie <=> b.categorie)%}
+									{% if recette.categorie.id is same as (1) %}
+										<span class="aperitif">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+									{% if recette.categorie.id is same as (2) %}
+										<span class="entree">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+									{% if recette.categorie.id is same as (3) %}
+										<span class="platAcommpagnementSauce">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+									{% if recette.categorie.id is same as (4) %}
+										<span class="platAcommpagnementSauce">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+									{% if recette.categorie.id is same as (5) %}
+										<span class="platAcommpagnementSauce">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+									{% if recette.categorie.id is same as (6) %}
+										<span class="dessertGouter">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+									{% if recette.categorie.id is same as (7) %}
+										<span class="dessertGouter">&nbsp;{{ recette.titre}}&nbsp;</span>
+									{% endif %}
+
+								{% endfor %}
 							</p>
 						</div>
 						<div class="card-content">

@@ -25,3 +25,17 @@
 .repasIndex .cardRepas .cardRepasTitre {
     font-family: "AlegreyaBold", Arial, Helvetica, sans-serif;
 }
+.repasIndex .cardRepas .cardRepasTitre .aperitif {
+    color: var(--color-one);
+}
+.repasIndex .cardRepas .cardRepasTitre .entree {
+    color: var(--color-three);
+    font-weight: bold;
+}
+.repasIndex .cardRepas .cardRepasTitre .platAcommpagnementSauce {
+    color: var(--color-four);
+    font-weight: bold;
+}
+.repasIndex .cardRepas .cardRepasTitre .dessertGouter {
+    color: var(--color-two);
+}

@@ -10,6 +10,7 @@ use App\Form\RecetteNewBeginType;
 use App\Repository\RecetteIngredientRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\RepasRepository;
+use App\Service\PdfGeneratorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +41,7 @@ class RecetteController extends AbstractController
     #[Route('/', name: 'app_recette_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
- 
+
 
         return $this->render('recette/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
@@ -88,6 +89,25 @@ class RecetteController extends AbstractController
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
             'ingredients' => $ingredients,
+        ]);
+    }
+    #[Route('/pdf/{id}', name: 'app_recette_pdf', methods: ['GET'])]
+    public function outputPdf(
+        Recette $recette,
+        PdfGeneratorService $pdfGeneratorService
+    ): Response {
+
+        $ingredients = $recette->getIngredients();
+        $html = $this->render('recette/pdf.html.twig', [
+            'recette' => $recette,
+            'ingredients' => $ingredients,
+        ]);
+        $content = $pdfGeneratorService->getPdf($html);
+
+
+
+        return new Response($content, 200, [
+            'Content-Type' => 'application/pdf',
         ]);
     }
 

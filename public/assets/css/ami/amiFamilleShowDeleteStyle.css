@@ -50,6 +50,20 @@
   flex-wrap: wrap;
 }
 
-.repas .card-content .texte {
+.repas .card-content .aperitif {
+  color: var(--color-one);
+}
+
+.repas .card-content .entree {
+  color: var(--color-three);
   font-weight: bold;
+}
+
+.repas .card-content .platAcommpagnementSauce {
+  color: var(--color-four);
+  font-weight: bold;
+}
+
+.repas .card-content .dessertGouter {
+  color: var(--color-two);
 }

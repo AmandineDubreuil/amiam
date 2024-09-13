@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Repas
+{% block title %}Nouveau Repas
 {% endblock %}
 
 {% block stylesheets %}
@@ -114,7 +114,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h3>
-			<div id="aperitif">
+			<div id="aperitif" class="dnone">
 				<div class="cardsRecette">
 
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
@@ -186,7 +186,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h3>
-			<div id="entree">
+			<div id="entree" class="dnone">
 				<div class="cardsRecette">
 
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
@@ -259,7 +259,7 @@
 				</span>
 			</h3>
 
-			<div id="plat">
+			<div id="plat" class="dnone">
 				<div class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
@@ -332,7 +332,7 @@
 				</span>
 			</h3>
 
-			<div id="accompagnement">
+			<div id="accompagnement" class="dnone">
 				<div class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
@@ -406,7 +406,7 @@
 				</span>
 			</h3>
 
-			<div id="sauce">
+			<div id="sauce" class="dnone">
 				<div class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
@@ -479,7 +479,7 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h3>
-			<div id="dessert">
+			<div id="dessert" class="dnone">
 				<div class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 
@@ -554,7 +554,7 @@
 				</span>
 			</h3>
 
-			<div id="petitDej">
+			<div id="petitDej" class="dnone">
 				<div class="cardsRecette">
 					{% for recette in recettesOk |  sort((a, b)=> a.titre <=> b.titre)  %}
 

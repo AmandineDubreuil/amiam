@@ -37,9 +37,13 @@
 
 
 		<div class="modifSupp">
+			<a class="btn iconeAjout" href="{{ path('app_recette_pdf', {'id': recette.id}) }}">
+				<i class="fa-regular fa-share-from-square"></i>
+			</a>
 			<a class="btn iconeModifier" href="{{ path('app_recette_edit', {'id': recette.id}) }}">
 				<i class="fa-solid fa-pen-to-square"></i>
 			</a>
+
 
 			{{ include('recette/_delete_form.html.twig') }}
 		</div>

@@ -16,8 +16,14 @@ h1 {
 }
 
 /* amis */
+.amis {
+  position: relative;
+}
 
-
+.amis .date {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
 .amis h2 {
   margin-top: 0;
 }
@@ -33,8 +39,6 @@ h1 {
   padding-left: 2rem;
 }
 
-
-
 .amis .allergiesRegimes {
   padding-left: 2rem;
   font-style: italic;
@@ -48,7 +52,12 @@ h1 {
   font-weight: bold;
 }
 
-
+.amis .groupeBtn, .recettesIndex .groupeBtn, .repas .groupeBtn  {
+  position: fixed;
+  right: 1rem;
+  bottom: 8rem;
+  z-index: 10;
+}
 /* recette */
 .recettesIndex .gris {
   font-style: italic;
@@ -82,15 +91,10 @@ h1 {
   right: 50%;
   bottom: 0.5rem;
 }
-.recettesIndex .submitChoisi {
-  position: fixed;
-  right: 1rem;
-  bottom: 8rem;
-  z-index: 10;
-}
 
 /* fichier repas/new */
 
-.repas .iconeOk {
-  margin-bottom: 1rem;
+.repas {
+  position: relative;
 }
+
