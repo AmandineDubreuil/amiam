@@ -103,11 +103,15 @@ class RecetteController extends AbstractController
             'ingredients' => $ingredients,
         ]);
         $content = $pdfGeneratorService->getPdf($html);
-
-
+        $titre = $recette->getTitre();
+        $titrePdf = "\"" . $titre . ".pdf\"";
+       
+        $contentDisposition = "'attachment; filename=" . $titrePdf;
+// dd($contentDisposition);
 
         return new Response($content, 200, [
             'Content-Type' => 'application/pdf',
+            'Content-Disposition' => $contentDisposition
         ]);
     }
 
