@@ -44,6 +44,14 @@
 								{{ repa.date ? repa.date|date('d-m-Y') : '' }}&nbsp;
 							</p>
 							<p class="cardRepasTitre">
+								{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
+									Famille
+									{{ famille.nom }}&nbsp;
+								{% endfor %}
+							</p>
+						</div>
+						<div class="card-content">
+							<p class="cardRepasTitre">
 								{% for recette in repa.recettes |  sort((a, b)=> a.categorie <=> b.categorie)%}
 									{% if recette.categorie.id is same as (1) %}
 										<span class="aperitif">&nbsp;{{ recette.titre}}&nbsp;</span>
@@ -73,14 +81,6 @@
 										<span class="dessertGouter">&nbsp;{{ recette.titre}}&nbsp;</span>
 									{% endif %}
 
-								{% endfor %}
-							</p>
-						</div>
-						<div class="card-content">
-							<p>
-								{% for famille in repa.amiFamilles  | sort((a, b)=> a.nom <=> b.nom)%}
-									Famille
-									{{ famille.nom }}&nbsp;
 								{% endfor %}
 							</p>
 						</div>
