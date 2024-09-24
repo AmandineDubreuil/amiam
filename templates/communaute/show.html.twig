@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ recette.titre }}
+	- Amiam
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="icon" href="{{asset('./assets/img/favicon.ico')}}">
+	{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+	<!-- Font Awesome -->
+	<link
+	rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer"/> <!-- JQuery -->
+	<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+	<!-- Axentix CSS minified version -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@2.3.0/dist/axentix.min.css">
+	{{ encore_entry_link_tags('app') }}
+
+	<link rel="stylesheet" href="{{asset('./assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/baseStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('./assets/css/recette/recetteShowStyle.css')}}">
+
+{% endblock %}
+
+{% block body %}
+
+
+	<section class="groupeBtn groupeBtnModifSupp">
+		<div>
+			<a class="btn btnRetour" href="javascript:history.go(-1)">
+				<i class="fa-solid fa-arrow-left"></i>
+			</a>
+		</div>
+
+
+		<div class="modifSupp">
+			
+			<a class="btn iconeAjout" href="{{ path('app_recette_clone', {'id': recette.id}) }}">
+				<i class="fa-solid fa-copy"></i>
+			</a>
+			
+		</div>
+		<a class="btn btnOk" href="{{ path('app_repasnew') }}">
+			<i class="fa-solid fa-circle-plus"></i>
+			Repas
+		</a>
+	</section>
+	<section class="recettesShow">
+		<div class="card shadow-1 rounded-3">
+			<div class="titre">
+
+				<h1 class="communaute">{{ recette.titre }}</h1>
+                
+				<div>
+					{% if recette.prive == true %}
+						<p class="prive">privé</p>
+					{% else  %}
+						<p class="public">public</p>
+					{% endif  %}
+				</div>
+
+			</div>
+            <h4 class="pseudo">par <span>{{ recette.user.pseudo }}</span></h4>
+			<h3>{{ recette.categorie.categorie }}</h3>
+			{% if recette.photo %}
+				<div class="imgRecette"><img src="{{asset('assets/uploads/photosRecettes/mini/')}}{{ recette.photo }}" alt="{{ recette.titre }}"></div>
+			{% else  %}
+				<div class="imgRecette"><img src="{{asset('./assets/img/recette.jpg')}}" alt="{{ recette.titre }}"></div>
+			{% endif  %}
+
+
+			<div class="tempsGroupe">
+				{% if recette.tpsPreparation %}
+					<div class="temps">
+						<p>Temps de préparation</p>
+						<div>{{ recette.tpsPreparation }}
+							min
+						</div>
+					</div>
+				{% endif %}
+				{% if recette.tpsRepos %}
+					<div class="temps">
+						<p>Temps de repos</p>
+						<div>{{ recette.tpsRepos }}
+							min</div>
+					</div>
+				{% endif %}
+				{% if recette.tpsCuisson %}
+					<div class="temps">
+						<p>Temps de cuisson</p>
+						<div>{{ recette.tpsCuisson }}
+							min</div>
+					</div>
+				{% endif %}
+
+			</div>
+
+			<div>
+				<h2>Ingrédients</h2>
+				<p class="nbPersonnes">pour
+					{{ recette.nbPersonnes }}
+					personnes</p>
+				<table>
+					<tbody>
+						{% for ingredient in ingredients %}
+							<tr class="ingredients">
+								<td>{{ ingredient.aliment }}</td>
+								<td>{{ ingredient.quantite }}
+									{{ ingredient.mesure }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			<div>
+				<h2>Étapes</h2>
+				<p>{{ recette.description | raw }}</p>
+
+			</div>
+		</div>
+
+	</section>
+{% endblock %}

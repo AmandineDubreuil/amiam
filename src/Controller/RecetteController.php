@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
-#[Route('/recette')]
+#[Route('/recettes')]
 #[IsGranted('ROLE_USER')]
 
 class RecetteController extends AbstractController

@@ -79,3 +79,23 @@
 .repas .card-content .texte {
   font-weight: bold;
 }
+
+
+/* *******************
+
+COMMUNAUTE
+
+**********************/
+.communaute {
+  margin-bottom: 0;
+}
+.recettesShow .card .pseudo {
+  font-size: .8rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0;
+  }
+  .recettesShow .card .pseudo span {
+  font-weight: bold;
+    color: var(--color-four);
+    }
