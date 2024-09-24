@@ -84,4 +84,6 @@ class RecetteIngredient
     {
         return $this->getId();   
     }
+
+
 }

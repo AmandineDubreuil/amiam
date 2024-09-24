@@ -105,13 +105,89 @@ class RecetteController extends AbstractController
         $content = $pdfGeneratorService->getPdf($html);
         $titre = $recette->getTitre();
         $titrePdf = "\"" . $titre . ".pdf\"";
-       
+
         $contentDisposition = "'attachment; filename=" . $titrePdf;
-// dd($contentDisposition);
+        // dd($contentDisposition);
 
         return new Response($content, 200, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => $contentDisposition
+        ]);
+    }
+    #[Route('/clone/{id}', name: 'app_recette_clone', methods: ['GET', 'POST'])]
+    public function clone(
+        Recette $recette,
+        PictureService $pictureService,
+        RecetteIngredient $recetteIngredient,
+        RecetteRepository $recetteRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+
+        $user = $this->security->getUser();
+        // récupération de la recette
+        $oldRecetteId = $recette->getId();
+
+        // Coller recette
+        $newRecette = new Recette();
+
+        $newRecette->setUser($user);
+        $newRecette->setPrive($oldRecetteId);
+        $newRecette->setCreatedAt(new \DateTimeImmutable);
+        $newRecette->setModifiedAt(new \DateTimeImmutable);
+
+        $newRecette->setTitre($recette->getTitre($oldRecetteId));
+        $newRecette->setNbPersonnes($recette->getNbPersonnes($oldRecetteId));
+        $newRecette->setTpsPreparation($recette->getTpsPreparation($oldRecetteId));
+        $newRecette->setTpsCuisson($recette->getTpsCuisson($oldRecetteId));
+        $newRecette->setTpsRepos($recette->getTpsRepos($oldRecetteId));
+        $newRecette->setDescription($recette->getDescription($oldRecetteId));
+        $newRecette->setVideo($recette->getVideo($oldRecetteId));
+        $newRecette->setPrive($recette->isPrive($oldRecetteId));
+        $newRecette->setCategorie($recette->getCategorie($oldRecetteId));
+
+        //gestion de la photo
+        $oldImageName = $recette->getPhoto($oldRecetteId);
+        $oldImage = 'assets/uploads/photosRecettes/mini/' . $oldImageName;
+
+        $newImageName = '300x300-' . md5(uniqid(rand(), true)) . '.webp';
+
+        $destinationNewImage = 'assets/uploads/photosRecettes/mini/' . $newImageName;
+ 
+        copy($oldImage, $destinationNewImage);
+
+      
+        $newRecette->setPhoto($newImageName);
+
+        $entityManager->persist($newRecette);
+        $entityManager->flush();
+
+
+        // ingrédients de la recette
+
+        foreach ($recette->getIngredients() as $ingredient) {
+
+            //récupération de l'ancien ingrédient
+            $oldRecetteIngredientId  = $ingredient->getId();
+
+            //coller l'ingrédient
+            $newRecetteIngredient = new RecetteIngredient();
+
+            $newRecetteIngredient->setRecette($newRecette);
+            $newRecetteIngredient->setAliment($ingredient->getAliment($oldRecetteIngredientId));
+            $newRecetteIngredient->setQuantite($ingredient->getQuantite($oldRecetteIngredientId));
+            $newRecetteIngredient->setMesure($ingredient->getMesure($oldRecetteIngredientId));
+
+            $entityManager->persist($newRecetteIngredient);
+            $entityManager->flush();
+        }
+
+
+        return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+
+        return $this->render('recette/show.html.twig', [
+            'recette' => $newRecette,
+            'ingredients' => $ingredients,
         ]);
     }
 

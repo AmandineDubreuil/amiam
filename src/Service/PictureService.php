@@ -138,6 +138,7 @@ class PictureService
         return $miniImage;
     }
 
+    
     public function delete(
         ?string $fichier = '',
         ?string $folder = '',
