@@ -60,7 +60,7 @@ class RecetteController extends AbstractController
         //validation du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setUser($user);
-            $recette->setPrive(true);
+          
             $recette->setCreatedAt(new \DateTimeImmutable);
             $recette->setModifiedAt(new \DateTimeImmutable);
 

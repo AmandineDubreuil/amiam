@@ -33,7 +33,7 @@ class RecetteNewBeginType extends AbstractType
                 ],
             ])
 
-            ->add('prive', HiddenType::class, [
+            ->add('prive', CheckboxType::class, [
                 'label' => 'Recette privée ',
                 'required' => false,
                 'data' => true,

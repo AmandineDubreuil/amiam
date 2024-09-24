@@ -1,82 +1,100 @@
 /* Entête / recette_new_begin_form et recette_form */
 
 .recetteNewEdit .number {
-    max-width: 5rem;
+  max-width: 5rem;
 }
 
 .entete {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
 }
 
 .entete .form-field {
-    max-width: 30rem;
+  max-width: 30rem;
 }
 
 .entete .prive {
-    width: 8rem;
-    padding-left: 1rem;
-justify-content: center;
+  width: 8rem;
+  justify-content: center;
 }
 
-.entete .prive div{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
+.entete .prive div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-.entete .prive div label{
-    margin-bottom: 0;
+.entete .prive div label {
+  margin-bottom: 0;
 }
-#recette_new_begin_categorie, #recette_categorie{
-    display: flex;
-    flex-wrap: wrap;
 
+
+#recette_new_begin_categorie,
+#recette_categorie {
+  display: flex;
+  flex-wrap: wrap;
 }
-#recette_new_begin_categorie label, #recette_categorie label{
-    padding-left: .2rem;
-    padding-right: 1rem;
-    margin-bottom: 0;
+#recette_new_begin_categorie label,
+#recette_categorie label {
+  padding-left: 0.2rem;
+  padding-right: 1rem;
+  margin-bottom: 0;
 }
 
 .recetteNewEdit .bouton {
-   max-width: 30rem;
-    display: flex;
-   justify-content: flex-end;
+  max-width: 30rem;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* recette edit / recette_form */
-.recetteNewEdit .ingredients .iconeModifier i, .recetteNewEdit .ingredients .iconeSupprimer i {
-    font-size: 1rem;
+.recetteNewEdit .ingredients .iconeModifier i,
+.recetteNewEdit .ingredients .iconeSupprimer i {
+  font-size: 1rem;
 }
 
-.recetteNewEdit .temps  {
-    display: flex;
-    flex-wrap: wrap;
+.recetteNewEdit .temps {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .recetteNewEdit .temps .form-field {
-    width: fit-content;
-    padding-right: 1rem ;
+  width: fit-content;
+  padding-right: 1rem;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
 }
-#editor, .recetteNewEdit .photoVideo input {
-    border: 1px solid #dedede;
-    border-radius: 5px;
+#editor,
+.recetteNewEdit .photoVideo input {
+  border: 1px solid #dedede;
+  border-radius: 5px;
 }
-.recetteNewEdit .photoVideo div{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    width: fit-content;
+.recetteNewEdit .photoVideo div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: fit-content;
 }
-.recetteNewEdit .photoVideo label{
-    padding-right: 1rem;
-    margin-bottom: 0;
+.recetteNewEdit .photoVideo label {
+  padding-right: 1rem;
+  margin-bottom: 0;
 }
 .recetteNewEdit .groupeBtn {
-    justify-content: space-around;
+  justify-content: space-around;
 }
+
+/* *********************** 
+   RESPONSIVE DESKTOP
+   ************************ */
+
+   @media screen and (min-width: 576px) {
+
+    .entete .prive {
+        padding-left: 1rem;
+      }
+
+  
+    /*fin responsive*/
+  }

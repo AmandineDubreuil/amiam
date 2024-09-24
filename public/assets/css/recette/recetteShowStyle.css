@@ -2,9 +2,39 @@
   margin: 1rem;
 }
 
-.recettesShow .card{
+.recettesShow .card {
   padding: 1rem;
 }
+
+.recettesShow .card .titre {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+.recettesShow .card .titre h1 {
+  margin-top: 1.5rem;
+}
+.recettesShow .card .titre div {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.recettesShow .card .titre .prive,
+.recettesShow .card .titre .public {
+  padding: 0.15rem 0.3rem;
+  margin-left: 0.3rem;
+  line-height: normal;
+  background-color: var(--color-light);
+  border-radius: 3px;
+  color: var(--color-two);
+  font-size: 0.7rem;
+}
+.recettesShow .card .titre .public {
+  background-color: #fff4cf;
+  color: #ba8f01;
+}
+
 .recettesShow .imgRecette {
   display: flex;
   justify-content: center;
