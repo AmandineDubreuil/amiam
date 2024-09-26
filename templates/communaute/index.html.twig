@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recettes de la communauté -  Amiam
+{% block metaTag %}
+	<meta name="Communaute" content="Toutes les super recettes partagées par la communauté amiam.fr à reproduire chez vous pour régaler vos amis. ">
+{% endblock %}
+
+{% block title %}🍲 Les supers recettes de la communauté à reproduire chez vous |  Amiam.fr
 {% endblock %}
 
 {% block stylesheets %}
@@ -34,7 +38,7 @@
 				Repas
 			</a>
 		</div>
-		<h1>Les recettes de la communauté Amiam ({{recettes|length}})</h1>
+		<h1>Les recettes de la communauté Amiam</h1>
 
 		<div
 			class="cards">

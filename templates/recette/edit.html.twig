@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{recette.titre}}
-	- Amiam
+	Modification {{recette.titre}}
+	| Amiam.fr
 {% endblock %}
 
 {% block stylesheets %}
@@ -91,7 +91,7 @@
 						</tr>
 					{% else %}
 						<tr>
-							<td colspan="11">pas d'ingrédient</td>
+							<td colspan="11">Aucun ingrédient enregistré</td>
 						</tr>
 					{% endfor %}
 

@@ -1,8 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block metaTag %}
+	<meta name="Recette" content="Une super recette de {{ recette.titre }} à cuisiner pour régaler vos proches !">
+{% endblock %}
+
 {% block title %}
-	{{ recette.titre }}
-	- Amiam
+	{{ recette.titre }} 
+	| Amiam.fr
 {% endblock %}
 
 {% block stylesheets %}
