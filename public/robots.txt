@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin
+Disallow: /ami
+Disallow: /ami_famille
+Disallow: /page404
+Disallow: /user
+Disallow: /user_family
+
+
+Sitemap: https://www.amiam.fr/sitemap.xml

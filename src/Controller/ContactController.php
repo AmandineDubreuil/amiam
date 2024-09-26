@@ -54,7 +54,7 @@ class ContactController extends AbstractController
 
             $sendMailService->send(
                 $email,
-                'contact@amiam.fr',
+                'amandine.dubreuil@hotmail.com',
                 $objetMail,
                 'contact',
                 compact('commentaire', 'pseudo')
