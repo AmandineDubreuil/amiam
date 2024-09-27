@@ -40,6 +40,7 @@
 			<i class="fa-solid fa-circle-plus"></i>
 			Recette
 		</a>
+{% include "_partials/_search_data.html.twig" with {form: form} only %}
 
 		<div
 			class="cards">
@@ -50,10 +51,12 @@
 					<i class="fa-solid fa-sort-down"></i>
 				</span>
 			</h2>
+		
 			<div id="aperitif" class="cardsRecette">
 
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Apéritif' %}
+
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Apéritif' and recette.user is same as user %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
@@ -106,8 +109,8 @@
 				</span>
 			</h2>
 			<div id="entree" class="cardsRecette">
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Entrée' %}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Entrée' and recette.user is same as user  %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
@@ -163,8 +166,8 @@
 
 			<div id="plat" class="cardsRecette">
 
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Plat principal' %}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Plat principal'  and recette.user is same as user  %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
@@ -219,8 +222,8 @@
 			</h2>
 
 			<div id="accompagnement" class="cardsRecette">
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Accompagnement' %}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Accompagnement' and recette.user is same as user  %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
@@ -272,8 +275,8 @@
 			</h2>
 
 			<div id="sauce" class="cardsRecette">
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Sauce' %}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Sauce' and recette.user is same as user  %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
@@ -324,8 +327,8 @@
 			</h2>
 
 			<div id="dessert" class="cardsRecette">
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Dessert' %}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Dessert' and recette.user is same as user  %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">
@@ -377,8 +380,8 @@
 			</h2>
 
 			<div id="petitDej" class="cardsRecette">
-				{% for recette in app.user.recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
-					{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' %}
+				{% for recette in recettes |  sort((a, b)=> a.titre <=> b.titre)  %}
+					{% if recette.categorie.categorie is same as 'Petit-Déjeuner & Goûter' and recette.user is same as user  %}
 
 						<div class="card shadow-1 hoverable-1 rounded-3 ">
 							<a class="cardRecette" href="{{ path('app_recette_show', {'id': recette.id}) }}">

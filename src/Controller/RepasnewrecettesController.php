@@ -2,17 +2,16 @@
 
 namespace App\Controller;
 
+use App\Form\SearchType;
 use App\Repository\AmiRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\AllergeneRepository;
-use App\Repository\AmiFamilleRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class RepasnewrecettesController extends AbstractController
@@ -34,8 +33,23 @@ class RepasnewrecettesController extends AbstractController
         AllergeneRepository $allergeneRepository
     ): Response {
 
+
         $user = $this->security->getUser();
         $recettes = $recetteRepository->findBy(['user' => $user]);
+        ############  formulaire de recherche recette
+
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $searchArray = $form->getData();
+            $searchData = $searchArray['search'];
+            $recettes = $recetteRepository->findBySearch($searchData);
+        }
+
+        ############  fin formulaire de recherche
+
         $recettesOk = [];
         $amisPresentsId = $_GET['amisPresentsId'];
         $famillesPresentes = $_GET['famillesPresentes'];
@@ -224,9 +238,6 @@ class RepasnewrecettesController extends AbstractController
             ############  fin de la boucle recette
         }
 
-
-
-
         if ($request->isMethod('POST') && $request->request->has('submit')) {
 
             $recettesChoisies = $request->request->all('recetteChoisie');
@@ -234,6 +245,7 @@ class RepasnewrecettesController extends AbstractController
             if (empty($recettesChoisies)) {
                 $this->addFlash('danger', 'Merci de choisir au moins une recette');
                 return $this->render('repasnew/indexnewrecettes.html.twig', [
+                    'form' => $form,
                     'controller_name' => 'RepasnewrecettesController',
                     'famillesPresentes' => $famillesPresentes,
                     'amisId' => $amisPresentsId,
@@ -249,6 +261,7 @@ class RepasnewrecettesController extends AbstractController
             }
 
             return $this->redirectToRoute('app_repas_new', [
+                'form' => $form,
                 'amisId' => $amisPresentsId,
                 'famillesPresentes' => $famillesPresentes,
                 'recettesChoisies' => $recettesChoisies,
@@ -263,6 +276,7 @@ class RepasnewrecettesController extends AbstractController
 
 
         return $this->render('repasnew/indexnewrecettes.html.twig', [
+            'form' => $form->createView(),
             'controller_name' => 'RepasnewrecettesController',
             'famillesPresentes' => $famillesPresentes,
             'amisId' => $amisPresentsId,

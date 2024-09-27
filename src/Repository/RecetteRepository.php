@@ -21,29 +21,58 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
-//    /**
-//     * @return Recette[] Returns an array of Recette objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Recette[] Returns an array of Recette objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('r.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Recette
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Recette
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 
+
+       /**
+        * @return Recette[] Returns an array of Recette objects
+        */
+       public function findByUser($userId): array
+       {
+           return $this->createQueryBuilder('r')
+               ->andWhere('r.user = :user')
+               ->setParameter('user', $userId)
+               ->orderBy('r.titre', 'ASC')
+              // ->setMaxResults(10)
+               ->getQuery()
+               ->getResult()
+           ;
+       }
+
+    public function findBySearch($searchData = null)
+{
+    $recettes = $this->createQueryBuilder('r');
+
+    if ($searchData && !empty($searchData)) {
+        // Si $search n'est pas vide, on ajoute une condition de recherche
+        $recettes->andWhere('r.titre LIKE :titre')
+           ->setParameter('titre', '%'.$searchData.'%')
+           ->addOrderBy('r.categorie', 'DESC');
+    }
+
+    return $recettes->getQuery()->getResult();
+}
 }

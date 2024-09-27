@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Model\SearchData;
 use App\Entity\RecetteIngredient;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<RecetteIngredient>
@@ -57,6 +58,8 @@ public function findByRecette($recetteId): array
            ->getResult()
        ;
 }
+
+
 
 // public function removeIngredient(RecetteIngredient $recetteIngredient): void
 // {

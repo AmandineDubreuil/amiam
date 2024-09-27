@@ -3,10 +3,9 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\Ami;
 use App\Entity\Repas;
-use App\Entity\Recette;
 use App\Form\RepasType;
+use App\Form\SearchType;
 use App\Form\RepasDateType;
 use App\Form\RepasCommentType;
 use App\Repository\AmiRepository;
@@ -217,6 +216,20 @@ class RepasController extends AbstractController
         $recettesOld = $repa->getRecettes();
         $recettes = $recetteRepository->findBy(['user' => $user]);
 
+        ############  formulaire de recherche recette
+
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $searchArray = $form->getData();
+            $searchData = $searchArray['search'];
+            $recettes = $recetteRepository->findBySearch($searchData);
+        }
+
+        ############  fin formulaire de recherche
+
         $allergiesGroupe = "";
         $allergiesAliment = "";
         $regimes = "";
@@ -401,6 +414,7 @@ class RepasController extends AbstractController
             if (empty($recettesChoisies)) {
                 $this->addFlash('danger', 'Merci de choisir au moins une recette');
                 return $this->render('repas/edit_recette.html.twig', [
+                    'form' => $form,
                     'repa' => $repa,
                     'recettesOk' => $recettesOk,
                     'recettesOld' => $recettesOld,
@@ -424,11 +438,13 @@ class RepasController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_repas_show', [
+                'form' => $form,
                 'id' => $repasId,
 
             ], Response::HTTP_SEE_OTHER);
         }
         return $this->render('repas/edit_recette.html.twig', [
+            'form' => $form->createView(),
             'repa' => $repa,
             'recettesOk' => $recettesOk,
             'recettesOld' => $recettesOld,

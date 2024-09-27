@@ -3,22 +3,23 @@
 namespace App\Controller;
 
 use App\Entity\Recette;
-use App\Entity\RecetteIngredient;
 use App\Form\RecetteType;
+use App\Form\SearchType;
 use App\Service\PictureService;
+use App\Entity\RecetteIngredient;
+use App\Entity\User;
 use App\Form\RecetteNewBeginType;
-use App\Repository\RecetteIngredientRepository;
-use App\Repository\RecetteRepository;
-use App\Repository\RepasRepository;
 use App\Service\PdfGeneratorService;
+use App\Repository\RecetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\RecetteIngredientRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 #[Route('/recettes')]
@@ -38,13 +39,39 @@ class RecetteController extends AbstractController
         $this->params = $params;
     }
 
-    #[Route('/', name: 'app_recette_index', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository): Response
-    {
+    #[Route('/', name: 'app_recette_index', methods: ['GET', 'POST'])]
+    public function index(
+        User $user,
+        RecetteRepository $recetteRepository,
+        Request $request
+    ): Response {
+        $user = $this->security->getUser();
 
+        $recettes = $recetteRepository->findByUser($user);
+        // formulaire recherche
+      
+        $form = $this->createForm(SearchType::class);
+
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $searchArray = $form->getData();
+            $searchData = $searchArray['search'];
+            $recettes = $recetteRepository->findBySearch($searchData);
+           
+            return $this->render('recette/index.html.twig', [
+                'form' => $form,
+                'recettes' => $recettes,
+                'user' => $user,
+            ]);
+        }
 
         return $this->render('recette/index.html.twig', [
+            'form' => $form->createView(),
             'recettes' => $recetteRepository->findAll(),
+            'user' => $user,
         ]);
     }
 
@@ -60,7 +87,7 @@ class RecetteController extends AbstractController
         //validation du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setUser($user);
-          
+
             $recette->setCreatedAt(new \DateTimeImmutable);
             $recette->setModifiedAt(new \DateTimeImmutable);
 
@@ -153,10 +180,10 @@ class RecetteController extends AbstractController
         $newImageName = '300x300-' . md5(uniqid(rand(), true)) . '.webp';
 
         $destinationNewImage = 'assets/uploads/photosRecettes/mini/' . $newImageName;
- 
+
         copy($oldImage, $destinationNewImage);
 
-      
+
         $newRecette->setPhoto($newImageName);
 
         $entityManager->persist($newRecette);

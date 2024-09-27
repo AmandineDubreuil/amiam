@@ -264,6 +264,23 @@ ul {
   line-height: 1rem;
 }
 
+/* formulaire search */
+#search form {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+#search form input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 40px;
+}
+#search form button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 40px;
+  border: 1px solid var(--color-three);
+}
 /* *********************** 
    RESPONSIVE DESKTOP
    ************************ */
